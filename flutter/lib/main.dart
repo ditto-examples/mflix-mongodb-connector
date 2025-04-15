@@ -125,16 +125,20 @@ class _MoviesExampleState extends State<MoviesExample> {
   }
 
   Widget get _warningMessage => Scaffold(
-        appBar: AppBar(title: const Text("Kid Movies")),
+        appBar: AppBar(title: const Text("Children Movies")),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center, // Center vertically
-            crossAxisAlignment:
-                CrossAxisAlignment.center, // Center horizontally
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const CircularProgressIndicator(),
-              const Text(
-                  "Ensure your App ID, Online Playground Authentiation Token, Auth URL, and Websocket Url in the DittoProvider are correct"),
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  "No Data - Ensure your App ID, Online Playground Authentication Token, Auth URL, and Websocket Url in the DittoProvider are correct",
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ],
           ),
         ),
@@ -152,6 +156,26 @@ class _MoviesExampleState extends State<MoviesExample> {
       builder: (context, result) {
         final movies =
             result.items.map((r) => r.value).map(Movie.fromJson).toList();
+
+        if (result.items.isEmpty) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CircularProgressIndicator(),
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    "Trying to load movies...",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+
         return ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: 16),
           itemCount: movies.length,
