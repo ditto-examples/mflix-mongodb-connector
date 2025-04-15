@@ -1,0 +1,28 @@
+name: mflix_app
+description: A Flutter app to display movie information.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  provider: ^6.1.1
+  http: ^1.1.0
+  cached_network_image: ^3.3.0
+  ditto_live: ^4.10.1
+  permission_handler: ^12.0.0+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/default.png

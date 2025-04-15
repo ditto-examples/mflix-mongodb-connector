@@ -1,0 +1,141 @@
+# Do not remove or rename entries in this file, only add new ones
+# See https://github.com/flutter/flutter/issues/128635 for more context.
+
+# Miscellaneous
+*.class
+*.lock
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Visual Studio Code related
+.classpath
+.project
+.settings/
+.vscode/*
+.ccls-cache
+
+# This file, on the main branch, should never exist or be checked-in.
+#
+# On a *final* release branch, that is, what will ship to stable or beta, the
+# file can be force added (git add --force) and checked-in in order to effectively
+# "pin" the engine artifact version so the flutter tool does not need to use git
+# to determine the engine artifacts.
+#
+# See https://github.com/flutter/flutter/blob/main/docs/tool/Engine-artifacts.md.
+/flutter/bin/internal/engine.version
+
+# Flutter repo-specific
+/flutter/bin/cache/
+/flutter/bin/internal/bootstrap.bat
+/flutter/bin/internal/bootstrap.sh
+/flutter/bin/internal/engine.realm
+/flutter/bin/mingit/
+/flutter/dev/benchmarks/mega_gallery/
+/flutter/dev/bots/.recipe_deps
+/flutter/dev/bots/android_tools/
+/flutter/dev/devicelab/ABresults*.json
+/flutter/dev/docs/doc/
+/flutter/dev/docs/api_docs.zip
+/flutter/dev/docs/flutter.docs.zip
+/flutter/dev/docs/lib/
+/flutter/dev/docs/pubspec.yaml
+/flutter/dev/integration_tests/**/xcuserdata
+/flutter/dev/integration_tests/**/Pods
+/flutter/packages/flutter/coverage/
+/flutter/version
+/flutter/analysis_benchmark.json
+
+# packages file containing multi-root paths
+.packages.generated
+
+# Flutter/Dart/Pub related
+/flutter/**/doc/api/
+/flutter/.dart_tool/
+/flutter/.flutter-plugins
+/flutter/.flutter-plugins-dependencies
+/flutter/**/generated_plugin_registrant.dart
+/flutter/.packages
+/flutter/.pub-preload-cache/
+/flutter/.pub-cache/
+/flutter/.pub/
+/flutter/build/
+/flutter/flutter_*.png
+/flutter/linked_*.ds
+/flutter/unlinked.ds
+/flutter/unlinked_spec.ds
+
+# Android related
+**/android/**/gradle-wrapper.jar
+.gradle/
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/**/GeneratedPluginRegistrant.java
+**/android/key.properties
+*.jks
+local.properties
+**/.cxx/
+
+# iOS/XCode related
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.sconsign.dblite
+**/ios/**/.tags*
+**/ios/**/.vagrant/
+**/ios/**/DerivedData/
+**/ios/**/Icon?
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+**/ios/**/profile
+**/ios/**/xcuserdata
+**/ios/.generated/
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# macOS
+**/Flutter/ephemeral/
+**/Pods/
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/ephemeral
+**/xcuserdata/
+
+# Coverage
+/flutter/coverage/
+
+# Symbols
+app.*.symbols
+
+# Exceptions to above rules.
+!**/ios/**/default.mode1v3
+!**/ios/**/default.mode2v3
+!**/ios/**/default.pbxuser
+!**/ios/**/default.perspectivev3
+!/flutter/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+!/flutter/dev/ci/**/Gemfile.lock
+!/flutter/.vscode/settings.json
