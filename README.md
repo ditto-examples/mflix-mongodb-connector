@@ -1,6 +1,6 @@
-# Ditto - Sample MongoDB Connector `Solar System Guides` App
+# Ditto - Sample MongoDB Connector `Movies` App
 
-This is a sample application that demonstrates how to use the MongoDB Connector for Ditto with the **`mflix`** sample data that comes with MongoDb Atlas. 
+This is a sample application that demonstrates how to use the MongoDB Connector for Ditto with the **`mflix`** sample data that comes with MongoDb Atlas.  This app will filter out movies that are kids friendly and rated 'G' to show off the power of Ditto subscriptions with the MongoDb Connector.
 
 # Prerequisites
 
