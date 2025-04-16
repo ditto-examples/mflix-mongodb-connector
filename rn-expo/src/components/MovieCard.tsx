@@ -1,8 +1,8 @@
 import { Card, H2, Paragraph, YStack, Spinner } from 'tamagui';
 import { Image } from 'expo-image';
+import { Asset } from 'expo-asset';
 import { Movie } from '../models/movie';
-
-const defaultImage = require('../assets/images/default.png') as number;
+import { useEffect, useState } from 'react';
 
 interface MovieCardProps {
     movie: Movie;
@@ -10,6 +10,13 @@ interface MovieCardProps {
 }
 
 export function MovieCard({ movie, onPress }: MovieCardProps) {
+    const [defaultImage, setDefaultImage] = useState<Asset | null>(null);
+
+    useEffect(() => {
+        Asset.loadAsync(require('../../assets/images/default.png'))
+            .then(([asset]) => setDefaultImage(asset));
+    }, []);
+
     return (
         <Card
             elevate
@@ -30,7 +37,7 @@ export function MovieCard({ movie, onPress }: MovieCardProps) {
             <YStack height={200}>
                 <Image
                     style={{ flex: 1, width: '100%', height: '100%' }}
-                    source={movie.poster ? { uri: movie.poster } : defaultImage}
+                    source={movie.poster ? { uri: movie.poster } : defaultImage?.localUri ? { uri: defaultImage.localUri } : null}
                     placeholder={<Spinner size="large" color="#fff" />}
                     contentFit="cover"
                     transition={1000}

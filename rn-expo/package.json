@@ -3,6 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
+    "clean": "rm -rf node_modules android ios yarn.lock",
     "start": "expo start --dev-client",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
@@ -44,7 +45,9 @@
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
     "tamagui": "^1.125.35",
-    "@shopify/flash-list": "1.7.3"
+    "@shopify/flash-list": "1.7.3",
+    "expo-asset": "~11.0.5",
+    "expo-build-properties": "~0.13.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

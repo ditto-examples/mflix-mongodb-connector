@@ -37,7 +37,7 @@ export default function Index() {
         }} 
       />
       <View style={styles.container}>
-        {isLoading ? (
+        {isLoading || movies.length === 0 ? (
           <ActivityIndicator size="large" color="#fff" />
         ) : error ? (
           <Text style={styles.text}>{error}</Text>

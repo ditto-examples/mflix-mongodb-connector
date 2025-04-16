@@ -15,16 +15,27 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mflix.app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.mflix.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "@dittolive/ditto",
+        {
+          "bluetoothUsageDescription": "This app uses Bluetooth to connect to a Ditto device.",
+          "localNetworkUsageDescription": "This app uses location services to connect to a Ditto device."
+        }
+      ]
+    ]
   }
 }
