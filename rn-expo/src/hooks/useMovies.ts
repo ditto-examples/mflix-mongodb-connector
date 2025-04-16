@@ -7,14 +7,20 @@ export const useMovies = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const { dittoService } = useContext(DittoContext);
+    const { dittoService, isInitialized } = useContext(DittoContext);
 
     useEffect(() => {
+        if (!isInitialized || !dittoService?.ditto) {
+            return;
+        }
+
+        console.log('Setting up Ditto observers and subscriptions');
         const registerStoreObserverMovies = () => {
             try {
-                const observationQuery = "SELECT * FROM movies ORDER BY year DESC'";
+                const observationQuery = "SELECT * FROM movies ORDER BY year DESC";
                 dittoService.storeObserver = dittoService.ditto?.store.registerObserver(observationQuery, (response: QueryResult) => {
                     const fetchedMovies = response.items.map(item => Movie.fromJson(item.value));
+                    console.log('fetchedMoviesLength', fetchedMovies.length);
                     setMovies(fetchedMovies);
                 });
                 
@@ -37,7 +43,13 @@ export const useMovies = () => {
 
         registerStoreObserverMovies();
         registerSyncSubscriptionMovies();
-    }, []); // Empty dependency array means this runs once on mount
+
+        // Cleanup function
+        return () => {
+            dittoService.storeObserver?.stop();
+            dittoService.syncSubscription?.stop();
+        };
+    }, [dittoService, isInitialized]); // Add isInitialized to dependencies
 
     return { movies, isLoading, error };
 }; 

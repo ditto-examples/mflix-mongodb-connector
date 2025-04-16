@@ -8,17 +8,27 @@ type DittoProviderProps = {
 
 //initialize ditto in a provider/singleton pattern 
 const DittoProvider: React.FC<DittoProviderProps> = ({children}) => {
-    const ds = new DittoService();
-    const [dittoService, setDittoService] = useState<DittoService>(ds);
+    const [dittoService] = useState(() => DittoService.getInstance());
+    const [isInitialized, setIsInitialized] = useState(false);
 
     useEffect(() => {
         const initializeDitto = async () => {
-            await ds.initDitto();
+            try {
+                await dittoService.initDitto();
+                setIsInitialized(true);
+            } catch (e) {
+                console.error(e);
+                setIsInitialized(false);
+            }
         };
-        initializeDitto().then().catch(e => console.error(e));
-    }, [ds]);
+        initializeDitto();
+    }, [dittoService]);
 
-    const dittoServiceValue = useMemo(() => ({dittoService: dittoService, setDittoService: setDittoService}), [dittoService, setDittoService]);
+    const dittoServiceValue = useMemo(() => ({
+        dittoService,
+        isInitialized
+    }), [dittoService, isInitialized]);
+
     return (
         <DittoContext.Provider value={dittoServiceValue}>
             {children}

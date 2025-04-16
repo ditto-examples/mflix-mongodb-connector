@@ -1,8 +1,11 @@
 import React from 'react';
-import {DittoContextType} from "./DittoContextType";
+import { DittoService } from '../services/dittoService';
 
-const DittoContext = React.createContext<DittoContextType | undefined>(
-    undefined
-);
+export type DittoContextType = {
+    dittoService: DittoService;
+    isInitialized: boolean;
+};
+
+const DittoContext = React.createContext<DittoContextType | undefined>(undefined);
 
 export default DittoContext;
