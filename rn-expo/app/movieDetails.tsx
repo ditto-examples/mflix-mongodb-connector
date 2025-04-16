@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet } from 'react-native';
 import { Stack } from 'expo-router';
 
-export default function Movie() {
+export default function MovieDetails() {
   return (
     <>
       <Stack.Screen 

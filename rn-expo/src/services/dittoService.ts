@@ -20,9 +20,10 @@ import {
 		customAuthURL: 'insert Ditto Portal Auth URL here',
 		enableDittoCloudSync: false,
 	  };
+
     private ditto: Ditto | undefined;
-    private storeObserver: StoreObserver | undefined;
-    private syncSubscription: SyncSubscription | undefined;
+    public storeObserver: StoreObserver | undefined;
+    public syncSubscription: SyncSubscription | undefined;
 
 	public async initDitto() {
 

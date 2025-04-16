@@ -1,11 +1,11 @@
 import { Stack } from "expo-router";
-import DittoProvider from "./providers/DittoProvider";
+import DittoProvider from "../src/providers/DittoProvider";
 
 export default function RootLayout() {
   return <DittoProvider>
       <Stack>
         <Stack.Screen name="index" />
-        <Stack.Screen name="movie" />
+        <Stack.Screen name="movieDetails" />
       </Stack>
     </DittoProvider>
 }

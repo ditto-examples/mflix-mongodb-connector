@@ -1,11 +1,27 @@
-import  { Text, View, StyleSheet } from 'react-native';
-import { useContext } from 'react';
-import { Link } from 'expo-router';
-import { Stack } from 'expo-router';
-import DittoContext from './providers/DittoContext';
+import { Text, View, StyleSheet, ActivityIndicator } from 'react-native';
+import { Stack, useRouter } from 'expo-router';
+import { FlashList } from '@shopify/flash-list';
+
+import { Movie } from '../src/models/movie';
+import { useMovies } from '../src/hooks/useMovies';
+import { MovieCard } from '../src/components/MovieCard';
 
 export default function Index() {
-  const { dittoService } = useContext(DittoContext);
+  const { movies, isLoading, error } = useMovies();
+  const router = useRouter();
+
+  const renderItem = ({ item: movie }: { item: Movie }) => (
+    <View style={styles.cardContainer}>
+      <MovieCard 
+        movie={movie}
+        onPress={() => router.push({
+          pathname: '/movie',
+          params: { id: movie.id }
+        })}
+      />
+    </View>
+  );
+
   return (
     <>
       <Stack.Screen 
@@ -21,8 +37,20 @@ export default function Index() {
         }} 
       />
       <View style={styles.container}>
-        <Text style={styles.text}>Home screen</Text>
-        <Link href="/movie" style={styles.button}>Movie Link</Link>
+        {isLoading ? (
+          <ActivityIndicator size="large" color="#fff" />
+        ) : error ? (
+          <Text style={styles.text}>{error}</Text>
+        ) : (
+          <FlashList
+            data={movies}
+            renderItem={renderItem}
+            estimatedItemSize={1000}
+            contentContainerStyle={styles.listContent}
+            ItemSeparatorComponent={() => <View style={styles.separator} />}
+            keyExtractor={(item) => item.id}
+          />
+        )}
       </View>
     </>
   );
@@ -32,15 +60,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#25292e',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  listContent: {
+    padding: 16,
+  },
+  cardContainer: {
+    width: '100%',
+  },
+  separator: {
+    height: 16,
   },
   text: {
-    color: '#fff',
-  },
-  button: {
-    fontSize: 20,
-    textDecorationLine: 'underline',
     color: '#fff',
   },
 });
