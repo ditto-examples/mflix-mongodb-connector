@@ -7,6 +7,12 @@
     "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "scheme": "mflix",
+    "androidStatusBar": {
+      "backgroundColor": "#25292e",
+      "barStyle": "light-content",
+      "translucent": false
+    },
     "splash": {
       "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
@@ -17,14 +23,29 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mflix.app"
+      "bundleIdentifier": "com.mflix.app",
+      "associatedDomains": ["applinks:mflix.app"]
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mflix.app"
+      "package": "com.mflix.app",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "mflix",
+              "host": "*.mflix.app",
+              "pathPrefix": "/"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

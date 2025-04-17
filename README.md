@@ -22,14 +22,14 @@ This is a sample application that demonstrates how to use the MongoDB Connector 
 ## Flutter 
 - Basic understanding of Dart and Flutter
 - Tested with Flutter 3.27.4 and Dart 3.6.2
-- Xcode 16 or higher with Commnad Line Tools installed
-- Android SDK installed (v34 or higher)
+- Xcode 16 or higher with Commnad Line Tools installed (Tested with XCode 16)
+- Android SDK installed (v34 or higher) - (Tested with Android Studio Meerkat)
 - IDE of choice (Visual Studio Code, Android Studio "Koala" 2024.1.1 or higher, Cursor, etc)
 
 ## React Native with Expo 
 - Basic understanding of Typscript, React Native, and Expo 
-- Xcode 16 or higher with Commnad Line Tools installed
-- Android SDK installed (v34 or higher)
+- Xcode 15 or higher with Commnad Line Tools installed (Tested with XCode 16)
+- Android SDK installed (v34 or higher) - (Tested with Android Studio Meerkat)
 - IDE of choice (Visual Studio Code, Cursor, etc)
 
 # Setup in MongoDB Atlas
@@ -117,24 +117,10 @@ The Step-By-Step Guide can be found [here](https://docs.ditto.live/cloud/mongodb
   - Click the `View` link for the planets collection to see the documents in the DQL Editor.
 
 # Setup the Flutter App 
+See the provided [README.md](flutter/README.md) file for the Flutter app for instructions on how to setup and run the app.
 
-## Setup the main.dart file
-
-Update the `main.dart` file with the proper values for `_appId`, `_token`, `authUrl`, and `_websocketUrl`.  You can find these values in the Ditto Portal `Connect` tab listed as the App ID, Online Playground Authentication Token, Auth URL, and Websocket URL.  For fully instructions on how to get these values, please refer to the [Ditto Getting SDK Connection Details](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details) documentation.
-
-## Run the Flutter App 
-
-Open the command line and navigate to the directory containing the `pubspec.yaml` file.  Then run the following command to install the dependencies:
-
-```sh
-flutter pub get
-```
-
-Then run the following command to run the app:
-
-```sh
-flutter run
-```
+# Setup the Expo React Native App 
+See the provided [README.md](rn-expo/README.md) file for the Expo React Native app for instructions on how to setup and run the app.
 
 # Known Limitations
 

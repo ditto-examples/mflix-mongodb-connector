@@ -1,6 +1,6 @@
-import { Text, View, StyleSheet, ActivityIndicator } from 'react-native';
+import { Text, View, StyleSheet, ActivityIndicator, FlatList, Pressable } from 'react-native';
+import { useRef } from 'react';
 import { Stack, useRouter } from 'expo-router';
-import { FlashList } from '@shopify/flash-list';
 
 import { Movie } from '../src/models/movie';
 import { useMovies } from '../src/hooks/useMovies';
@@ -15,7 +15,7 @@ export default function Index() {
       <MovieCard 
         movie={movie}
         onPress={() => router.push({
-          pathname: '/movie',
+          pathname: '/movieDetails',
           params: { id: movie.id }
         })}
       />
@@ -34,6 +34,14 @@ export default function Index() {
           headerTitleStyle: {
             color: '#fff',
           },
+          headerRight: () => (
+            <Pressable
+              style={styles.addButton}
+              onPress={() => router.push('/addMovie')}
+            >
+              <Text style={styles.addButtonText}>Add Movie</Text>
+            </Pressable>
+          ),
         }} 
       />
       <View style={styles.container}>
@@ -42,10 +50,9 @@ export default function Index() {
         ) : error ? (
           <Text style={styles.text}>{error}</Text>
         ) : (
-          <FlashList
+          <FlatList
             data={movies}
             renderItem={renderItem}
-            estimatedItemSize={1000}
             contentContainerStyle={styles.listContent}
             ItemSeparatorComponent={() => <View style={styles.separator} />}
             keyExtractor={(item) => item.id}
@@ -72,5 +79,19 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
+    textAlign: 'center',
+    padding: 16,
+  },
+  addButton: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    backgroundColor: '#4CAF50',
+    marginRight: 8,
+  },
+  addButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '500',
   },
 });
