@@ -13,7 +13,7 @@ import 'providers/ditto_provider.dart';
 //https://docs.ditto.live/sdk/latest/install-guides/flutter
 //
 const _appId = 'insert Ditto Portal App ID here';
-const _token = 'insert Ditto Portal Online Playground Authenticaton Token here';
+const _token = 'insert Ditto Portal Online Playground Authentication Token here';
 const _authUrl = 'insert Ditto Portal Auth URL here';
 const _websocketUrl = 'insert Ditto Portal Websocket URL here';
 
