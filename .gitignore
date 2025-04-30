@@ -77,7 +77,6 @@
 /flutter/unlinked_spec.ds
 
 # Android related
-**/android/**/gradle-wrapper.jar
 .gradle/
 **/android/captures/
 **/android/**/GeneratedPluginRegistrant.java
@@ -138,3 +137,4 @@ app.*.symbols
 !/flutter/dev/ci/**/Gemfile.lock
 !/flutter/.vscode/settings.json
 rn-expo/android/build
+rn-expo/android/app/build
