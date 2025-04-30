@@ -24,30 +24,33 @@ Once you have this information, you can update the Ditto Service in the `src/ser
     private websocketURL = 'insert Ditto Portal Websocket URL here';
 ```
 
-Once you have updated the Ditto Service, you can start the app by following the instructions below:
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-iOS:
-```bash
-npx expo start:ios
-```
-
-Android:
-```bash
-npx expo start:android
-```
+Once you have updated the Ditto Service, you can start the app.
 
 Because of how the current Ditto package works,  you will need to use Expo Development Builds:
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+
+The basics steps are:
+
+1. Install dependencies
+
+```bash
+npm install
+```
+
+2. Start the app
+
+iOS:
+```bash
+npx expo run ios
+```
+
+Android:
+```bash
+npx expo run android
+```
 
 ## Learn more
 
