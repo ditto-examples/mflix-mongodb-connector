@@ -69,55 +69,6 @@ import {
     }
 
     /**
-     * Creates and configures the transport settings for Ditto's peer-to-peer and cloud connectivity.
-     * This function sets up the necessary transport configurations for different platforms and connection types.
-     * 
-     * The configuration includes:
-     * - Bluetooth LE settings
-     * - LAN settings with mDNS discovery
-     * - AWDL settings (iOS only)
-     * - WebSocket connection to Ditto cloud
-     * 
-     * @returns {TransportConfig} A transport configuration object.
-     * 
-     * @remarks
-     * - On iOS, AWDL is enabled for better peer-to-peer connectivity
-     * - mDNS is enabled for automatic device discovery on local networks
-     * - WebSocket connection is configured for cloud sync
-     * 
-     * @example
-     * const config = createTransportConfig();
-     * // Returns a TransportConfig object with:
-     * // {
-     * //   peerToPeer: {
-     * //     bluetoothLE: { isEnabled: true },
-     * //     lan: { isEnabled: true, isMdnsEnabled: true },
-     * //     awdl: { isEnabled: true } // iOS only
-     * //   },
-     * //   connect: {
-     * //     websocketURLs: ['wss://your-ditto-cloud-url']
-     * //   }
-     * // }
-     * 
-     * @see https://docs.ditto.live/sdk/latest/install-guides/react-native#setting-transport-configurations
-     */
-    private createTransportConfig(): TransportConfig {
-        // currently ReactNative doesn't support the enableAllPeerToPeer() method
-        // so we need to enable each transport manually
-        const config = new TransportConfig();
-        config.peerToPeer.bluetoothLE.isEnabled = true;
-        config.peerToPeer.lan.isEnabled = true;
-        config.peerToPeer.lan.isMdnsEnabled = true;
-
-        if (Platform.OS === 'ios') {
-         config.peerToPeer.awdl.isEnabled = true;
-        }
-        
-        config.connect.websocketURLs.push(this.websocketURL);
-        return config;
-    }
-
-    /**
      * Requests the necessary permissions for Ditto's peer-to-peer functionality on Android devices.
      * This function handles the runtime permission requests required for Bluetooth and WiFi operations.
      * 
@@ -198,13 +149,25 @@ import {
 
         try {
             const identity = this.createIdentity();
-            const transportConfig = this.createTransportConfig();
 
             this.ditto = new Ditto(identity);
-            this.ditto.setTransportConfig(transportConfig);
+
+            //https://docs.ditto.live/sdk/latest/install-guides/react-native#setting-transport-configurations
+            this.ditto.updateTransportConfig((config) => {
+                config.peerToPeer.bluetoothLE.isEnabled = true;
+                config.peerToPeer.lan.isEnabled = true;
+                config.peerToPeer.lan.isMdnsEnabled = true;
+
+                if (Platform.OS === 'ios') {
+                    config.peerToPeer.awdl.isEnabled = true;
+                }
+                
+                config.connect.websocketURLs.push(this.websocketURL);
+            });
             this.ditto.startSync();
             
         } catch (error) {
+            console.log(error);
             this.ditto = null;
             throw error;
         } finally {
