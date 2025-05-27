@@ -160,6 +160,8 @@ import {
 
                 if (Platform.OS === 'ios') {
                     config.peerToPeer.awdl.isEnabled = true;
+                } else {
+                    config.peerToPeer.awdl.isEnabled = false;
                 }
                 
                 config.connect.websocketURLs.push(this.websocketURL);
