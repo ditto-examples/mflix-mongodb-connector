@@ -1,10 +1,3 @@
-//
-//  mflix_moviesUITestsLaunchTests.swift
-//  mflix-moviesUITests
-//
-//  Created by Aaron LaBeau on 8/8/25.
-//
-
 import XCTest
 
 final class mflix_moviesUITestsLaunchTests: XCTestCase {

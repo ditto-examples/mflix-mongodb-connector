@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  mflix-movies
-//
-//  Created by Aaron LaBeau on 8/8/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -28,7 +21,27 @@ struct ContentView: View {
                     }
                 }
             } else {
-                MoviesListView()
+                TabView {
+                    NavigationStack {
+                        MoviesListView()
+                    }
+                    .tabItem {
+                        Image(systemName: "movieclapper")
+                            .fontWeight(.light)
+                        Text("Movies")
+                    }
+                    .tag(0)
+                    
+                    NavigationStack {
+                        SystemView()
+                    }
+                    .tabItem {
+                        Image(systemName: "gear")
+                            .fontWeight(.light)
+                        Text("System")
+                    }
+                    .tag(1)
+                }
             }
         }
     }

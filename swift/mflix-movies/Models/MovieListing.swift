@@ -6,6 +6,8 @@ struct MovieListing: Identifiable, Codable {
     let plot: String
     let poster: String
     let year: String
+    let imdbRating: Double?
+    let rottenRating: Double?
 
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -13,6 +15,8 @@ struct MovieListing: Identifiable, Codable {
         case plot
         case poster
         case year
+        case imdbRating
+        case rottenRating
     }
 
     init(from dictionary: [String: Any]) {
@@ -20,6 +24,8 @@ struct MovieListing: Identifiable, Codable {
         self.title = dictionary["title"] as? String ?? ""
         self.plot = dictionary["plot"] as? String ?? ""
         self.poster = dictionary["poster"] as? String ?? ""
+        self.imdbRating = dictionary["imdbRating"] as? Double
+        self.rottenRating = dictionary["rottenRating"] as? Double
 
         // Handle mixed year types (Int or String)
         if let yearValue = dictionary["year"] {
@@ -58,6 +64,8 @@ struct MovieListing: Identifiable, Codable {
         plot = try container.decode(String.self, forKey: .plot)
         poster = try container.decode(String.self, forKey: .poster)
         year = try container.decode(String.self, forKey: .year)
+        imdbRating = try container.decodeIfPresent(Double.self, forKey: .imdbRating)
+        rottenRating = try container.decodeIfPresent(Double.self, forKey: .rottenRating)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -66,10 +74,23 @@ struct MovieListing: Identifiable, Codable {
         try container.encode(title, forKey: .title)
         try container.encode(plot, forKey: .plot)
         try container.encode(year, forKey: .year)
+        try container.encodeIfPresent(imdbRating, forKey: .imdbRating)
+        try container.encodeIfPresent(rottenRating, forKey: .rottenRating)
     }
 }
 
 extension MovieListing {
+    // Computed properties for formatted ratings with 1 decimal place
+    var formattedImdbRating: String? {
+        guard let rating = imdbRating else { return nil }
+        return String(format: "%.1f", rating)
+    }
+    
+    var formattedRottenRating: String? {
+        guard let rating = rottenRating else { return nil }
+        return String(format: "%.1f", rating)
+    }
+    
     static var sample: MovieListing {
         MovieListing(from: [
             "_id": "sample-id",
@@ -77,6 +98,8 @@ extension MovieListing {
             "plot": "This is a sample movie plot.",
             "poster": "",
             "year": "2024",
+            "imdbRating": 7.40000000004,
+            "rottenRating": 7.599999
         ])
     }
 }

@@ -131,7 +131,7 @@ struct MovieRowView: View {
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
-                    .lineLimit(1)
+                    .lineLimit(3)
 
                 Text(movie.year)
                     .font(.subheadline)
@@ -142,6 +142,24 @@ struct MovieRowView: View {
                     .foregroundColor(.secondary)
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
+                
+                // Only show ratings HStack if at least one rating exists
+                if let imdbRating = movie.formattedImdbRating, let rottenRating = movie.formattedRottenRating {
+                    HStack {
+                        Text("IMDB: \(imdbRating)")
+                        Text("Rotten Tomatoes: \(rottenRating)")
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                } else if let imdbRating = movie.formattedImdbRating {
+                    Text("IMDB: \(imdbRating)")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                } else if let rottenRating = movie.formattedRottenRating {
+                    Text("Rotten Tomatoes: \(rottenRating)")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)

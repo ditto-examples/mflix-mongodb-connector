@@ -4,9 +4,16 @@ import Foundation
 class AppState : ObservableObject {
     @Published var error: DittoError? = nil
     @Published var movies: [MovieListing] = []
+    @Published var syncStatusInfos: [SyncStatusInfo] = []
+    @Published var indexes: [IndexInfo] = []
+    @Published var databaseConfig: DatabaseConfig? = nil
     var dittoService: DittoService
 
     init(configuration: DatabaseConfig) {
+        //cache for showing in the UI like the Quickstart Apps
+        self.databaseConfig = configuration
+
+        //create the DittoService with the provided configuration
         self.dittoService = DittoService(databaseConfig: configuration)
 
         // Set up error handler to avoid circular reference
@@ -14,9 +21,19 @@ class AppState : ObservableObject {
             self?.setError(error)
         }
         
-        // Set up movies sync
+        // Set up movies observer so if movies change the UI will update dynamically
         dittoService.onMoviesUpdate = { [weak self] movies in
             self?.movies = movies
+        }
+        
+        // Set up sync status observer so if sync status changes the UI will update dynamically
+        dittoService.onSyncStatusUpdate = { [weak self] syncStatusInfos in
+            self?.syncStatusInfos = syncStatusInfos
+        }
+        
+        // Set up indexes observer so if indexes change the UI will update dynamically
+        dittoService.onIndexesUpdate = { [weak self] indexes in
+            self?.indexes = indexes
         }
     }
 

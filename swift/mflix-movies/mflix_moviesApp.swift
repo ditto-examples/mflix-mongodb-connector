@@ -1,10 +1,3 @@
-//
-//  mflix_moviesApp.swift
-//  mflix-movies
-//
-//  Created by Aaron LaBeau on 8/8/25.
-//
-
 import SwiftUI
 
 @main

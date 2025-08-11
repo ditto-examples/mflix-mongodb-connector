@@ -138,3 +138,4 @@ app.*.symbols
 !/flutter/.vscode/settings.json
 rn-expo/android/build
 rn-expo/android/app/build
+swift/build
