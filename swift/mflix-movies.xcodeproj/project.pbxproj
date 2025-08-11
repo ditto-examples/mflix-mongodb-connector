@@ -54,6 +54,7 @@
 				Data/DatabaseConfig.swift,
 				Data/DittoService.swift,
 				Data/Movie.swift,
+				Data/MovieListing.swift,
 				dittoConfig.plist,
 			);
 			target = 0D2858002E4686FA00BF0330 /* mflix-moviesTests */;
@@ -65,6 +66,7 @@
 				Data/DatabaseConfig.swift,
 				Data/DittoService.swift,
 				Data/Movie.swift,
+				Data/MovieListing.swift,
 				dittoConfig.plist,
 				MovieDetailView.swift,
 				MoviesListView.swift,
