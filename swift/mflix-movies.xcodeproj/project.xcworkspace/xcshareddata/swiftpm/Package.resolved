@@ -1,0 +1,42 @@
+{
+  "originHash" : "813f35598a8fa9c931a22f18a3f20117f2e42931ac2373c546c2e0f4df7e2d65",
+  "pins" : [
+    {
+      "identity" : "dittopresenceviewercore",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/getditto/DittoPresenceViewerCore.git",
+      "state" : {
+        "revision" : "4e8a4f131c21926194ac1dfad2333d9a6aef368a",
+        "version" : "2.1.2"
+      }
+    },
+    {
+      "identity" : "dittoswiftpackage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/getditto/DittoSwiftPackage",
+      "state" : {
+        "revision" : "ee202b777eafaf6e504ae99fc6c1c2cd18a7efc9",
+        "version" : "4.12.0-preview.3"
+      }
+    },
+    {
+      "identity" : "dittoswifttools",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/getditto/DittoSwiftTools",
+      "state" : {
+        "revision" : "f601f821a32e754d918ce579729fcf5e8fa61d1e",
+        "version" : "8.1.1"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections",
+      "state" : {
+        "revision" : "8c0c0a8b49e080e54e5e328cc552821ff07cd341",
+        "version" : "1.2.1"
+      }
+    }
+  ],
+  "version" : 3
+}

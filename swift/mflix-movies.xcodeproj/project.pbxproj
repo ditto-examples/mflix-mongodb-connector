@@ -1,0 +1,792 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D2858202E46878400BF0330 /* DittoObjC in Frameworks */ = {isa = PBXBuildFile; productRef = 0D28581F2E46878400BF0330 /* DittoObjC */; };
+		0D2858222E46878400BF0330 /* DittoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858212E46878400BF0330 /* DittoSwift */; };
+		0D2858252E4687A700BF0330 /* DittoAllToolsMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858242E4687A700BF0330 /* DittoAllToolsMenu */; };
+		0D2858272E4687A700BF0330 /* DittoDataBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858262E4687A700BF0330 /* DittoDataBrowser */; };
+		0D2858292E4687A700BF0330 /* DittoDiskUsage in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858282E4687A700BF0330 /* DittoDiskUsage */; };
+		0D28582B2E4687A700BF0330 /* DittoExportData in Frameworks */ = {isa = PBXBuildFile; productRef = 0D28582A2E4687A700BF0330 /* DittoExportData */; };
+		0D28582D2E4687A700BF0330 /* DittoExportLogs in Frameworks */ = {isa = PBXBuildFile; productRef = 0D28582C2E4687A700BF0330 /* DittoExportLogs */; };
+		0D28582F2E4687A700BF0330 /* DittoHealthMetrics in Frameworks */ = {isa = PBXBuildFile; productRef = 0D28582E2E4687A700BF0330 /* DittoHealthMetrics */; };
+		0D2858312E4687A700BF0330 /* DittoHeartbeat in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858302E4687A700BF0330 /* DittoHeartbeat */; };
+		0D2858332E4687A700BF0330 /* DittoPeersList in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858322E4687A700BF0330 /* DittoPeersList */; };
+		0D2858352E4687A700BF0330 /* DittoPermissionsHealth in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858342E4687A700BF0330 /* DittoPermissionsHealth */; };
+		0D2858372E4687A700BF0330 /* DittoPresenceDegradation in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858362E4687A700BF0330 /* DittoPresenceDegradation */; };
+		0D2858392E4687A700BF0330 /* DittoPresenceViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858382E4687A700BF0330 /* DittoPresenceViewer */; };
+		0D28583B2E4687A700BF0330 /* DittoTvOSTextFieldComponent in Frameworks */ = {isa = PBXBuildFile; productRef = 0D28583A2E4687A700BF0330 /* DittoTvOSTextFieldComponent */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0D2858022E4686FA00BF0330 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0D2857EB2E4686F900BF0330 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0D2857F22E4686F900BF0330;
+			remoteInfo = "mflix-movies";
+		};
+		0D28580C2E4686FA00BF0330 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0D2857EB2E4686F900BF0330 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0D2857F22E4686F900BF0330;
+			remoteInfo = "mflix-movies";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0D2857F32E4686F900BF0330 /* mflix-movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mflix-movies.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D2858012E4686FA00BF0330 /* mflix-moviesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mflix-moviesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D28580B2E4686FA00BF0330 /* mflix-moviesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mflix-moviesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0D2858402E4687D900BF0330 /* Exceptions for "mflix-movies" folder in "mflix-moviesTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Data/AppState.swift,
+				Data/CommentsObserver.swift,
+				Data/DatabaseConfig.swift,
+				Data/DittoService.swift,
+				dittoConfig.plist,
+				Models/Movie.swift,
+				Models/MovieListing.swift,
+			);
+			target = 0D2858002E4686FA00BF0330 /* mflix-moviesTests */;
+		};
+		0D2858412E4687D900BF0330 /* Exceptions for "mflix-movies" folder in "mflix-moviesUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Data/AppState.swift,
+				Data/CommentsObserver.swift,
+				Data/DatabaseConfig.swift,
+				Data/DittoService.swift,
+				dittoConfig.plist,
+				Models/Movie.swift,
+				Models/MovieListing.swift,
+				Views/MovieDetailView.swift,
+				Views/MoviesListView.swift,
+			);
+			target = 0D28580A2E4686FA00BF0330 /* mflix-moviesUITests */;
+		};
+		0D6125D72E4B8D9E00C2F357 /* Exceptions for "mflix-movies" folder in "mflix-movies" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 0D2857F22E4686F900BF0330 /* mflix-movies */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		0D2857F52E4686F900BF0330 /* mflix-movies */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0D6125D72E4B8D9E00C2F357 /* Exceptions for "mflix-movies" folder in "mflix-movies" target */,
+				0D2858402E4687D900BF0330 /* Exceptions for "mflix-movies" folder in "mflix-moviesTests" target */,
+				0D2858412E4687D900BF0330 /* Exceptions for "mflix-movies" folder in "mflix-moviesUITests" target */,
+			);
+			path = "mflix-movies";
+			sourceTree = "<group>";
+		};
+		0D2858042E4686FA00BF0330 /* mflix-moviesTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "mflix-moviesTests";
+			sourceTree = "<group>";
+		};
+		0D28580E2E4686FA00BF0330 /* mflix-moviesUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "mflix-moviesUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0D2857F02E4686F900BF0330 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D2858392E4687A700BF0330 /* DittoPresenceViewer in Frameworks */,
+				0D2858202E46878400BF0330 /* DittoObjC in Frameworks */,
+				0D28582D2E4687A700BF0330 /* DittoExportLogs in Frameworks */,
+				0D2858312E4687A700BF0330 /* DittoHeartbeat in Frameworks */,
+				0D28582B2E4687A700BF0330 /* DittoExportData in Frameworks */,
+				0D28582F2E4687A700BF0330 /* DittoHealthMetrics in Frameworks */,
+				0D2858222E46878400BF0330 /* DittoSwift in Frameworks */,
+				0D2858272E4687A700BF0330 /* DittoDataBrowser in Frameworks */,
+				0D2858372E4687A700BF0330 /* DittoPresenceDegradation in Frameworks */,
+				0D2858252E4687A700BF0330 /* DittoAllToolsMenu in Frameworks */,
+				0D2858292E4687A700BF0330 /* DittoDiskUsage in Frameworks */,
+				0D2858332E4687A700BF0330 /* DittoPeersList in Frameworks */,
+				0D2858352E4687A700BF0330 /* DittoPermissionsHealth in Frameworks */,
+				0D28583B2E4687A700BF0330 /* DittoTvOSTextFieldComponent in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D2857FE2E4686FA00BF0330 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D2858082E4686FA00BF0330 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0D2857EA2E4686F900BF0330 = {
+			isa = PBXGroup;
+			children = (
+				0D2857F52E4686F900BF0330 /* mflix-movies */,
+				0D2858042E4686FA00BF0330 /* mflix-moviesTests */,
+				0D28580E2E4686FA00BF0330 /* mflix-moviesUITests */,
+				0D2857F42E4686F900BF0330 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0D2857F42E4686F900BF0330 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0D2857F32E4686F900BF0330 /* mflix-movies.app */,
+				0D2858012E4686FA00BF0330 /* mflix-moviesTests.xctest */,
+				0D28580B2E4686FA00BF0330 /* mflix-moviesUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0D2857F22E4686F900BF0330 /* mflix-movies */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D2858152E4686FA00BF0330 /* Build configuration list for PBXNativeTarget "mflix-movies" */;
+			buildPhases = (
+				0D2857EF2E4686F900BF0330 /* Sources */,
+				0D2857F02E4686F900BF0330 /* Frameworks */,
+				0D2857F12E4686F900BF0330 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0D2857F52E4686F900BF0330 /* mflix-movies */,
+			);
+			name = "mflix-movies";
+			packageProductDependencies = (
+				0D28581F2E46878400BF0330 /* DittoObjC */,
+				0D2858212E46878400BF0330 /* DittoSwift */,
+				0D2858242E4687A700BF0330 /* DittoAllToolsMenu */,
+				0D2858262E4687A700BF0330 /* DittoDataBrowser */,
+				0D2858282E4687A700BF0330 /* DittoDiskUsage */,
+				0D28582A2E4687A700BF0330 /* DittoExportData */,
+				0D28582C2E4687A700BF0330 /* DittoExportLogs */,
+				0D28582E2E4687A700BF0330 /* DittoHealthMetrics */,
+				0D2858302E4687A700BF0330 /* DittoHeartbeat */,
+				0D2858322E4687A700BF0330 /* DittoPeersList */,
+				0D2858342E4687A700BF0330 /* DittoPermissionsHealth */,
+				0D2858362E4687A700BF0330 /* DittoPresenceDegradation */,
+				0D2858382E4687A700BF0330 /* DittoPresenceViewer */,
+				0D28583A2E4687A700BF0330 /* DittoTvOSTextFieldComponent */,
+			);
+			productName = "mflix-movies";
+			productReference = 0D2857F32E4686F900BF0330 /* mflix-movies.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0D2858002E4686FA00BF0330 /* mflix-moviesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D2858182E4686FA00BF0330 /* Build configuration list for PBXNativeTarget "mflix-moviesTests" */;
+			buildPhases = (
+				0D2857FD2E4686FA00BF0330 /* Sources */,
+				0D2857FE2E4686FA00BF0330 /* Frameworks */,
+				0D2857FF2E4686FA00BF0330 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0D2858032E4686FA00BF0330 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				0D2858042E4686FA00BF0330 /* mflix-moviesTests */,
+			);
+			name = "mflix-moviesTests";
+			packageProductDependencies = (
+			);
+			productName = "mflix-moviesTests";
+			productReference = 0D2858012E4686FA00BF0330 /* mflix-moviesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0D28580A2E4686FA00BF0330 /* mflix-moviesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D28581B2E4686FA00BF0330 /* Build configuration list for PBXNativeTarget "mflix-moviesUITests" */;
+			buildPhases = (
+				0D2858072E4686FA00BF0330 /* Sources */,
+				0D2858082E4686FA00BF0330 /* Frameworks */,
+				0D2858092E4686FA00BF0330 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0D28580D2E4686FA00BF0330 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				0D28580E2E4686FA00BF0330 /* mflix-moviesUITests */,
+			);
+			name = "mflix-moviesUITests";
+			packageProductDependencies = (
+			);
+			productName = "mflix-moviesUITests";
+			productReference = 0D28580B2E4686FA00BF0330 /* mflix-moviesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0D2857EB2E4686F900BF0330 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					0D2857F22E4686F900BF0330 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					0D2858002E4686FA00BF0330 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 0D2857F22E4686F900BF0330;
+					};
+					0D28580A2E4686FA00BF0330 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 0D2857F22E4686F900BF0330;
+					};
+				};
+			};
+			buildConfigurationList = 0D2857EE2E4686F900BF0330 /* Build configuration list for PBXProject "mflix-movies" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0D2857EA2E4686F900BF0330;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				0D28581E2E46878400BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftPackage" */,
+				0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0D2857F42E4686F900BF0330 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0D2857F22E4686F900BF0330 /* mflix-movies */,
+				0D2858002E4686FA00BF0330 /* mflix-moviesTests */,
+				0D28580A2E4686FA00BF0330 /* mflix-moviesUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0D2857F12E4686F900BF0330 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D2857FF2E4686FA00BF0330 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D2858092E4686FA00BF0330 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0D2857EF2E4686F900BF0330 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D2857FD2E4686FA00BF0330 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D2858072E4686FA00BF0330 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0D2858032E4686FA00BF0330 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0D2857F22E4686F900BF0330 /* mflix-movies */;
+			targetProxy = 0D2858022E4686FA00BF0330 /* PBXContainerItemProxy */;
+		};
+		0D28580D2E4686FA00BF0330 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0D2857F22E4686F900BF0330 /* mflix-movies */;
+			targetProxy = 0D28580C2E4686FA00BF0330 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0D2858132E4686FA00BF0330 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = E3FRN9JNGJ;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0D2858142E4686FA00BF0330 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = E3FRN9JNGJ;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		0D2858162E4686FA00BF0330 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "mflix-movies/mflix_movies.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = E3FRN9JNGJ;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "mflix-movies/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "MFlix Movies";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Uses Bluetooth to connect and sync with nearby devices";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Uses Bluetooth to connect and sync with nearby devices";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ditto.learning.mflix-movies";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Debug;
+		};
+		0D2858172E4686FA00BF0330 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "mflix-movies/mflix_movies.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = E3FRN9JNGJ;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "mflix-movies/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "MFlix Movies";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Uses Bluetooth to connect and sync with nearby devices";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Uses Bluetooth to connect and sync with nearby devices";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ditto.learning.mflix-movies";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Release;
+		};
+		0D2858192E4686FA00BF0330 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = E3FRN9JNGJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ditto.learning.mflix-moviesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mflix-movies.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/mflix-movies";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Debug;
+		};
+		0D28581A2E4686FA00BF0330 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = E3FRN9JNGJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ditto.learning.mflix-moviesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mflix-movies.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/mflix-movies";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Release;
+		};
+		0D28581C2E4686FA00BF0330 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = E3FRN9JNGJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ditto.learning.mflix-moviesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = "mflix-movies";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Debug;
+		};
+		0D28581D2E4686FA00BF0330 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = E3FRN9JNGJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ditto.learning.mflix-moviesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = "mflix-movies";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0D2857EE2E4686F900BF0330 /* Build configuration list for PBXProject "mflix-movies" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D2858132E4686FA00BF0330 /* Debug */,
+				0D2858142E4686FA00BF0330 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0D2858152E4686FA00BF0330 /* Build configuration list for PBXNativeTarget "mflix-movies" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D2858162E4686FA00BF0330 /* Debug */,
+				0D2858172E4686FA00BF0330 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0D2858182E4686FA00BF0330 /* Build configuration list for PBXNativeTarget "mflix-moviesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D2858192E4686FA00BF0330 /* Debug */,
+				0D28581A2E4686FA00BF0330 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0D28581B2E4686FA00BF0330 /* Build configuration list for PBXNativeTarget "mflix-moviesUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D28581C2E4686FA00BF0330 /* Debug */,
+				0D28581D2E4686FA00BF0330 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0D28581E2E46878400BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftPackage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getditto/DittoSwiftPackage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = "4.12.0-experimental-untangle.0";
+			};
+		};
+		0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getditto/DittoSwiftTools";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0D28581F2E46878400BF0330 /* DittoObjC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D28581E2E46878400BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftPackage" */;
+			productName = DittoObjC;
+		};
+		0D2858212E46878400BF0330 /* DittoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D28581E2E46878400BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftPackage" */;
+			productName = DittoSwift;
+		};
+		0D2858242E4687A700BF0330 /* DittoAllToolsMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoAllToolsMenu;
+		};
+		0D2858262E4687A700BF0330 /* DittoDataBrowser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoDataBrowser;
+		};
+		0D2858282E4687A700BF0330 /* DittoDiskUsage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoDiskUsage;
+		};
+		0D28582A2E4687A700BF0330 /* DittoExportData */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoExportData;
+		};
+		0D28582C2E4687A700BF0330 /* DittoExportLogs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoExportLogs;
+		};
+		0D28582E2E4687A700BF0330 /* DittoHealthMetrics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoHealthMetrics;
+		};
+		0D2858302E4687A700BF0330 /* DittoHeartbeat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoHeartbeat;
+		};
+		0D2858322E4687A700BF0330 /* DittoPeersList */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoPeersList;
+		};
+		0D2858342E4687A700BF0330 /* DittoPermissionsHealth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoPermissionsHealth;
+		};
+		0D2858362E4687A700BF0330 /* DittoPresenceDegradation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoPresenceDegradation;
+		};
+		0D2858382E4687A700BF0330 /* DittoPresenceViewer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoPresenceViewer;
+		};
+		0D28583A2E4687A700BF0330 /* DittoTvOSTextFieldComponent */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoTvOSTextFieldComponent;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 0D2857EB2E4686F900BF0330 /* Project object */;
+}
