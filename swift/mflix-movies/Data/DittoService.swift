@@ -2,7 +2,6 @@ import Combine
 import DittoSwift
 import Foundation
 
-
 @Observable class DittoService {
     private var ditto: Ditto?
     private var moviesSubscription: DittoSyncSubscription?
@@ -16,15 +15,19 @@ import Foundation
 
     // Closure to handle errors without circular reference
     var onError: ((DittoError) -> Void)?
-    
+
     // Closure handle movies updates without circular reference
     var onMoviesUpdate: (([MovieListing]) -> Void)?
-    
+
     // Closure to handle sync status updates without circular reference
     var onSyncStatusUpdate: (([SyncStatusInfo]) -> Void)?
-    
+
     // Closure to handle indexes updates without circular reference
     var onIndexesUpdate: (([IndexInfo]) -> Void)?
+
+    // background queue for doing work
+    let backgroundQueue = DispatchQueue(label: "com.ditto.mflix.backgroundQueue", qos: .background)
+
 
     init(databaseConfig: DatabaseConfig) {
         self.databaseConfig = databaseConfig
@@ -33,13 +36,13 @@ import Foundation
     func initialize() async throws {
         if !isInitialized {
             guard
-                !(
-                    databaseConfig.databaseID.contains("insert")
+                !(databaseConfig.databaseID.contains("insert")
                     || databaseConfig.token.contains("insert")
-                    || databaseConfig.url.contains("insert")
-                )
+                    || databaseConfig.url.contains("insert"))
             else {
-                print("Ditto configuration is not set up properly in dittoConfig.plist")
+                print(
+                    "Ditto configuration is not set up properly in dittoConfig.plist"
+                )
                 throw DittoError.configError(
                     "Please configure your Ditto credentials in dittoConfig.plist"
                 )
@@ -90,9 +93,11 @@ import Foundation
                         provider: .development
                     ) { clientInfo, error in
                         if let error = error {
-                            self.onError?(DittoError.general(
-                                "Authentication failed: \(error.localizedDescription)"
-                            ))
+                            self.onError?(
+                                DittoError.general(
+                                    "Authentication failed: \(error.localizedDescription)"
+                                )
+                            )
                         } else {
                             //debug print
                             print("Authentication successful")
@@ -123,19 +128,24 @@ import Foundation
                 // Register a subscription to the movies collection to only return kid movies
                 // https://docs.ditto.live/sdk/latest/sync/syncing-data#subscriptions
                 moviesSubscription = try ditto.sync.registerSubscription(
-                    query: "SELECT * FROM movies WHERE rated = 'G' OR rated = 'PG'"
+                    query:
+                        "SELECT * FROM movies WHERE rated = 'G' OR rated = 'PG'"
                 )
 
                 // Register a subscription to the movies collection to only return kid movies by year
                 // https://docs.ditto.live/sdk/latest/crud/observing-data-changes
                 moviesObserver = try ditto.store.registerObserver(
-                    query: "SELECT _id, plot, poster, title, year, imdb.rating AS imdbRating, tomatoes.viewer.rating as rottenRating FROM movies WHERE rated = 'G' OR rated = 'PG' ORDER BY year DESC"
+                    query:
+                        "SELECT _id, plot, poster, title, year, imdb.rating AS imdbRating, tomatoes.viewer.rating as rottenRating FROM movies WHERE rated = 'G' OR rated = 'PG' ORDER BY year DESC"
+                    ,deliverOn: backgroundQueue
                 ) {
                     [weak self] result in
                     let newMovies = result.items.compactMap { item in
                         return MovieListing(item.jsonData())
                     }
-                    self?.onMoviesUpdate?(newMovies)
+                    Task { @MainActor in
+                        self?.onMoviesUpdate?(newMovies)
+                    }
                 }
 
                 // Register a subscription to the comments collection
@@ -147,29 +157,42 @@ import Foundation
                 // TODO update URL with production URL when published
                 // https://ditto-248bc0d1-release-4-12-0.mintlify.app/sdk/latest/sync/monitoring-sync-status
                 syncStatusObserver = try ditto.store.registerObserver(
-                    query: "SELECT * FROM system:data_sync_info ORDER BY documents.sync_session_status, documents.last_update_received_time desc"
+                    query:
+                        "SELECT * FROM system:data_sync_info ORDER BY documents.sync_session_status, documents.last_update_received_time desc",
+                    deliverOn: backgroundQueue
                 ) { [weak self] result in
                     let syncStatusInfos = result.items.compactMap { item in
                         return SyncStatusInfo(item.jsonData())
                     }
-                    self?.onSyncStatusUpdate?(syncStatusInfos)
+                    Task { @MainActor in
+                        self?.onSyncStatusUpdate?(syncStatusInfos)
+                    }
                 }
 
                 // Register observer for indexes monitoring
                 indexesObserver = try ditto.store.registerObserver(
-                    query: "SELECT * FROM system:indexes"
+                    query: "SELECT * FROM system:indexes",
+                    deliverOn: backgroundQueue
                 ) { [weak self] result in
                     let indexInfos = result.items.compactMap { item in
                         return IndexInfo(item.jsonData())
                     }
-                    self?.onIndexesUpdate?(indexInfos)
+                    Task { @MainActor in
+                        self?.onIndexesUpdate?(indexInfos)
+                    }
                 }
 
                 // CREATE index on title and year field if it doesn't already exist
                 // TODO update with proper documentation linik once they are live
                 // https://ditto-248bc0d1-release-4-12-0.mintlify.app/dql/dql
-                try await ditto.store.execute(query: "CREATE INDEX IF NOT EXISTS movies_title_idx ON movies(title)")
-                try await ditto.store.execute(query: "CREATE INDEX IF NOT EXISTS movies_year_idx ON movies(year)")
+                try await ditto.store.execute(
+                    query:
+                        "CREATE INDEX IF NOT EXISTS movies_title_idx ON movies(title)"
+                )
+                try await ditto.store.execute(
+                    query:
+                        "CREATE INDEX IF NOT EXISTS movies_year_idx ON movies(year)"
+                )
 
                 isInitialized = true
             } catch {
@@ -181,9 +204,9 @@ import Foundation
     }
 
     // MARK: - CRUD Operations
-    func addComment(_ comment: [String: Any]) async throws -> (Bool, String?) {
+    func addComment(_ comment: [String: Any]) async throws -> String? {
         guard let ditto = ditto else {
-            return (false, "Ditto not initialized")
+            throw DittoError.general("Ditto not initialized")
         }
 
         //https://docs.ditto.live/sdk/latest/crud/create#creating-documents
@@ -192,15 +215,16 @@ import Foundation
             arguments: ["newComment": comment]
         )
         if let mutatedDocumentId =
-            (result.mutatedDocumentIDs().first.flatMap { $0.stringValue }) {
-            return (true, mutatedDocumentId)
+            (result.mutatedDocumentIDs().first.flatMap { $0.stringValue })
+        {
+            return mutatedDocumentId
         }
-        return (false, "No mutatedDocumentIDs returned")
+        return "No mutatedDocumentIDs returned"
     }
 
-    func addMovie(_ movie: [String: Any]) async throws -> (Bool, String?){
+    func addMovie(_ movie: [String: Any]) async throws -> String? {
         guard let ditto = ditto else {
-            return (false, "Ditto not initialized")
+            throw DittoError.general("Ditto not initialized")
         }
 
         //https://docs.ditto.live/sdk/latest/crud/create#creating-documents
@@ -211,33 +235,43 @@ import Foundation
         if let mutatedDocumentId =
             (result.mutatedDocumentIDs().first.flatMap { $0.stringValue })
         {
-            return (true, mutatedDocumentId)
+            return mutatedDocumentId
         }
-        return (false, "No mutatedDocumentIDs returned")
+        throw DittoError.general("No mutatedDocumentIDs returned")
     }
 
-    func deleteMovie(id: String) async throws -> (Bool, String?) {
+    func deleteMovie(id: String) async throws -> String? {
         guard let ditto = ditto else {
-            return (false, "Ditto not initialized")
+            throw DittoError.general("Ditto not initialized")
         }
 
         //https://docs.ditto.live/sdk/latest/crud/delete
-        let result = try await ditto.store.execute(query: "DELETE FROM movies WHERE _id = :_id", arguments: ["_id": id])
+        let result = try await ditto.store.execute(
+            query: "DELETE FROM movies WHERE _id = :_id",
+            arguments: ["_id": id]
+        )
         if let mutatedDocumentId =
-            (result.mutatedDocumentIDs().first.flatMap { $0.stringValue }) {
-            return (true, mutatedDocumentId)
+            (result.mutatedDocumentIDs().first.flatMap { $0.stringValue })
+        {
+            return mutatedDocumentId
         }
-        return (false, "No mutatedDocumentIDs returned")
+        throw DittoError.general( "No mutatedDocumentIDs returned")
     }
 
     func getCommentsCount(by movieId: String) async throws -> Int {
         guard let ditto = ditto else {
-            return 0
+            throw DittoError.general("Ditto not initialized")
         }
-        let results = try await ditto.store.execute(query: "SELECT COUNT(*) as commentsCount FROM comments WHERE movie_id = :movieId", arguments: ["movieId": movieId])
+
+        let results = try await ditto.store.execute(
+            query:
+                "SELECT COUNT(*) as commentsCount FROM comments WHERE movie_id = :movieId",
+            arguments: ["movieId": movieId]
+        )
 
         guard let firstItem = results.items.first,
-              let commentsCountValue = firstItem.value["commentsCount"] else {
+            let commentsCountValue = firstItem.value["commentsCount"]
+        else {
             return 0
         }
 
@@ -247,7 +281,8 @@ import Foundation
         } else if let doubleValue = commentsCountValue as? Double {
             return Int(doubleValue)
         } else if let stringValue = commentsCountValue as? String,
-                  let intValue = Int(stringValue) {
+            let intValue = Int(stringValue)
+        {
             return intValue
         }
         return 0
@@ -255,10 +290,11 @@ import Foundation
 
     func getComments(by movieId: String) async throws -> [Comment] {
         guard let ditto = ditto else {
-            return []
+            throw DittoError.general("Ditto not initialized")
         }
         let results = try await ditto.store.execute(
-            query: "SELECT * FROM comments WHERE movie_id = :movieId ORDER BY date DESC",
+            query:
+                "SELECT * FROM comments WHERE movie_id = :movieId ORDER BY date DESC",
             arguments: ["movieId": movieId]
         )
         return results.items.compactMap { item in
@@ -268,14 +304,19 @@ import Foundation
 
     func getMovie(by id: String) async throws -> Movie? {
         guard let ditto = ditto else {
-            return nil
+            throw DittoError.general("Ditto not initialized")
         }
         //https://docs.ditto.live/sdk/latest/crud/read
-        let results = try await ditto.store.execute(query: "SELECT * FROM movies WHERE _id = :_id", arguments: ["_id": id])
+        let results = try await ditto.store.execute(
+            query: "SELECT * FROM movies WHERE _id = :_id",
+            arguments: ["_id": id]
+        )
         return results.items.first.flatMap { Movie($0.jsonData()) }
     }
 
-    func updateMovie(_ movie: Movie, updates: [String: Any]) async -> (Bool, String?) {
+    func updateMovie(_ movie: Movie, updates: [String: Any]) async -> (
+        Bool, String?
+    ) {
         guard let ditto = ditto else {
             return (false, "Ditto not initialized")
         }
@@ -303,40 +344,55 @@ import Foundation
         }
 
         //https://docs.ditto.live/sdk/latest/crud/update
-        let updateQuery = "UPDATE movies SET \(updateStatements.joined(separator: ", ")) WHERE _id = '\(movie.id)'"
+        let updateQuery =
+            "UPDATE movies SET \(updateStatements.joined(separator: ", ")) WHERE _id = '\(movie.id)'"
         do {
             let results = try await ditto.store.execute(query: updateQuery)
-            if let mutatedDocumentId = (results.mutatedDocumentIDs().first.flatMap { $0.stringValue }) {
+            if let mutatedDocumentId =
+                (results.mutatedDocumentIDs().first.flatMap { $0.stringValue })
+            {
                 // Get commit ID from SDK 4.12
+                // TODO change this URL once production is fixed
                 // https://ditto-248bc0d1-release-4-12-0.mintlify.app/sdk/latest/sync/monitoring-sync-status#using-commit-ids
-                let commitIdString = if let commitId = results.commitID {
-                    "\(commitId)"
-                } else {
-                    "N/A"
-                }
-                let successMessage = "Movie updated successfully\nDocument ID: \(mutatedDocumentId)\nCommit ID: \(commitIdString)"
+                let commitIdString =
+                    if let commitId = results.commitID {
+                        "\(commitId)"
+                    } else {
+                        "N/A"
+                    }
+                let successMessage =
+                    "Movie updated successfully\nDocument ID: \(mutatedDocumentId)\nCommit ID: \(commitIdString)"
                 return (true, successMessage)
             }
         } catch {
-            return (false, "Failed to update movie: \(error.localizedDescription)")
+            return (
+                false, "Failed to update movie: \(error.localizedDescription)"
+            )
         }
         return (false, "No mutatedDocumentIDs returned")
     }
-    
-    func registerCommentsObserver(for movieId: String, onCommentsUpdate: @escaping ([Comment]) -> Void) -> DittoStoreObserver? {
+
+    func registerCommentsObserver(
+        for movieId: String,
+        onCommentsUpdate: @escaping ([Comment]) -> Void
+    ) -> DittoStoreObserver? {
         guard let ditto = ditto else {
             return nil
         }
-        
+
         do {
             let observer = try ditto.store.registerObserver(
-                query: "SELECT * FROM comments WHERE movie_id = :movieId ORDER BY date DESC",
-                arguments: ["movieId": movieId]
+                query:
+                    "SELECT * FROM comments WHERE movie_id = :movieId ORDER BY date DESC",
+                arguments: ["movieId": movieId],
+                deliverOn: backgroundQueue
             ) { result in
                 let comments = result.items.compactMap { item in
                     return Comment(item.jsonData())
                 }
-                onCommentsUpdate(comments)
+                Task { @MainActor in
+                    onCommentsUpdate(comments)
+                }
             }
             return observer
         } catch {
@@ -344,26 +400,27 @@ import Foundation
             return nil
         }
     }
-    
+
     func searchMovies(by title: String) async throws -> [MovieListing] {
         guard let ditto = ditto else {
+            throw DittoError.general("Ditto not initialized")
+        }
+
+        guard !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        else {
             return []
         }
-        
-        guard !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            return []
-        }
-        
+
         let results = try await ditto.store.execute(
-            query: "SELECT _id, plot, poster, title, year, imdb.rating AS imdbRating, tomatoes.viewer.rating as rottenRating FROM movies WHERE title LIKE :searchTerm AND (rated = 'G' OR rated = 'PG') ORDER BY year DESC",
+            query:
+                "SELECT _id, plot, poster, title, year, imdb.rating AS imdbRating, tomatoes.viewer.rating as rottenRating FROM movies WHERE title LIKE :searchTerm AND (rated = 'G' OR rated = 'PG') ORDER BY year DESC",
             arguments: ["searchTerm": "%\(title)%"]
         )
-        
+
         return results.items.compactMap { item in
             return MovieListing(item.jsonData())
         }
     }
-
 
     deinit {
         moviesSubscription?.cancel()

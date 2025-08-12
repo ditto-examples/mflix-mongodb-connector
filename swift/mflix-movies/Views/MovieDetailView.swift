@@ -355,14 +355,12 @@ struct MovieDetailView: View {
         ]
         
         do {
-            let (success, _) = try await appState.dittoService.addComment(newComment)
-            if success {
+            if let message = try await appState.dittoService.addComment(newComment) {
                 showingAddComment = false
                 newCommentText = ""
-                // Observer will automatically update the comments
             }
         } catch {
-            print("Failed to add comment: \(error)")
+            saveAlertMessage = "Failed to add comment: \(error)"
         }
     }
     

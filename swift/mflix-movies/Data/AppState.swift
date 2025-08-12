@@ -18,7 +18,9 @@ import Foundation
 
         // Set up error handler to avoid circular reference
         dittoService.onError = { [weak self] error in
-            self?.setError(error)
+            Task {
+                await self?.setError(error)
+            }
         }
         
         // Set up movies observer so if movies change the UI will update dynamically
@@ -42,7 +44,7 @@ import Foundation
             let results = try await dittoService.searchMovies(by: query)
             searchResults = results
         } catch {
-            setError(DittoError.general("Search failed: \(error.localizedDescription)"))
+            await setError(DittoError.general("Search failed: \(error.localizedDescription)"))
         }
     }
     
@@ -50,6 +52,7 @@ import Foundation
         searchResults = []
     }
 
+    @MainActor
     func setError(_ error: DittoError?) {
         self.error = error
     }
@@ -59,7 +62,7 @@ import Foundation
             try await dittoService.initialize()
         }
         catch {
-            setError(DittoError.general(error.localizedDescription))
+            await setError(DittoError.general(error.localizedDescription))
         }
     }
 }

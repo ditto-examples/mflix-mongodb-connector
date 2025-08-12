@@ -356,11 +356,8 @@ struct AddMovieView: View {
             "released": ISO8601DateFormatter().string(from: Date()),
         ]
         do {
-            let (success, error) = try await appState.dittoService.addMovie(newMovie)
-            if success {
-                alertMessage = "Movie added successfully!"
-            } else {
-                alertMessage = error ?? "Failed to add movie"
+            if let result = try await appState.dittoService.addMovie(newMovie){
+                alertMessage = "Results: \(result)!"
             }
         } catch {
             alertMessage = "Error: \(error.localizedDescription)"
