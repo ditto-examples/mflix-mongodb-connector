@@ -33,14 +33,13 @@ import Foundation
     func initialize() async throws {
         if !isInitialized {
             guard
-                !databaseConfig.databaseID.contains("insert")
-                    || !databaseConfig.token.contains("insert")
                 !(
                     databaseConfig.databaseID.contains("insert")
                     || databaseConfig.token.contains("insert")
                     || databaseConfig.url.contains("insert")
                 )
             else {
+                print("Ditto configuration is not set up properly in dittoConfig.plist")
                 throw DittoError.configError(
                     "Please configure your Ditto credentials in dittoConfig.plist"
                 )
