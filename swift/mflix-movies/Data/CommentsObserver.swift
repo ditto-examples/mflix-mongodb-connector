@@ -1,10 +1,9 @@
 import SwiftUI
 import DittoSwift
 
-@MainActor
-class CommentsObserver: ObservableObject {
-    @Published var comments: [Comment] = []
-    @Published var isLoading = true
+@Observable class CommentsObserver {
+    var comments: [Comment] = []
+    var isLoading = true
     private var observer: DittoStoreObserver?
 
     func registerObserver(dittoService: DittoService, movieId: String) {

@@ -1,13 +1,12 @@
 import Foundation
 
-@MainActor
-class AppState : ObservableObject {
-    @Published var error: DittoError? = nil
-    @Published var movies: [MovieListing] = []
-    @Published var searchResults: [MovieListing] = []
-    @Published var syncStatusInfos: [SyncStatusInfo] = []
-    @Published var indexes: [IndexInfo] = []
-    @Published var databaseConfig: DatabaseConfig? = nil
+@Observable class AppState {
+    var error: DittoError? = nil
+    var movies: [MovieListing] = []
+    var searchResults: [MovieListing] = []
+    var syncStatusInfos: [SyncStatusInfo] = []
+    var indexes: [IndexInfo] = []
+    var databaseConfig: DatabaseConfig? = nil
     var dittoService: DittoService
 
     init(configuration: DatabaseConfig) {

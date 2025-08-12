@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MoviesListView: View {
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
     @State private var showingAddMovie = false
     @State private var searchText = ""
 
@@ -236,7 +236,7 @@ struct MovieRowView: View {
 
 struct AddMovieView: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
 
     @State private var title = ""
     @State private var plot = ""

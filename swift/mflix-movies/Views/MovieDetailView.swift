@@ -3,8 +3,8 @@ import DittoSwift
 
 struct MovieDetailView: View {
     let movieId: String
-    @EnvironmentObject private var appState: AppState
-    @StateObject private var commentsObserver = CommentsObserver()
+    @Environment(AppState.self) private var appState
+    @State private var commentsObserver = CommentsObserver()
     @State private var movie: Movie?
     @State private var isEditMode = false
     @State private var isLoading = true

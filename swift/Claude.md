@@ -1,7 +1,25 @@
 # MFlix Movies - Swift iOS App
 
 ## Project Overview
-This is a SwiftUI-based iOS application that connects to a MongoDB database through Ditto to display and manage movie information. The app provides a modern, native iOS interface for browsing movies, viewing details, managing movie data, and monitoring sync status.
+This is a SwiftUI-based iOS application that connects to a MongoDB database through Ditto to display and manage movie information. The app provides a modern, native iOS interface for browsing movies, searching content, viewing details, managing movie data, monitoring sync status, and tracking database indexes.
+
+### Modern Swift & Observable Macro Architecture
+This project has been fully migrated to use the new **@Observable macro API** introduced in iOS 17/macOS 14, replacing the legacy ObservableObject protocol. All observable classes use the modern pattern for better performance and cleaner code.
+
+**Key Architecture Decisions:**
+- Uses `@Observable` macro for all observable classes (no ObservableObject)
+- Leverages `@Environment` instead of @EnvironmentObject
+- Uses `@State` for Observable class instances (not @StateObject)
+- No `@Published` property wrappers needed
+- Full Swift 6 compatibility with proper concurrency handling
+
+**Platform Requirements:**
+- **Minimum iOS Version**: 17.0
+- **Minimum macOS Version**: 14.0
+- **Swift Version**: 5.0+ (with @Observable macro support)
+- **Swift 6 Ready**: No concurrency warnings or compatibility issues
+
+For migration details, see: [Apple's Migration Guide](https://developer.apple.com/documentation/swiftui/migrating-from-the-observable-object-protocol-to-the-observable-macro)
 
 ## Project Structure
 
@@ -9,21 +27,24 @@ This is a SwiftUI-based iOS application that connects to a MongoDB database thro
 swift/mflix-movies/
 ├── Assets.xcassets/           		# App icons and color assets
 ├── Data/                      		# Data layer and services
-│   ├── AppState.swift         		# Global app state management
-│   ├── CommentsObserver.swift 		# Real-time comments observer
-│   ├── DatabaseConfig.swift  		# Database configuration
-│   └── DittoService.swift    		# Core data service for Ditto operations
+│   ├── AppState.swift         		# Global app state (@Observable class)
+│   ├── CommentsObserver.swift 		# Real-time comments (@Observable class)
+│   ├── DatabaseConfig.swift  		# Database configuration and validation
+│   └── DittoService.swift    		# Core data service (@Observable class)
 ├── Models/                   		# Data models
-│   ├── Comment.swift         		# Comment data model
-│   ├── Movie.swift           		# Core Movie model
+│   ├── Comment.swift         		# Comment data model with formatting
+│   ├── IndexInfo.swift       		# Database index tracking model
+│   ├── Movie.swift           		# Comprehensive Movie model
 │   ├── MovieListing.swift    		# Movie listing with formatted ratings
-│   └── SyncStatus.swift      		# Sync status information model
+│   ├── SyncStatus.swift      		# Sync status information model
+│   └── SyncStatusInfo.swift  		# Enhanced sync status with peer tracking
 ├── Views/                    		# SwiftUI views
 │   ├── ContentView.swift     		# Main app view with tab navigation
-│   ├── MovieDetailView.swift 		# Detailed movie view with comments
-│   ├── MoviesListView.swift  		# Movie list with row views
-│   └── SystemView.swift      		# System information and sync status
+│   ├── MovieDetailView.swift 		# Detailed movie view with edit mode
+│   ├── MoviesListView.swift  		# Movie list with search functionality
+│   └── SystemView.swift      		# System info, sync status, and indexes
 ├── mflix_moviesApp.swift     		# App entry point
+├── mflix_movies.entitlements 		# App sandboxing and security
 └── dittoConfig.plist         		# Ditto configuration file
 ```
 
@@ -32,136 +53,259 @@ swift/mflix-movies/
 ### 1. Data Models
 
 #### Movie.swift
-- Core `Movie` struct conforming to `Identifiable` and `Codable`
-- Properties: id, title, plot, poster, year, imdbRating, rottenRating, fullplot, countries, rated, genres, runtime
-- Handles mixed data types from MongoDB (especially year field)
+- Comprehensive `Movie` struct conforming to `Identifiable` and `Codable`
+- **Core Properties**: id, title, plot, poster, year, fullplot, countries, rated, genres, runtime
+- **Rating Properties**: imdbRating, rottenRating (Double with precision handling)
+- **Extended Properties**: cast, languages, released (Date), directors, awards
+- **Complex Objects**: 
+  - `imdb`: Contains rating and votes
+  - `tomatoes`: Contains viewer ratings and meter scores
+- **Data Handling**:
+  - Multiple initialization methods (Dictionary, Data, Codable)
+  - ISO8601 date parsing for release dates
+  - Mixed type handling for year field (String/Int)
 
 #### MovieListing.swift
-- Extended movie model for list display
-- Includes computed properties for formatted ratings:
+- Extended movie model optimized for list display
+- **Computed Properties**:
   - `formattedImdbRating`: Returns rating with 1 decimal place
   - `formattedRottenRating`: Returns rating with 1 decimal place
-- Custom initializers for handling mixed data types from MongoDB
+- Custom initializers for handling mixed MongoDB data types
+- Efficient data transformation for UI display
 
 #### Comment.swift
-- Comment data model for movie reviews and discussions
-- Properties: id, movieId, text, timestamp, author
-- Supports real-time updates through Ditto
+- Enhanced comment model for movie reviews
+- **Properties**: id, movieId, text, timestamp, name, email, author
+- **Date Formatting**: Sophisticated date formatter with fallback patterns
+- **Default Values**: 
+  - Anonymous commenting with default email/name
+  - Automatic timestamp generation
+- Real-time update support through Ditto
 
-#### SyncStatus.swift
-- Sync status information model
-- Properties: peerType, id, syncSessionStatus, statusColor, syncedUpToLocalCommitId, lastUpdate
-- Tracks connection status and sync progress
+#### IndexInfo.swift
+- Database index tracking model
+- **Properties**: id, indexId, documentCount, indexByteSize, createdOn
+- Monitors database index creation and performance
+- Used for system diagnostics and optimization
 
-### 2. Data Services & Observers
+#### SyncStatusInfo.swift
+- Enhanced sync status with detailed peer information
+- **Properties**: peerType, id, syncSessionStatus, statusColor, syncedUpToLocalCommitId, lastUpdate
+- **Peer Identification**: Distinguishes cloud servers from peer devices
+- **Visual Status**: Color-coded connection states (green/orange/red/gray)
+- Real-time sync progress tracking
 
-#### DittoService.swift
-- Core service for all database operations
-- **Key Functions:**
-  - `getMovies()`: Fetches all movies with real-time updates
-  - `addMovie()`: Inserts new movie into database
+### 2. Data Services & Observers (Observable Macro Pattern)
+
+#### DittoService.swift (@Observable class)
+- Core service layer for all database operations
+- **Observable Pattern**: Uses `@Observable` macro for automatic UI updates
+- **No @Published needed**: Properties automatically trigger view updates
+- **Movie Operations:**
+  - `getMovies()`: Fetches kid-friendly movies (G/PG rated) with real-time updates
+  - `searchMovies(by title:)`: Full-text search with LIKE queries
+  - `addMovie()`: Inserts new movie with validation
   - `getMovie(by:)`: Retrieves single movie by ID
-  - `updateMovie()`: Updates existing movie data
-  - `deleteMovie()`: Removes movie from database
-  - `getCommentsCount()`: Gets comment count for a movie
-  - `getComments(by:)`: Retrieves comments for a specific movie
-  - `addComment()`: Adds new comment to a movie
+  - `updateMovie()`: Selective field updates
+  - `deleteMovie()`: Safe deletion with cleanup
 
-- **Database Operations:**
-  - Uses parameterized queries for security
-  - Handles mixed data types gracefully
-  - Real-time subscription to movie changes
-  - Proper error handling and fallbacks
+- **Comment Operations:**
+  - `getCommentsCount()`: Efficient count queries
+  - `getComments(by:)`: Movie-specific comment retrieval
+  - `addComment()`: Adds comments with author info
 
-#### CommentsObserver.swift
-- Real-time comments observer using Ditto
-- **Key Features:**
-  - Automatic subscription to comment changes
-  - Real-time updates when comments are added/modified
-  - Efficient memory management with cleanup
+- **Search Features:**
+  - Full-text title search using SQL LIKE with wildcards
+  - Kid-friendly content filtering (G and PG ratings only)
+  - Real-time search result updates
+  - Efficient query optimization
+
+- **Index Management:**
+  - Automatic index creation on `title` and `year` fields
+  - Index monitoring and statistics
+  - Performance optimization through indexing
+
+- **Database Configuration:**
+  - DQL strict mode disabled for flexibility
+  - V3 sync disabled for performance
+  - Parameterized queries for security
+  - WebSocket transport configuration
+
+#### CommentsObserver.swift (@Observable class)
+- Real-time comments synchronization using @Observable macro
+- **Features:**
+  - Automatic subscription lifecycle management
+  - Live updates on comment additions/modifications
+  - Memory-efficient cleanup on deallocation
   - Loading state management
+  - **@MainActor Integration**: Proper UI updates with `Task { @MainActor in }`
 - **Methods:**
-  - `registerObserver()`: Sets up real-time subscription
-  - `cleanup()`: Properly disposes of subscriptions
+  - `registerObserver()`: Establishes real-time subscription
+  - `cleanup()`: Proper resource disposal
 
-#### AppState.swift
-- Global state management using `@StateObject`
-- Manages Ditto service instance
-- Handles app lifecycle and data persistence
-- Coordinates between different views and services
+#### AppState.swift (@Observable class)
+- Centralized state management using `@Observable` macro
+- **State Properties** (no @Published needed):
+  - `error`: App-wide error state
+  - `movies`: Main movie list
+  - `searchResults`: Filtered movie search results
+  - `syncStatusInfos`: Real-time sync status
+  - `indexes`: Database index information
+  - `dittoService`: Service instance reference
+- **Features:**
+  - Automatic UI updates without @Published
+  - Weak reference callbacks prevent retain cycles
+  - Search result caching
+  - App lifecycle coordination
+  - View state synchronization
 
 ### 3. Views Architecture
 
 #### ContentView.swift
-- Main app container view with tab navigation
+- Main navigation container
 - **Tab Structure:**
-  - Movies tab: Displays movie list
-  - Sync Status tab: Shows system sync information
-- Integrates with Ditto service and manages app state
+  - Movies Tab: Browse and search movies
+  - System Tab: Monitor sync and indexes
+- **Observable Integration:**
+  - Uses `@Environment(AppState.self)` for state access
+  - No @EnvironmentObject needed
+- Tab selection state management
 
 #### MoviesListView.swift
-- Displays list of movies using `LazyVStack`
-- **MovieRowView**: Individual movie row component
-  - Async image loading with fallback
-  - Conditional rating display (only shows when ratings exist)
-  - Clean, card-based design
+- Advanced movie browsing interface
+- **Observable Integration:**
+  - Uses `@Environment(AppState.self)` for state access
+  - Direct property access without @ObservedObject
+- **Search Functionality:**
+  - `.searchable()` modifier with real-time updates
+  - Search state management with `onChange()` and `onSubmit()`
+  - Empty search state UI
+  - "No results found" state
+  - Search results display with highlighting
+
+- **MovieRowView Component:**
+  - Async image loading with fallback icons
+  - Conditional rating display
+  - Card-based design with shadows
+  - Navigation to detail view
+
 - **Features:**
-  - Add new movie functionality
-  - Error handling and loading states
+  - Add movie functionality
+  - Pull-to-refresh capability
+  - Loading and error states
   - Empty state management
 
 #### MovieDetailView.swift
-- Detailed view of selected movie with tabbed interface
-- **Tabbed Content:**
-  - Details tab: Movie information and edit mode
-  - Comments tab: Real-time comments with inline view
-- **Features:**
-  - Edit movie information
-  - Real-time comments using CommentsObserver
-  - Large, centered loading ProgressView
-  - Async image loading with fallbacks
+- Comprehensive movie details interface
+- **Observable Integration:**
+  - Uses `@Environment(AppState.self)` for app state
+  - `@State private var commentsObserver = CommentsObserver()` for local observable
+  - No @StateObject or @ObservedObject needed
+- **Segmented Interface:**
+  - Details Tab: Movie information display
+  - Comments Tab: Real-time comment section
+
+- **Edit Mode System:**
+  - Full movie field editing
+  - TextEditor for multi-line fields
+  - TextField for single-line inputs
+  - Countries array parsing from comma-separated strings
+  - Selective field updates (only changed fields)
+  - Save/Cancel functionality with alerts
+
+- **Comments Features:**
+  - `CommentsInlineView`: Embedded comment display
+  - `AddCommentView`: Modal sheet for new comments
+  - Real-time updates via CommentsObserver (@Observable class)
+  - Loading states and error handling
+
+- **UI Components:**
+  - `DetailRow`: Consistent field display
+  - Large centered ProgressView for loading
+  - Async image with multiple fallback states
+  - Alert system for confirmations
 
 #### SystemView.swift
-- System information and sync status display
-- **Features:**
-  - Sync status monitoring
-  - Connected peers information
-  - Real-time sync updates
-  - System health indicators
+- System diagnostics and monitoring
+- **Observable Integration:**
+  - Uses `@Environment(AppState.self)` throughout all subviews
+  - Real-time updates without manual observation
+- **Segmented Interface:**
+  - Sync Status Tab: Peer connections and sync progress
+  - Indexes Tab: Database index management
 
-### 4. Key Features
+- **Sync Status Features:**
+  - `SyncStatusRowView`: Individual peer display
+  - `StatusIndicator`: Color-coded connection status
+  - Real-time peer discovery
+  - Cloud server identification
+  - Commit ID tracking with proper formatting
+  - Last update timestamps
 
-#### Rating Display Logic
-The app intelligently handles movie ratings:
-- Only displays ratings when they actually exist
-- Shows both ratings in HStack when available
-- Shows single rating when only one exists
-- No ratings section when neither exists
-- All ratings formatted to 1 decimal place
+- **Index Management:**
+  - `IndexesView`: List of database indexes
+  - `IndexRowView`: Index details and statistics
+  - Document count display
+  - Index size monitoring
+  - Creation date tracking
 
-#### Real-Time Comments System
-- **CommentsObserver**: Automatically updates comments in real-time
-- **Inline Comments View**: Integrated comments display within movie details
-- **Add Comments**: Users can add new comments to movies
-- **Loading States**: Proper loading indicators for comment operations
+### 4. Advanced Features
 
-#### Sync Status Monitoring
-- **Real-time Updates**: Live sync status information
-- **Peer Connection**: Shows connected peers and their status
-- **Commit Tracking**: Displays sync progress and commit numbers
-- **Status Indicators**: Visual indicators for connection status
+#### Search System
+- **Implementation Details:**
+  - Real-time search as user types
+  - SQL LIKE queries with % wildcards
+  - Case-insensitive matching
+  - Kid-friendly content filtering
+  - Search state persistence
 
-#### Image Handling
-- Async image loading with proper error handling
-- Fallback to system icon when poster fails to load
-- Loading states with progress indicators
-- Optimized image sizing and caching
+- **UI States:**
+  - Active search with results
+  - Empty search (no query)
+  - No results found
+  - Loading during search
 
-#### Data Type Handling
-- Robust handling of mixed MongoDB data types
-- Year field supports both Int and String
-- Rating fields handle precision issues gracefully
-- Proper type conversion for sync status data
+#### Edit Mode System
+- **Field Management:**
+  - Separate state variables for each field
+  - Only updates modified fields
+  - Data validation and type conversion
+  - Complex field parsing (arrays, dates)
+
+- **User Experience:**
+  - Edit/Done mode toggle
+  - Confirmation alerts
+  - Error handling
+  - Undo capability through cancel
+
+#### Error Handling & Configuration
+- **DittoError Enum:**
+  - `general`: Generic errors
+  - `configError`: Configuration issues
+  - Proper error propagation
+
+- **Configuration Validation:**
+  - Placeholder text detection
+  - Token validation
+  - WebSocket URL verification
+  - Development mode detection
+
+#### UI Components Library
+- **Reusable Components:**
+  - `MovieRowView`: Movie list items
+  - `CommentRowView`: Comment display
+  - `IndexRowView`: Index information
+  - `SyncStatusRowView`: Peer status
+  - `DetailRow`: Key-value display
+  - `StatusIndicator`: Connection status
+  - `AddCommentView`: Comment input modal
+  - `CommentsInlineView`: Embedded comments
+
+- **Design Patterns:**
+  - Card-based layouts with shadows
+  - Consistent spacing and typography
+  - Loading animations with scale effects
+  - Color-coded status indicators
 
 ## Database Schema
 
@@ -179,7 +323,22 @@ The app intelligently handles movie ratings:
   "countries": [String]?,
   "rated": String?,
   "genres": [String]?,
-  "runtime": Int?
+  "runtime": Int?,
+  "cast": [String]?,
+  "languages": [String]?,
+  "released": Date?,
+  "directors": [String]?,
+  "awards": String?,
+  "imdb": {
+    "rating": Double?,
+    "votes": Int?
+  },
+  "tomatoes": {
+    "viewer": {
+      "rating": Double?,
+      "meter": Int?
+    }
+  }
 }
 ```
 
@@ -190,6 +349,8 @@ The app intelligently handles movie ratings:
   "movie_id": String,
   "text": String,
   "timestamp": Date,
+  "name": String (default: "Anonymous"),
+  "email": String (default: "anonymous@mflix.com"),
   "author": String?
 }
 ```
@@ -206,126 +367,421 @@ The app intelligently handles movie ratings:
 }
 ```
 
+### Index Info Collection
+```swift
+{
+  "_id": String,
+  "indexId": String,
+  "documentCount": Int,
+  "indexByteSize": Int,
+  "createdOn": Date
+}
+```
+
 ## Ditto Integration
 
 ### Configuration
-- Uses `dittoConfig.plist` for Ditto setup
-- Real-time synchronization with MongoDB
-- Subscription-based data updates
-- Efficient peer-to-peer sync
+- **dittoConfig.plist**: Central configuration file
+- **Authentication**: Token-based with expiration handling
+- **Transport**: WebSocket URL configuration
+- **Sync Settings**: V3 sync disabled, DQL strict mode off
+- **Security**: App sandboxing enabled
 
-### Query Patterns
-- Parameterized queries for security
-- Real-time subscriptions for live updates
-- Proper error handling and fallbacks
-- Optimized subscription management
+### Database Operations
+- **Query Types:**
+  - Parameterized queries for injection prevention
+  - JOIN operations for related data
+  - Projection for field selection
+  - Filtering with WHERE clauses
 
-### Observer Pattern
-- **CommentsObserver**: Real-time comment updates
-- **Movies Observer**: Live movie data changes
-- **Sync Status Observer**: Real-time sync information
-- Proper cleanup and memory management
+- **Subscriptions:**
+  - Real-time movie updates
+  - Live comment synchronization
+  - Sync status monitoring
+  - Index tracking
+
+### Index Strategy
+- **Created Indexes:**
+  - `title`: For search optimization
+  - `year`: For chronological queries
+- **Benefits:**
+  - Faster search performance
+  - Improved query efficiency
+  - Reduced resource usage
+
+### Observer Patterns
+- **Implementation:**
+  - CommentsObserver for comment updates
+  - Movie subscription in DittoService
+  - Sync status real-time monitoring
+  - Index information tracking
+
+- **Lifecycle Management:**
+  - Automatic cleanup in `deinit`
+  - Manual cleanup in `onDisappear`
+  - Weak reference prevention of retain cycles
+
+## Architecture Patterns
+
+### Modern Observable Architecture (iOS 17+)
+- **Views**: SwiftUI declarative UI with @Environment
+- **Observable Classes**: Using @Observable macro (not ObservableObject)
+- **Models**: Plain structs with Codable
+- **State Management**: 
+  - `@State` for Observable class instances
+  - `@Environment` for shared state access
+  - No @StateObject, @ObservedObject, or @EnvironmentObject
+
+### Dependency Injection Pattern
+- **Environment Injection**: `.environment(appState)` in app root
+- **Access Pattern**: `@Environment(AppState.self)` in views
+- **Local Observables**: `@State private var observer = MyObservable()`
+
+### Repository Pattern
+- **DittoService**: Data access abstraction (@Observable class)
+- **Observers**: Real-time data streams (@Observable classes)
+- **AppState**: State coordination (@Observable class)
+
+### Error Handling
+- **Result Types**: Success/failure handling
+- **Custom Errors**: DittoError enum
+- **Alert System**: User-facing error display
+- **Fallback Values**: Graceful degradation
 
 ## Development Guidelines
 
 ### Adding New Features
-1. **Models**: Extend existing models or create new ones in `Models/`
-2. **Services**: Add new methods to `DittoService.swift`
-3. **Observers**: Create new observers for real-time data in `Data/`
-4. **Views**: Create new SwiftUI views in `Views/`
-5. **State**: Update `AppState.swift` if global state changes needed
+1. **Models**: Create plain structs in `Models/` with Codable conformance
+2. **Services**: Extend `DittoService.swift` (@Observable class) with new methods
+3. **Observers**: Create new @Observable classes in `Data/` for real-time features
+4. **Views**: Add SwiftUI views using `@Environment(AppState.self)` pattern
+5. **State**: Update `AppState.swift` properties (no @Published needed)
 
-### Data Handling Best Practices
-- Always use parameterized queries
-- Handle mixed data types gracefully
-- Provide fallbacks for missing data
-- Use computed properties for data formatting
-- Implement proper observer cleanup
+### Code Quality Standards
+- **Type Safety**: Use proper type checking with `as?`
+- **Memory Management**: 
+  - Implement cleanup in deinit
+  - Use weak references in closures `[weak self]`
+  - Proper @MainActor usage for UI updates
+- **Observable Best Practices**:
+  - Always use @Observable macro for observable classes
+  - No @Published properties needed
+  - Use @Environment for shared state
+  - Use @State for local Observable instances
+- **Error Handling**: Never force unwrap, use guard/if let
+- **Performance**: Use LazyVStack for lists
+- **Security**: Always use parameterized queries
 
-### UI/UX Patterns
-- Card-based design for movie items
-- Conditional rendering for optional data
-- Async image loading with proper states
-- Consistent typography and spacing
-- Tabbed interfaces for complex content
-- Real-time data updates with loading states
+### UI/UX Guidelines
+- **Design System**:
+  - Card-based components
+  - Consistent spacing (8pt grid)
+  - Shadow effects for depth
+  - Rounded corners (12pt radius)
+
+- **Loading States**:
+  - ProgressView for async operations
+  - Skeleton screens for content
+  - Error states with retry options
+
+- **Navigation**:
+  - Tab-based main navigation
+  - Sheet presentations for modals
+  - NavigationStack for hierarchical flow
+
+## Observable Macro Code Examples
+
+### Creating an Observable Class
+```swift
+// Modern pattern (iOS 17+)
+@Observable class MyService {
+    var data: [Item] = []        // No @Published needed
+    var isLoading = false         // Automatically observable
+    var error: Error?             // All properties are observable
+    
+    func fetchData() async {
+        isLoading = true
+        // ... fetch logic
+        isLoading = false
+    }
+}
+
+// Legacy pattern (deprecated)
+class MyService: ObservableObject {
+    @Published var data: [Item] = []
+    @Published var isLoading = false
+    @Published var error: Error?
+}
+```
+
+### Using Observable in App Root
+```swift
+// Modern pattern
+@main
+struct MyApp: App {
+    @State private var appState = AppState()  // @State, not @StateObject
+    
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .environment(appState)  // Pass to environment
+        }
+    }
+}
+
+// Legacy pattern (deprecated)
+@StateObject private var appState = AppState()
+ContentView().environmentObject(appState)
+```
+
+### Accessing Observable in Views
+```swift
+// Modern pattern
+struct MyView: View {
+    @Environment(AppState.self) private var appState  // Type-safe access
+    
+    var body: some View {
+        Text(appState.title)  // Direct property access
+    }
+}
+
+// Legacy pattern (deprecated)
+@EnvironmentObject var appState: AppState
+```
+
+### Local Observable State
+```swift
+// Modern pattern
+struct DetailView: View {
+    @State private var viewModel = DetailViewModel()  // @State for local Observable
+    
+    var body: some View {
+        // viewModel properties automatically trigger updates
+    }
+}
+
+// Legacy pattern (deprecated)
+@StateObject private var viewModel = DetailViewModel()
+```
+
+### Async Updates with @MainActor
+```swift
+@Observable class DataService {
+    var items: [Item] = []
+    
+    func loadItems() async {
+        let fetchedItems = await fetchFromAPI()
+        
+        // Update UI on main thread
+        await MainActor.run {
+            self.items = fetchedItems
+        }
+        
+        // Or use Task with @MainActor
+        Task { @MainActor in
+            self.items = fetchedItems
+        }
+    }
+}
+```
+
+### Weak References in Closures
+```swift
+@Observable class AppState {
+    var dittoService: DittoService
+    
+    init() {
+        dittoService = DittoService()
+        
+        // Prevent retain cycles with weak self
+        dittoService.onError = { [weak self] error in
+            self?.handleError(error)
+        }
+        
+        dittoService.onUpdate = { [weak self] data in
+            self?.updateData(data)
+        }
+    }
+}
+```
 
 ## Common Issues & Solutions
 
-### Rating Display Issues
-- **Problem**: Ratings showing as "N/A" when data exists
-- **Solution**: Use `formattedImdbRating` and `formattedRottenRating` computed properties
+### Search Not Working
+- **Problem**: Search returns no results despite matching titles
+- **Solution**: Ensure database indexes are created on title field
+
+### Edit Mode Not Saving
+- **Problem**: Changes in edit mode don't persist
+- **Solution**: Check that only modified fields are being updated
+
+### Comments Not Real-Time
+- **Problem**: New comments don't appear immediately
+- **Solution**: Verify CommentsObserver is registered and not cleaned up prematurely
+
+### Sync Status Not Updating
+- **Problem**: Peer connections not showing
+- **Solution**: Check WebSocket configuration and network permissions
 
 ### Type Conversion Errors
-- **Problem**: `Int($0.value["field"])` casting failures
-- **Solution**: Use proper type checking with `as?` and handle multiple possible types
+- **Problem**: Crashes when parsing MongoDB data
+- **Solution**: Use safe casting with fallback values
 
-### Image Loading Failures
-- **Problem**: Movie posters not displaying
-- **Solution**: Check URL validity and provide fallback system icons
+## Performance Optimization
 
-### Comments Not Updating
-- **Problem**: Comments not reflecting real-time changes
-- **Solution**: Ensure CommentsObserver is properly registered and cleanup is called
+### List Rendering
+- LazyVStack for on-demand rendering
+- Image caching with AsyncImage
+- Automatic minimal view updates (no @Published needed)
 
-### Sync Status Display Issues
-- **Problem**: Commit numbers showing with commas
-- **Solution**: Use NumberFormatter with `usesGroupingSeparator = false`
+### Data Loading
+- Pagination support ready
+- Efficient queries with projections
+- Index usage for common queries
 
-## Performance Considerations
+### Memory Management
+- Subscription cleanup on view dismissal
+- Weak references in closures
+- Automatic observer deallocation
 
-- Uses `LazyVStack` for efficient list rendering
-- Async image loading to prevent UI blocking
-- Real-time updates without manual refresh
-- Efficient data subscription management
-- Proper observer cleanup to prevent memory leaks
-- Optimized sync status queries
+### Real-Time Updates
+- Debounced search queries
+- Selective field updates
+- Efficient diff algorithms in Ditto
 
-## Testing
+## Testing Strategy
 
-- Unit tests for data models
-- UI tests for view interactions
-- Integration tests for Ditto service
-- Observer pattern testing
-- Mock data support for development
-- Sync status testing
+### Unit Tests
+- Model serialization/deserialization
+- Service method validation
+- Date formatting edge cases
+- Search query generation
+
+### UI Tests
+- Navigation flow testing
+- Search functionality
+- Edit mode operations
+- Comment submission
+
+### Integration Tests
+- Ditto sync verification
+- Real-time update testing
+- Error scenario handling
+- Network failure recovery
+
+## Security Considerations
+
+### Data Protection
+- App sandboxing enabled
+- Parameterized queries only
+- No hardcoded credentials
+- Token-based authentication
+
+### Content Filtering
+- Kid-friendly content (G/PG only)
+- Appropriate content validation
+- User input sanitization
+
+### Error Handling
+- No sensitive data in logs
+- Generic error messages to users
+- Proper error recovery
 
 ## Dependencies
 
-- **SwiftUI**: Native iOS UI framework
-- **DittoSwift**: MongoDB synchronization and real-time updates
+- **SwiftUI**: Native iOS UI framework (iOS 17.0+ for @Observable)
+- **DittoSwift**: MongoDB sync and real-time updates
 - **Foundation**: Core iOS functionality
-- **Combine**: Reactive programming for state management
+- **Observation Framework**: @Observable macro support (iOS 17.0+)
 
 ## Recent Updates
 
-### Comments System
-- Added real-time comments functionality
-- Implemented CommentsObserver for live updates
-- Integrated comments inline within movie details
-- Added comment management and display
+### Observable Macro Migration (iOS 17+)
+- **Complete migration** from ObservableObject to @Observable
+- All observable classes now use @Observable macro
+- Views use @Environment instead of @EnvironmentObject
+- @State for Observable instances (not @StateObject)
+- No @Published properties needed
+- Swift 6 compatibility with proper concurrency
 
-### Sync Status Monitoring
-- Added comprehensive sync status tracking
-- Real-time peer connection monitoring
-- Commit number formatting improvements
-- Enhanced system health indicators
+### Search Functionality
+- Full-text search implementation
+- Real-time search results
+- Kid-friendly content filtering
+- Search state management
 
-### UI Improvements
-- Larger, centered ProgressView for loading states
-- Tabbed interface for movie details
-- Improved navigation and spacing
-- Better error handling and loading states
+### Database Indexing
+- Automatic index creation
+- Index monitoring UI
+- Performance optimization
+
+### Enhanced Edit Mode
+- Comprehensive field editing
+- Selective updates
+- Validation and error handling
+
+### Improved Comments
+- Enhanced comment model with @Observable
+- Better date formatting
+- Anonymous commenting support
+- @MainActor integration for UI updates
 
 ## Future Enhancements
 
-- Search and filtering capabilities
-- User authentication and favorites
-- Offline mode support
-- Enhanced movie metadata
-- Social features (reviews, ratings)
-- Push notifications for updates
-- Advanced sync analytics
-- Comment moderation tools
-- Movie recommendations
-- User profiles and preferences
+### Planned Features
+- Advanced search filters (genre, year, rating)
+- User authentication system
+- Favorites and watchlist
+- Offline mode improvements
+- Data export/import
+
+### UI Improvements
+- Dark mode support
+- Accessibility enhancements
+- Haptic feedback
+- Animation refinements
+
+### Performance
+- Image preloading
+- Query result caching
+- Background sync optimization
+- Batch operations support
+
+### Social Features
+- User profiles
+- Movie reviews and ratings
+- Social sharing
+- Friend recommendations
+
+### Analytics
+- Usage tracking
+- Performance monitoring
+- Sync analytics dashboard
+- Error reporting
+
+## Troubleshooting
+
+### Build Issues
+- Clean build folder: Cmd+Shift+K
+- Reset package caches: File > Packages > Reset Package Caches
+- Check minimum iOS version (15.0)
+
+### Runtime Issues
+- Enable Ditto logging for debugging
+- Check network permissions
+- Verify configuration file values
+- Monitor memory usage in Instruments
+
+### Sync Issues
+- Verify internet connectivity
+- Check WebSocket URL validity
+- Ensure proper authentication
+- Review firewall settings
+
+## Support
+
+For issues or questions:
+- Check Ditto documentation
+- Review MongoDB connector guides
+- Consult SwiftUI resources
+- Contact development team

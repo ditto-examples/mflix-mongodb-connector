@@ -1,6 +1,6 @@
 import Foundation
 
-struct SyncStatusInfo: Identifiable {
+struct SyncStatusInfo: Identifiable, Equatable {
     let id: String
     let isDittoServer: Bool
     let syncSessionStatus: String
@@ -35,7 +35,16 @@ struct SyncStatusInfo: Identifiable {
             return nil
         }
     }
-    
+
+    static func == (lhs: SyncStatusInfo, rhs: SyncStatusInfo) -> Bool {
+        // Compare the properties that define equality
+        return lhs.id == rhs.id &&
+        lhs.peerType == rhs.peerType &&
+        // Include other properties that define equality
+        lhs.syncSessionStatus == rhs.syncSessionStatus &&
+        lhs.syncedUpToLocalCommitId == rhs.syncedUpToLocalCommitId
+    }
+
     var formattedLastUpdate: String {
         guard let lastUpdateReceivedTime = lastUpdateReceivedTime else {
             return "Never"

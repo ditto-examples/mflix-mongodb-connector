@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SystemView: View {
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
     @State private var selectedTab = 0
     @State private var lastRefresh = Date()
     
@@ -29,7 +29,7 @@ struct SystemView: View {
 }
 
 struct SyncStatusView: View {
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
     @State private var lastRefresh = Date()
     
     var body: some View {
@@ -70,15 +70,15 @@ struct SyncStatusView: View {
                 .font(.caption)
                 .foregroundColor(.secondary)
         }
-        .onReceive(appState.$syncStatusInfos) { _ in
+        .onChange(of: appState.syncStatusInfos) {
             lastRefresh = Date()
         }
     }
 }
 
 struct IndexesView: View {
-    @EnvironmentObject private var appState: AppState
-    
+    @Environment(AppState.self) private var appState
+
     var body: some View {
         Group {
             if appState.indexes.isEmpty {

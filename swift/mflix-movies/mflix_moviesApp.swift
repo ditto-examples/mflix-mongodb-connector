@@ -3,14 +3,14 @@ import SwiftUI
 @main
 struct mflix_moviesApp: App {
     @State private var errorMessage: String?
-    @StateObject private var appState: AppState = {
+    @State private var appState: AppState = {
         let config = loadDatabaseConfig()
         return AppState(configuration: config)
     }()
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(appState)
+                .environment(appState)
         }
     }
 

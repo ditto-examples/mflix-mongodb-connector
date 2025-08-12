@@ -2,8 +2,8 @@ import Combine
 import DittoSwift
 import Foundation
 
-@MainActor
-class DittoService: ObservableObject {
+
+@Observable class DittoService {
     private var ditto: Ditto?
     private var moviesSubscription: DittoSyncSubscription?
     private var commentsSubscription: DittoSyncSubscription?
@@ -12,7 +12,7 @@ class DittoService: ObservableObject {
     private var indexesObserver: DittoStoreObserver?
     var databaseConfig: DatabaseConfig
 
-    @Published var isInitialized = false
+    var isInitialized = false
 
     // Closure to handle errors without circular reference
     var onError: ((DittoError) -> Void)?
