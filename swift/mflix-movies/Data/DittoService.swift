@@ -341,6 +341,25 @@ class DittoService: ObservableObject {
             return nil
         }
     }
+    
+    func searchMovies(by title: String) async throws -> [MovieListing] {
+        guard let ditto = ditto else {
+            return []
+        }
+        
+        guard !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return []
+        }
+        
+        let results = try await ditto.store.execute(
+            query: "SELECT _id, plot, poster, title, year, imdb.rating AS imdbRating, tomatoes.viewer.rating as rottenRating FROM movies WHERE title LIKE :searchTerm AND (rated = 'G' OR rated = 'PG') ORDER BY year DESC",
+            arguments: ["searchTerm": "%\(title)%"]
+        )
+        
+        return results.items.compactMap { item in
+            return MovieListing(item.jsonData())
+        }
+    }
 
 
     deinit {

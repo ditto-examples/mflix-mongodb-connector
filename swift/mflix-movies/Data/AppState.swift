@@ -4,6 +4,7 @@ import Foundation
 class AppState : ObservableObject {
     @Published var error: DittoError? = nil
     @Published var movies: [MovieListing] = []
+    @Published var searchResults: [MovieListing] = []
     @Published var syncStatusInfos: [SyncStatusInfo] = []
     @Published var indexes: [IndexInfo] = []
     @Published var databaseConfig: DatabaseConfig? = nil
@@ -35,6 +36,19 @@ class AppState : ObservableObject {
         dittoService.onIndexesUpdate = { [weak self] indexes in
             self?.indexes = indexes
         }
+    }
+    
+    func searchMovies(query: String) async {
+        do {
+            let results = try await dittoService.searchMovies(by: query)
+            searchResults = results
+        } catch {
+            setError(DittoError.general("Search failed: \(error.localizedDescription)"))
+        }
+    }
+    
+    func clearSearch() {
+        searchResults = []
     }
 
     func setError(_ error: DittoError?) {

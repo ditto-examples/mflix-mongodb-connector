@@ -3,12 +3,17 @@ import SwiftUI
 struct MoviesListView: View {
     @EnvironmentObject private var appState: AppState
     @State private var showingAddMovie = false
+    @State private var searchText = ""
 
     var body: some View {
         NavigationStack {
             Group {
                 if !appState.dittoService.isInitialized {
                     loadingView
+                } else if isSearchActive && appState.searchResults.isEmpty && !searchText.isEmpty {
+                    searchEmptyStateView
+                } else if isSearchActive {
+                    searchResultsList
                 } else if appState.movies.isEmpty {
                     if (appState.error != nil) {
                         errorStateView
@@ -20,6 +25,17 @@ struct MoviesListView: View {
                 }
             }
             .navigationTitle("Kid Movies")
+            .searchable(text: $searchText, prompt: "Search movies by title")
+            .onSubmit(of: .search) {
+                performSearch()
+            }
+            .onChange(of: searchText) { _, newValue in
+                if newValue.isEmpty {
+                    appState.clearSearch()
+                } else {
+                    performSearch()
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { showingAddMovie = true }) {
@@ -43,6 +59,21 @@ struct MoviesListView: View {
                     Text(errorMessage)
                 }
             }
+        }
+    }
+    
+    private var isSearchActive: Bool {
+        !searchText.isEmpty
+    }
+    
+    private func performSearch() {
+        guard !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            appState.clearSearch()
+            return
+        }
+        
+        Task {
+            await appState.searchMovies(query: searchText)
         }
     }
 
@@ -94,6 +125,39 @@ struct MoviesListView: View {
             }
             .padding()
         }
+    }
+    
+    private var searchResultsList: some View {
+        ScrollView {
+            LazyVStack(spacing: 16) {
+                ForEach(appState.searchResults) { movie in
+                    NavigationLink(
+                        destination: MovieDetailView(movieId: movie.id)
+                    ) {
+                        MovieRowView(movie: movie)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .contentShape(Rectangle())
+                }
+            }
+            .padding()
+        }
+    }
+    
+    private var searchEmptyStateView: some View {
+        VStack(spacing: 20) {
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 50))
+                .foregroundColor(.gray)
+            Text("No movies found")
+                .font(.title2)
+                .foregroundColor(.secondary)
+            Text("Try searching for a different title")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding()
     }
 }
 
