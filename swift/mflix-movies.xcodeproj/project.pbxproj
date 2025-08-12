@@ -75,12 +75,20 @@
 			);
 			target = 0D28580A2E4686FA00BF0330 /* mflix-moviesUITests */;
 		};
+		0D6125D72E4B8D9E00C2F357 /* Exceptions for "mflix-movies" folder in "mflix-movies" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 0D2857F22E4686F900BF0330 /* mflix-movies */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0D2857F52E4686F900BF0330 /* mflix-movies */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				0D6125D72E4B8D9E00C2F357 /* Exceptions for "mflix-movies" folder in "mflix-movies" target */,
 				0D2858402E4687D900BF0330 /* Exceptions for "mflix-movies" folder in "mflix-moviesTests" target */,
 				0D2858412E4687D900BF0330 /* Exceptions for "mflix-movies" folder in "mflix-moviesUITests" target */,
 			);
@@ -481,8 +489,11 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "mflix-movies/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "MFlix Movies";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Uses Bluetooth to connect and sync with nearby devices";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Uses Bluetooth to connect and sync with nearby devices";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -522,8 +533,11 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "mflix-movies/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "MFlix Movies";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Uses Bluetooth to connect and sync with nearby devices";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Uses Bluetooth to connect and sync with nearby devices";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
