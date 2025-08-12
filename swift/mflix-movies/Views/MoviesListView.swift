@@ -37,12 +37,21 @@ struct MoviesListView: View {
                 }
             }
             .toolbar {
+                #if os(iOS)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { showingAddMovie = true }) {
                         Image(systemName: "plus.circle.fill")
                             .font(.title2)
                     }
                 }
+                #else
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: { showingAddMovie = true }) {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.title2)
+                    }
+                }
+                #endif
             }
             .sheet(isPresented: $showingAddMovie) {
                 AddMovieView()
@@ -228,7 +237,11 @@ struct MovieRowView: View {
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+        #if os(iOS)
         .background(Color(UIColor.secondarySystemBackground))
+        #else
+        .background(Color(NSColor.controlBackgroundColor))
+        #endif
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
     }
@@ -253,23 +266,32 @@ struct AddMovieView: View {
                 Section("Basic Information") {
                     TextField("Title", text: $title)
                     TextField("Year", text: $year)
+                        #if os(iOS)
                         .keyboardType(.numberPad)
+                        #endif
                     TextField("Plot", text: $plot, axis: .vertical)
                         .lineLimit(3...6)
                 }
 
                 Section("Additional Details") {
                     TextField("Poster URL", text: $poster)
+                        #if os(iOS)
                         .keyboardType(.URL)
                         .autocapitalization(.none)
+                        #else
+                        .disableAutocorrection(true)
+                        #endif
                     TextField("Full Plot", text: $fullplot, axis: .vertical)
                         .lineLimit(4...8)
                     TextField("Countries (comma-separated)", text: $countries)
                 }
             }
             .navigationTitle("Add Movie")
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            #endif
             .toolbar {
+                #if os(iOS)
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
                         dismiss()
@@ -283,6 +305,21 @@ struct AddMovieView: View {
                     }
                     .disabled(title.isEmpty || year.isEmpty || plot.isEmpty)
                 }
+                #else
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save") {
+                        Task {
+                            await saveMovie()
+                        }
+                    }
+                    .disabled(title.isEmpty || year.isEmpty || plot.isEmpty)
+                }
+                #endif
             }
             .alert("Add Movie", isPresented: $showingAlert) {
                 Button("OK") {

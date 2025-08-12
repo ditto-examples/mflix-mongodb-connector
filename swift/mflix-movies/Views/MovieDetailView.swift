@@ -128,8 +128,11 @@ struct MovieDetailView: View {
                 }
             }
         }
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         .toolbar {
+            #if os(iOS)
             ToolbarItem(placement: .navigationBarTrailing) {
                 if movie != nil && selectedTab == 0 {
                     Button(action: toggleEditMode) {
@@ -156,6 +159,34 @@ struct MovieDetailView: View {
                     }
                 }
             }
+            #else
+            ToolbarItem(placement: .primaryAction) {
+                if movie != nil && selectedTab == 0 {
+                    Button(action: toggleEditMode) {
+                        Image(systemName: isEditMode ? "xmark.circle" : "pencil")
+                            .font(.body)
+                    }
+                }
+            }
+            ToolbarItem(placement: .confirmationAction) {
+                if isEditMode && selectedTab == 0 {
+                    Button("Save") {
+                        Task {
+                            await saveChanges()
+                        }
+                    }
+                    .fontWeight(.semibold)
+                }
+            }
+            ToolbarItem(placement: .primaryAction) {
+                if selectedTab == 1 {
+                    Button(action: { showingAddComment = true }) {
+                        Image(systemName: "plus.circle")
+                            .font(.body)
+                    }
+                }
+            }
+            #endif
         }
         .task {
             do {
@@ -260,7 +291,9 @@ struct MovieDetailView: View {
                 
                 TextField("Year", text: $editYear)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    #if os(iOS)
                     .keyboardType(.numberPad)
+                    #endif
                 
                 VStack(alignment: .leading) {
                     Text("Plot")
@@ -276,8 +309,12 @@ struct MovieDetailView: View {
                 
                 TextField("Poster URL", text: $editPoster)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    #if os(iOS)
                     .keyboardType(.URL)
                     .autocapitalization(.none)
+                    #else
+                    .disableAutocorrection(true)
+                    #endif
                 
                 VStack(alignment: .leading) {
                     Text("Full Plot")
@@ -487,8 +524,11 @@ struct AddCommentView: View {
                 }
             }
             .navigationTitle("Add Comment")
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            #endif
             .toolbar {
+                #if os(iOS)
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
                         onCancel()
@@ -501,6 +541,20 @@ struct AddCommentView: View {
                     .fontWeight(.semibold)
                     .disabled(commentText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }
+                #else
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        onCancel()
+                    }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Submit") {
+                        onSubmit()
+                    }
+                    .fontWeight(.semibold)
+                    .disabled(commentText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                }
+                #endif
             }
         }
     }

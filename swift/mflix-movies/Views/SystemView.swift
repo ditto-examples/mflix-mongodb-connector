@@ -57,7 +57,9 @@ struct SyncStatusView: View {
                     }
                 }
                 .listStyle(.plain)
+                #if os(iOS)
                 .listSectionSpacing(.compact)
+                #endif
             }
         }
     }
@@ -104,7 +106,9 @@ struct IndexesView: View {
                     }
                 }
                 .listStyle(.plain)
+                #if os(iOS)
                 .listSectionSpacing(.compact)
+                #endif
             }
         }
     }
