@@ -11,9 +11,8 @@ This is a sample application that demonstrates how to use the MongoDB Connector 
 - [MongoDB Shell Installed](https://www.mongodb.com/docs/mongodb-shell/)
 
 ## SwiftUI 
-
 - Basic understanding of Swift and SwiftUI for SwiftUI app
-- Xcode 15 or higher with Command Line Tools installed (Tested with XCode 16)
+- Xcode 16.4 or higher with Command Line Tools installed (Tested with Xcode 16.4 & Xcode 26 beta 4)
 
 ## Android with Jetpack Compose
 - Basic understanding of Kotlin and Jetpack Compose for Android app
@@ -22,7 +21,7 @@ This is a sample application that demonstrates how to use the MongoDB Connector 
 ## Flutter 
 - Basic understanding of Dart and Flutter
 - Tested with Flutter 3.27.4 and Dart 3.6.2
-- Xcode 15 or higher with Command Line Tools installed (Tested with XCode 16)
+- Xcode 15 or higher with Command Line Tools installed (Tested with Xcode 16)
 - Android SDK installed (v34 or higher) - (Tested with Android Studio Meerkat)
 - IDE of choice (Visual Studio Code, Android Studio "Koala" 2024.1.1 or higher, Cursor, etc)
 
