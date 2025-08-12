@@ -91,7 +91,7 @@ class _CollectionItemBuilderState extends State<CollectionItemBuilder> {
   }
 
   Widget get _warningMessage => Scaffold(
-        appBar: AppBar(title: const Text("Movie")),
+        appBar: AppBar(title: const Text("Error")),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center, // Center vertically

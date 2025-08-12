@@ -11,10 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  provider: ^6.1.1
-  http: ^1.1.0
+  provider: ^6.1.5
+  http: ^1.5.0
   cached_network_image: ^3.3.0
-  ditto_live: ^4.10.1
+  ditto_live: ^4.12.0-preview.3
   permission_handler: ^12.0.0+1
 
 dev_dependencies:

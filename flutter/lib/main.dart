@@ -12,10 +12,10 @@ import 'providers/ditto_provider.dart';
 //https://docs.ditto.live/cloud/portal/getting-sdk-connection-details
 //https://docs.ditto.live/sdk/latest/install-guides/flutter
 //
-const _appId = 'insert Ditto Portal App ID here';
-const _token = 'insert Ditto Portal Online Playground Authentication Token here';
-const _authUrl = 'insert Ditto Portal Auth URL here';
-const _websocketUrl = 'insert Ditto Portal Websocket URL here';
+const _appId = 'a48453d8-c2c3-495b-9f36-80189bf5e135';
+const _token = '8304ca7f-e843-47ed-a0d8-32cc5ff1be7e';
+const _authUrl = 'https://m1tpgv.cloud.dittolive.app';
+const _websocketUrl = 'wss://m1tpgv.cloud.dittolive.app';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -125,7 +125,7 @@ class _MoviesExampleState extends State<MoviesExample> {
   }
 
   Widget get _warningMessage => Scaffold(
-        appBar: AppBar(title: const Text("Children Movies")),
+        appBar: AppBar(title: const Text("Kid Movies")),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -187,7 +187,7 @@ struct SyncStatusRowView: View {
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundColor(.green)
                             .font(.caption)
-                        Text("Synced to commit: \(NumberFormatter.commitId.string(from: NSNumber(value: commitId)) ?? "\(commitId)")")
+                        Text("Synced to local database commit: \(NumberFormatter.commitId.string(from: NSNumber(value: commitId)) ?? "\(commitId)")")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }

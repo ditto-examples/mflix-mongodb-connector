@@ -26,7 +26,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   final _titleController = TextEditingController();
   final _plotController = TextEditingController();
   final _posterController = TextEditingController();
-  final _fullplotController = TextEditingController();
+  final _fullPlotController = TextEditingController();
   final _yearController = TextEditingController();
   final _countriesController = TextEditingController();
   late bool _isEditMode;
@@ -45,7 +45,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     _titleController.dispose();
     _plotController.dispose();
     _posterController.dispose();
-    _fullplotController.dispose();
+    _fullPlotController.dispose();
     _yearController.dispose();
     _countriesController.dispose();
     super.dispose();
@@ -110,8 +110,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         if (_posterController.text != movie.poster) {
           updates.add("poster = '${_posterController.text}'");
         }
-        if (_fullplotController.text != movie.fullplot) {
-          updates.add("fullplot = '${_fullplotController.text}'");
+        if (_fullPlotController.text != movie.fullplot) {
+          updates.add("fullplot = '${_fullPlotController.text}'");
         }
 
         final newCountries = _countriesController.text
@@ -164,7 +164,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     _titleController.text = movie.title;
     _plotController.text = movie.plot;
     _posterController.text = movie.poster;
-    _fullplotController.text = movie.fullplot;
+    _fullPlotController.text = movie.fullplot;
     _yearController.text = movie.year;
     _countriesController.text = movie.countries.join(", ");
   }
@@ -278,7 +278,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                             ),
                             const SizedBox(height: 16),
                             TextFormField(
-                              controller: _fullplotController,
+                              controller: _fullPlotController,
                               decoration:
                                   const InputDecoration(labelText: 'Full Plot'),
                               maxLines: 5,
