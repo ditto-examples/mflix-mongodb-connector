@@ -4,8 +4,8 @@ This is an [SwiftUI](https://developer.apple.com/documentation/swiftui) project 
 
 ## Prerequisites
 - Basic understanding of Swift and SwiftUI 
-- Tested with XCode 16 on iOS 18 and iOS 26 
-- Xcode 16 or higher with Command Line Tools installed
+- Tested with XCode 16.4 on iOS 18 and iOS 26 
+- Xcode 16.4 or higher with Command Line Tools installed
 
 ## Get started
 To get started, you need to update the dittoConfig.plist file with your own Ditto Database ID (called the App ID in the portal), Token (called Online Playground Token in the Portal), and Authentication URL.  You can find these in the Ditto Portal.  For documentation on how to do this, see the [Ditto Documentation](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
