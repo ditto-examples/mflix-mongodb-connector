@@ -3,10 +3,10 @@
 <plist version="1.0">
     <dict>
         <key>databaseID</key>
-        <string>a48453d8-c2c3-495b-9f36-80189bf5e135</string>
+        <string>insert Ditto Portal App ID here'</string>
         <key>token</key>
-        <string>8304ca7f-e843-47ed-a0d8-32cc5ff1be7e</string>
+        <string>insert Ditto Portal Online Playground Authentication Token here</string>
         <key>url</key>
-        <string>https://m1tpgv.cloud.dittolive.app</string>
+        <string>insert Ditto Portal Auth URL here</string>
     </dict>
 </plist>
