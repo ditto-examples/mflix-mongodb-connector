@@ -276,16 +276,19 @@ import Foundation
         }
 
         // Handle different possible types for the count
-        if let intValue = commentsCountValue as? Int {
-            return intValue
-        } else if let doubleValue = commentsCountValue as? Double {
-            return Int(doubleValue)
-        } else if let stringValue = commentsCountValue as? String,
-            let intValue = Int(stringValue)
-        {
-            return intValue
+        switch commentsCountValue {
+            case let intValue as Int:
+                return intValue
+            case let doubleValue as Double:
+                return Int(doubleValue)
+            case let stringValue as String:
+                if let intValue = Int(stringValue) {
+                    return intValue
+                }
+                return 0
+            default:
+                return 0
         }
-        return 0
     }
 
     func getComments(by movieId: String) async throws -> [Comment] {
