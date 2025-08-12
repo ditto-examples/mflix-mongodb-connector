@@ -35,7 +35,11 @@ class DittoService: ObservableObject {
             guard
                 !databaseConfig.databaseID.contains("insert")
                     || !databaseConfig.token.contains("insert")
-                    || !databaseConfig.url.contains("insert")
+                !(
+                    databaseConfig.databaseID.contains("insert")
+                    || databaseConfig.token.contains("insert")
+                    || databaseConfig.url.contains("insert")
+                )
             else {
                 throw DittoError.configError(
                     "Please configure your Ditto credentials in dittoConfig.plist"
