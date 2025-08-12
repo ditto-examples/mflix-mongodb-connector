@@ -230,11 +230,11 @@ import Foundation
         return (false, "No mutatedDocumentIDs returned")
     }
 
-    func getCommentsCount(by moveId: String) async throws -> Int {
+    func getCommentsCount(by movieId: String) async throws -> Int {
         guard let ditto = ditto else {
             return 0
         }
-        let results = try await ditto.store.execute(query: "SELECT COUNT(*) as commentsCount FROM comments WHERE movie_id = :movieId", arguments: ["movieId": moveId])
+        let results = try await ditto.store.execute(query: "SELECT COUNT(*) as commentsCount FROM comments WHERE movie_id = :movieId", arguments: ["movieId": movieId])
 
         guard let firstItem = results.items.first,
               let commentsCountValue = firstItem.value["commentsCount"] else {
