@@ -103,12 +103,8 @@ struct MovieDetailView: View {
                                 } else {
                                     // Comments Section
                                     CommentsInlineView(
-                                        movieId: movieId,
                                         comments: commentsObserver.comments,
                                         isLoading: commentsObserver.isLoading,
-                                        showingAddComment: $showingAddComment,
-                                        newCommentText: $newCommentText,
-                                        onAddComment: addComment
                                     )
                                 }
                             }
@@ -355,7 +351,7 @@ struct MovieDetailView: View {
         ]
         
         do {
-            if let message = try await appState.dittoService.addComment(newComment) {
+            if (try await appState.dittoService.addComment(newComment)) != nil {
                 showingAddComment = false
                 newCommentText = ""
             }
@@ -436,13 +432,9 @@ struct MovieDetailView: View {
 
 // Comments List View (Inline)
 struct CommentsInlineView: View {
-    let movieId: String
     let comments: [Comment]
     let isLoading: Bool
-    @Binding var showingAddComment: Bool
-    @Binding var newCommentText: String
-    let onAddComment: () async -> Void
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             if isLoading {
