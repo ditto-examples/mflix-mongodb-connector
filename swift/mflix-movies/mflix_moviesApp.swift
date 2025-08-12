@@ -38,7 +38,7 @@ struct mflix_moviesApp: App {
         return DatabaseConfig(
             databaseID: databaseID,
             token: token,
-            url: url,
+            url: url
         )
     }
 }
