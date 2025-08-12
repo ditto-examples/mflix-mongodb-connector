@@ -390,9 +390,7 @@ import Foundation
                 let comments = result.items.compactMap { item in
                     return Comment(item.jsonData())
                 }
-                Task { @MainActor in
-                    onCommentsUpdate(comments)
-                }
+                onCommentsUpdate(comments)
             }
             return observer
         } catch {
