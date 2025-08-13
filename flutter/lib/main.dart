@@ -1,10 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:mflix_app/screens/movie_detail_screen.dart';
-import 'package:mflix_app/screens/add_movie_screen.dart';
-import 'package:mflix_app/widgets/dql_observer_builder.dart';
 import 'package:flutter/services.dart';
-import 'models/movie.dart';
+import 'package:mflix_app/screens/movies_screen.dart';
+import 'package:mflix_app/screens/settings_screen.dart';
 import 'providers/ditto_provider.dart';
 
 //
@@ -12,10 +9,10 @@ import 'providers/ditto_provider.dart';
 //https://docs.ditto.live/cloud/portal/getting-sdk-connection-details
 //https://docs.ditto.live/sdk/latest/install-guides/flutter
 //
-const _appId = 'a48453d8-c2c3-495b-9f36-80189bf5e135';
-const _token = '8304ca7f-e843-47ed-a0d8-32cc5ff1be7e';
-const _authUrl = 'https://m1tpgv.cloud.dittolive.app';
-const _websocketUrl = 'wss://m1tpgv.cloud.dittolive.app';
+const _appId = 'insert Ditto Portal App ID here';
+const _token = 'insert Ditto Portal Online Playground Authentication Token here';
+const _authUrl = 'insert Ditto Portal Auth URL here';
+const _websocketUrl = 'insert Ditto Portal Websocket URL here';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -83,11 +80,20 @@ class MoviesExample extends StatefulWidget {
 
 class _MoviesExampleState extends State<MoviesExample> {
   DittoProvider? _dittoProvider;
+  int _selectedIndex = 0;
+  late PageController _pageController;
 
   @override
   void initState() {
     super.initState();
+    _pageController = PageController(initialPage: _selectedIndex);
     _initDitto();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   Future<void> _initDitto() async {
@@ -96,30 +102,53 @@ class _MoviesExampleState extends State<MoviesExample> {
     setState(() => _dittoProvider = dittoProvider);
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_dittoProvider == null) {
       return _warningMessage;
     }
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Kid Movies"),
+        title: Text(_selectedIndex == 0 ? "Kid Movies" : "System"),
       ),
-      floatingActionButton: _fab,
-      body: Column(
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
         children: [
-          Expanded(child: _movieList),
+          // Use keys to maintain widget state
+          MoviesScreen(key: const PageStorageKey('movies'), dittoProvider: _dittoProvider!),
+          SettingsScreen(key: const PageStorageKey('settings'), dittoProvider: _dittoProvider!),
         ],
       ),
-    );
-  }
-
-  Future<void> _addMovie() async {
-    if (!mounted) return;
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AddMovieScreen(dittoProvider: _dittoProvider!),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.movie),
+            label: 'Movies',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'System',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }
@@ -143,128 +172,4 @@ class _MoviesExampleState extends State<MoviesExample> {
           ),
         ),
       );
-
-  Widget get _fab => FloatingActionButton(
-        onPressed: _addMovie,
-        child: const Icon(Icons.add_circle),
-      );
-
-  Widget get _movieList => DqlObserverBuilder(
-      ditto: _dittoProvider!.ditto!,
-      subscriptionQuery: "SELECT * FROM movies WHERE rated = 'G'",
-      observationQuery: "SELECT * FROM movies ORDER BY year DESC",
-      builder: (context, result) {
-        final movies =
-            result.items.map((r) => r.value).map(Movie.fromJson).toList();
-
-        if (result.items.isEmpty) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const CircularProgressIndicator(),
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    "Trying to load movies...",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-              ],
-            ),
-          );
-        }
-
-        return ListView.builder(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          itemCount: movies.length,
-          itemBuilder: (context, index) {
-            final movie = movies[index];
-            return Card(
-              elevation: 4,
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(16),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MovieDetailScreen(
-                          movieId: movie.id, dittoProvider: _dittoProvider!),
-                    ),
-                  );
-                },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (movie.poster.isNotEmpty)
-                      ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(16),
-                          topRight: Radius.circular(16),
-                        ),
-                        child: CachedNetworkImage(
-                          imageUrl: movie.poster,
-                          height: 200,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                          errorWidget: (context, url, error) => Image.asset(
-                            'assets/default.png',
-                            height: 200,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      )
-                    else
-                      ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(16),
-                          topRight: Radius.circular(16),
-                        ),
-                        child: Image.asset(
-                          'assets/default.png',
-                          height: 200,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            movie.title,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            movie.year.toString(),
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            movie.plot,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      });
 }

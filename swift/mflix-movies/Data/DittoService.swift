@@ -152,7 +152,7 @@ import Foundation
 
                 // Register observer for sync status monitoring
                 // TODO update URL with production URL when published
-                // https://ditto-248bc0d1-release-4-12-0.mintlify.app/sdk/latest/sync/monitoring-sync-status
+                // https://docs.ditto.live/sdk/latest/sync/monitoring-sync-status
                 syncStatusObserver = try ditto.store.registerObserver(
                     query:
                         "SELECT * FROM system:data_sync_info ORDER BY documents.sync_session_status, documents.last_update_received_time desc",
@@ -180,8 +180,7 @@ import Foundation
                 }
 
                 // CREATE index on title and year field if it doesn't already exist
-                // TODO update with proper documentation linik once they are live
-                // https://ditto-248bc0d1-release-4-12-0.mintlify.app/dql/dql
+                // https://docs.ditto.live/dql/dql
                 try await ditto.store.execute(
                     query:
                         "CREATE INDEX IF NOT EXISTS movies_title_idx ON movies(title)"

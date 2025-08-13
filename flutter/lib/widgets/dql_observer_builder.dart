@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 class DqlObserverBuilder extends StatefulWidget {
   final Ditto ditto;
-  final String subscriptionQuery;
-  final Map<String, dynamic>? subscriptionQueryArgs;
   final String observationQuery;
   final Map<String, dynamic>? observationQueryArgs;
   final Widget Function(BuildContext, QueryResult) builder;
@@ -13,8 +11,6 @@ class DqlObserverBuilder extends StatefulWidget {
   const DqlObserverBuilder({
     super.key,
     required this.ditto,
-    required this.subscriptionQuery,
-    this.subscriptionQueryArgs,
     required this.observationQuery,
     this.observationQueryArgs,
     required this.builder,
@@ -29,33 +25,21 @@ class _DqlObserverBuilderState extends State<DqlObserverBuilder> {
   // https://docs.ditto.live/sdk/latest/crud/observing-data-changes
   StoreObserver? _observer;
 
-  // https://docs.ditto.live/sdk/latest/sync/syncing-data
-  SyncSubscription? _subscription;
-
   @override
   void initState() {
     super.initState();
-
     setupState();
   }
 
   void setupState() {
-
      //https://docs.ditto.live/sdk/latest/crud/observing-data-changes#store-observer-with-query-arguments
      final observer = widget.ditto.store.registerObserver(
       widget.observationQuery,
       arguments: widget.observationQueryArgs ?? {},
     );
 
-    //https://docs.ditto.live/sdk/latest/sync/syncing-data#creating-subscriptions
-    final subscription = widget.ditto.sync.registerSubscription(
-      widget.subscriptionQuery,
-      arguments: widget.subscriptionQueryArgs ?? {},
-    );
-
     setState(() {
       _observer = observer;
-      _subscription = subscription;
     });
   }
 
@@ -63,15 +47,11 @@ class _DqlObserverBuilderState extends State<DqlObserverBuilder> {
   void didUpdateWidget(covariant DqlObserverBuilder oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    final isSame = widget.subscriptionQuery == oldWidget.subscriptionQuery &&
-        widget.subscriptionQueryArgs == oldWidget.subscriptionQueryArgs &&
-        widget.observationQuery == oldWidget.observationQuery &&
+    final isSame = widget.observationQuery == oldWidget.observationQuery &&
         widget.observationQueryArgs == oldWidget.observationQueryArgs;
 
     if (!isSame) {
       _observer?.cancel();
-      _subscription?.cancel();
-
       setupState();
     }
   }
@@ -79,7 +59,6 @@ class _DqlObserverBuilderState extends State<DqlObserverBuilder> {
   @override
   void dispose() {
     _observer?.cancel();
-    _subscription?.cancel();
     super.dispose();
   }
 
