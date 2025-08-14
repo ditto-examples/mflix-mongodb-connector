@@ -111,15 +111,56 @@ class _MoviesScreenState extends State<MoviesScreen>
               ),
               child: InkWell(
                 borderRadius: BorderRadius.circular(16),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MovieDetailScreen(
-                          movieId: movie.id,
-                          dittoProvider: widget.dittoProvider),
-                    ),
+                onTap: () async {
+                  // Show loading dialog immediately
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext dialogContext) {
+                      return const PopScope(
+                        canPop: false,
+                        child: Center(
+                          child: Card(
+                            elevation: 8,
+                            child: Padding(
+                              padding: EdgeInsets.all(32.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CircularProgressIndicator(),
+                                  SizedBox(height: 16),
+                                  Text(
+                                    'Loading movie...',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   );
+
+                  // Small delay to ensure dialog is visible
+                  await Future.delayed(const Duration(milliseconds: 100));
+
+                  // Navigate to movie detail screen
+                  if (context.mounted) {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MovieDetailScreen(
+                            movieId: movie.id,
+                            dittoProvider: widget.dittoProvider),
+                      ),
+                    );
+
+                    // Dismiss loading dialog after navigation
+                    if (context.mounted) {
+                      Navigator.of(context).pop();
+                    }
+                  }
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
