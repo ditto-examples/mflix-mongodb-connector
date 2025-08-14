@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:mflix_app/models/comment.dart';
+import 'package:mflix_app/models/movie.dart';
 import 'package:mflix_app/providers/ditto_provider.dart';
 import 'package:mflix_app/widgets/collection_item_builder.dart';
-import 'package:mflix_app/models/movie.dart';
-import 'package:mflix_app/models/comment.dart';
-import 'package:flutter/foundation.dart';
-import 'dart:math';
-import 'dart:async';
 
 class MovieDetailScreen extends StatefulWidget {
   final String movieId;
@@ -35,14 +36,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   late bool _isEditMode;
   DittoProvider? _dittoProvider;
   int _rebuildKey = 0;
-  
+
   // Segmented control state
   Set<String> _selectedView = {'details'};
-  
+
   // Comment form controllers
   final _commentController = TextEditingController();
   final _commentFormKey = GlobalKey<FormState>();
-  
+
   // Cached comment data for performance
   List<Comment> _cachedComments = [];
   int _commentCount = 0;
@@ -58,13 +59,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
   void _subscribeToComments() {
     // Subscribe to the provider's comments stream for this specific movie
-    _commentsSubscription = widget.dittoProvider.getCommentsForMovie(widget.movieId).listen((commentsData) {
+    _commentsSubscription = widget.dittoProvider
+        .getCommentsForMovie(widget.movieId)
+        .listen((commentsData) {
       if (mounted) {
         try {
-          final comments = commentsData
-              .map((data) => Comment.fromJson(data))
-              .toList();
-              
+          final comments =
+              commentsData.map((data) => Comment.fromJson(data)).toList();
+
           setState(() {
             _cachedComments = comments;
             _commentCount = comments.length;
@@ -88,7 +90,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     // Cancel subscription to prevent any callbacks during disposal
     _commentsSubscription?.cancel();
     _commentsSubscription = null;
-    
+
     // Dispose controllers
     _titleController.dispose();
     _plotController.dispose();
@@ -97,7 +99,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     _yearController.dispose();
     _countriesController.dispose();
     _commentController.dispose();
-    
+
     super.dispose();
   }
 
@@ -185,18 +187,16 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 _isEditMode = false;
                 _rebuildKey++;
               });
-              
+
               // Extract commitID and mutatedDocumentIDs for user feedback
               final commitId = result.commitID ?? 'Unknown';
               final mutatedIds = result.mutatedDocumentIDs.join(', ');
-              
+
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(
-                    'Movie updated successfully\n'
-                    'Commit ID: $commitId\n'
-                    'Document IDs: $mutatedIds'
-                  ),
+                  content: Text('Movie updated successfully\n'
+                      'Commit ID: $commitId\n'
+                      'Document IDs: $mutatedIds'),
                   duration: const Duration(seconds: 5),
                   behavior: SnackBarBehavior.floating,
                 ),
@@ -232,7 +232,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     if (_commentFormKey.currentState!.validate()) {
       final ditto = widget.dittoProvider.ditto;
       if (ditto != null) {
-        final commentId = 'comment_${DateTime.now().millisecondsSinceEpoch}_${Random().nextInt(1000)}';
+        final commentId =
+            'comment_${DateTime.now().millisecondsSinceEpoch}_${Random().nextInt(1000)}';
         final comment = {
           '_id': commentId,
           'name': 'Anonymous',
@@ -247,9 +248,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             'INSERT INTO comments DOCUMENTS (:comment)',
             arguments: {'comment': comment},
           );
-          
+
           _commentController.clear();
-          
+
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
@@ -335,7 +336,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 ),
               ),
             ),
-            
+
             // Loading content area
             Expanded(
               child: Padding(
@@ -348,7 +349,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                     const SizedBox(height: 8),
                     _buildShimmerPlaceholder(height: 20, width: 120),
                     const SizedBox(height: 24),
-                    
+
                     // Loading spinner with message
                     const CircularProgressIndicator(),
                     const SizedBox(height: 16),
@@ -359,12 +360,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                         color: Colors.grey[600],
                       ),
                     ),
-                    
+
                     // Placeholder content
                     const SizedBox(height: 32),
-                    _buildShimmerPlaceholder(height: 16, width: double.infinity),
+                    _buildShimmerPlaceholder(
+                        height: 16, width: double.infinity),
                     const SizedBox(height: 8),
-                    _buildShimmerPlaceholder(height: 16, width: double.infinity),
+                    _buildShimmerPlaceholder(
+                        height: 16, width: double.infinity),
                     const SizedBox(height: 8),
                     _buildShimmerPlaceholder(height: 16, width: 200),
                   ],
@@ -377,7 +380,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     );
   }
 
-  Widget _buildShimmerPlaceholder({required double height, required double width}) {
+  Widget _buildShimmerPlaceholder(
+      {required double height, required double width}) {
     return Container(
       height: height,
       width: width,
@@ -442,7 +446,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           );
         }
 
-        final movie = result.items.map((r) => r.value).map(Movie.fromJson).first;
+        final movie =
+            result.items.map((r) => r.value).map(Movie.fromJson).first;
 
         if (!_isEditMode) {
           _initializeControllers(movie);
@@ -465,12 +470,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               ],
             ],
           ),
-          floatingActionButton: _selectedView.contains('comments') && !_isEditMode
-              ? FloatingActionButton(
-                  onPressed: _showAddCommentDialog,
-                  child: const Icon(Icons.add),
-                )
-              : null,
+          floatingActionButton:
+              _selectedView.contains('comments') && !_isEditMode
+                  ? FloatingActionButton(
+                      onPressed: _showAddCommentDialog,
+                      child: const Icon(Icons.add),
+                    )
+                  : null,
           body: Column(
             children: [
               // Movie poster section
@@ -489,7 +495,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
-              
+
               // Movie title and info
               Padding(
                 padding: const EdgeInsets.all(16),
@@ -498,39 +504,45 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   children: [
                     Text(
                       movie.title,
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style:
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                     ),
                     const SizedBox(height: 4),
                     Row(
                       children: [
                         Icon(
-                          Icons.calendar_today, 
-                          size: 16, 
-                          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                          Icons.calendar_today,
+                          size: 16,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withValues(alpha: 0.6),
                         ),
                         const SizedBox(width: 4),
-                        Text(
-                          movie.year,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          movie.year,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-                          ),
-                        ),
+                        Text(movie.year,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurface
+                                      .withOpacity(0.6),
+                                )),
                         const SizedBox(width: 16),
                         Icon(Icons.star, size: 16, color: Colors.orange),
                         const SizedBox(width: 4),
                         Text(
                           movie.rated,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withOpacity(0.6),
+                                  ),
                         ),
                       ],
                     ),
@@ -538,16 +550,20 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                     Text(
                       'Genres: ${movie.genres.join(", ")}',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-                      ),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withOpacity(0.6),
+                          ),
                     ),
                   ],
                 ),
               ),
-              
+
               // Fast Segmented Control with cached data
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: SegmentedButton<String>(
                   segments: [
                     const ButtonSegment<String>(
@@ -564,13 +580,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                     setState(() {
                       _selectedView = newSelection;
                       if (_selectedView.contains('comments')) {
-                        _isEditMode = false; // Exit edit mode when switching to comments
+                        _isEditMode =
+                            false; // Exit edit mode when switching to comments
                       }
                     });
                   },
                 ),
               ),
-              
+
               // Fast Content switching with cached data
               Expanded(
                 child: _selectedView.contains('details')

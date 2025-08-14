@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mflix_app/screens/movies_screen.dart';
 import 'package:mflix_app/screens/settings_screen.dart';
+
 import 'providers/ditto_provider.dart';
 
 //
@@ -10,9 +11,9 @@ import 'providers/ditto_provider.dart';
 //https://docs.ditto.live/sdk/latest/install-guides/flutter
 //
 const _appId = 'insert Ditto Portal App ID here';
-const _token = 'insert Ditto Portal Online Playground Authentication Token here';
+const _token = 'insert Ditto Portal Online Playground Token here';
 const _authUrl = 'insert Ditto Portal Auth URL here';
-const _websocketUrl = 'insert Ditto Portal Websocket URL here';
+const _websocketUrl = 'insert Ditto Portal websocket URL here';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -132,8 +133,12 @@ class _MoviesExampleState extends State<MoviesExample> {
         },
         children: [
           // Use keys to maintain widget state
-          MoviesScreen(key: const PageStorageKey('movies'), dittoProvider: _dittoProvider!),
-          SettingsScreen(key: const PageStorageKey('settings'), dittoProvider: _dittoProvider!),
+          MoviesScreen(
+              key: const PageStorageKey('movies'),
+              dittoProvider: _dittoProvider!),
+          SettingsScreen(
+              key: const PageStorageKey('settings'),
+              dittoProvider: _dittoProvider!),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -164,7 +169,7 @@ class _MoviesExampleState extends State<MoviesExample> {
               const Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Text(
-                  "No Data - Ensure your App ID, Online Playground Authentication Token, Auth URL, and Websocket Url in the DittoProvider are correct",
+                  "Trying to retrieve data - if this is first data sync this can take a while",
                   textAlign: TextAlign.center,
                 ),
               ),

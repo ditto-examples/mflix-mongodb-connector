@@ -14,7 +14,8 @@ class MoviesScreen extends StatefulWidget {
   State<MoviesScreen> createState() => _MoviesScreenState();
 }
 
-class _MoviesScreenState extends State<MoviesScreen> with AutomaticKeepAliveClientMixin {
+class _MoviesScreenState extends State<MoviesScreen>
+    with AutomaticKeepAliveClientMixin {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -42,7 +43,8 @@ class _MoviesScreenState extends State<MoviesScreen> with AutomaticKeepAliveClie
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AddMovieScreen(dittoProvider: widget.dittoProvider),
+        builder: (context) =>
+            AddMovieScreen(dittoProvider: widget.dittoProvider),
       ),
     );
   }
@@ -60,7 +62,7 @@ class _MoviesScreenState extends State<MoviesScreen> with AutomaticKeepAliveClie
                 const Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Text(
-                    "Trying to load movies...",
+                    "Trying to load movies - first data sync can take a while...",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16),
                   ),
@@ -71,8 +73,10 @@ class _MoviesScreenState extends State<MoviesScreen> with AutomaticKeepAliveClie
         }
 
         final result = snapshot.data!;
-        final movies =
-            result.items.map((r) => r.value).map(MovieListing.fromJson).toList();
+        final movies = result.items
+            .map((r) => r.value)
+            .map(MovieListing.fromJson)
+            .toList();
 
         if (movies.isEmpty) {
           return Center(
@@ -83,7 +87,7 @@ class _MoviesScreenState extends State<MoviesScreen> with AutomaticKeepAliveClie
                 const Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Text(
-                    "Trying to load movies...",
+                    "Trying to load movies - first data sync can take a while...",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16),
                   ),
@@ -112,7 +116,8 @@ class _MoviesScreenState extends State<MoviesScreen> with AutomaticKeepAliveClie
                     context,
                     MaterialPageRoute(
                       builder: (context) => MovieDetailScreen(
-                          movieId: movie.id, dittoProvider: widget.dittoProvider),
+                          movieId: movie.id,
+                          dittoProvider: widget.dittoProvider),
                     ),
                   );
                 },
@@ -179,10 +184,14 @@ class _MoviesScreenState extends State<MoviesScreen> with AutomaticKeepAliveClie
                             const SizedBox(height: 8),
                             Text(
                               movie.ratingsDisplay,
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                             ),
                           ],
                         ],
