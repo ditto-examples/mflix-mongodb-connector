@@ -215,7 +215,7 @@ class _IndexesScreenState extends State<IndexesScreen> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary.withAlpha(25),
+                color: Theme.of(context).colorScheme.primary.withOpacity(25 / 255),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
