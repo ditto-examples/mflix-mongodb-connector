@@ -113,7 +113,7 @@ class _IndexesScreenState extends State<IndexesScreen> {
             Text(
               _error!,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.error.withAlpha(180),
+                color: Theme.of(context).colorScheme.error.withOpacity(180 / 255),
               ),
               textAlign: TextAlign.center,
             ),
