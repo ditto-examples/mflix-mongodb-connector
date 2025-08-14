@@ -61,22 +61,12 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     // Subscribe to the provider's comments stream for this specific movie
     _commentsSubscription = widget.dittoProvider
         .getCommentsForMovie(widget.movieId)
-        .listen((commentsData) {
+        .listen((comments) {
       if (mounted) {
-        try {
-          final comments =
-              commentsData.map((data) => Comment.fromJson(data)).toList();
-
-          setState(() {
-            _cachedComments = comments;
-            _commentCount = comments.length;
-          });
-        } catch (e) {
-          // Handle any parsing errors gracefully
-          if (kDebugMode) {
-            print('Error processing comment data: $e');
-          }
-        }
+        setState(() {
+          _cachedComments = comments;
+          _commentCount = comments.length;
+        });
       }
     }, onError: (error) {
       if (kDebugMode) {
@@ -434,20 +424,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       collectionName: "movies",
       documentId: widget.movieId,
       loading: _buildLoadingScreen(),
-      builder: (context, result) {
-        if (result.items.isEmpty) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Movie Not Found'),
-            ),
-            body: const Center(
-              child: Text('Movie not found'),
-            ),
-          );
-        }
-
-        final movie =
-            result.items.map((r) => r.value).map(Movie.fromJson).first;
+      builder: (context, movie) {
 
         if (!_isEditMode) {
           _initializeControllers(movie);
@@ -485,8 +462,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 width: double.infinity,
                 height: 300,
                 fit: BoxFit.cover,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(),
+                placeholder: (context, url) => Image.asset(
+                  'assets/default.png',
+                  height: 300,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                 ),
                 errorWidget: (context, url, error) => Image.asset(
                   'assets/default.png',

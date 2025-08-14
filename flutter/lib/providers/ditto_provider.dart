@@ -3,6 +3,8 @@ import 'dart:async';
 
 import 'package:ditto_live/ditto_live.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:mflix_app/models/movie_listing.dart';
+import 'package:mflix_app/models/comment.dart';
 
 class DittoProvider with ChangeNotifier {
   Ditto? _ditto;
@@ -16,34 +18,34 @@ class DittoProvider with ChangeNotifier {
   StoreObserver? _commentsObserver;
   StoreObserver? _syncStatusObserver;
   
-  // Stream controllers with replay capability
-  final _moviesStreamController = StreamController<QueryResult>.broadcast();
-  final _commentsStreamController = StreamController<QueryResult>.broadcast(); 
+  // Stream controllers with replay capability - now return actual objects
+  final _moviesStreamController = StreamController<List<MovieListing>>.broadcast();
+  final _commentsStreamController = StreamController<List<Comment>>.broadcast(); 
   final _syncStatusStreamController = StreamController<QueryResult>.broadcast();
   
   // Cache the latest results for immediate access
-  QueryResult? _latestMoviesResult;
-  QueryResult? _latestCommentsResult;
+  List<MovieListing>? _latestMoviesList;
+  List<Comment>? _latestCommentsList;
   QueryResult? _latestSyncStatusResult;
 
   /// The Ditto instance used for database operations
   Ditto? get ditto => _ditto;
   
   /// Stream of movie listings (G/PG rated movies) with immediate cache
-  Stream<QueryResult> get moviesStream async* {
+  Stream<List<MovieListing>> get moviesStream async* {
     // Immediately yield cached result if available
-    if (_latestMoviesResult != null) {
-      yield _latestMoviesResult!;
+    if (_latestMoviesList != null) {
+      yield _latestMoviesList!;
     }
     // Then yield all future updates
     yield* _moviesStreamController.stream;
   }
   
   /// Stream of all comments with immediate cache  
-  Stream<QueryResult> get commentsStream async* {
+  Stream<List<Comment>> get commentsStream async* {
     // Immediately yield cached result if available
-    if (_latestCommentsResult != null) {
-      yield _latestCommentsResult!;
+    if (_latestCommentsList != null) {
+      yield _latestCommentsList!;
     }
     // Then yield all future updates
     yield* _commentsStreamController.stream;
@@ -60,24 +62,22 @@ class DittoProvider with ChangeNotifier {
   }
   
   /// Get comments for a specific movie by filtering the global comments stream
-  Stream<List<Map<String, dynamic>>> getCommentsForMovie(String movieId) async* {
+  Stream<List<Comment>> getCommentsForMovie(String movieId) async* {
     // Immediately yield cached filtered comments if available
-    if (_latestCommentsResult != null) {
-      final filteredComments = _latestCommentsResult!.items
-          .where((item) => item.value['movie_id'] == movieId)
-          .map((item) => item.value)
+    if (_latestCommentsList != null) {
+      final filteredComments = _latestCommentsList!
+          .where((comment) => comment.movieId == movieId)
           .toList()
-        ..sort((a, b) => (b['date'] ?? 0).compareTo(a['date'] ?? 0));
+        ..sort((a, b) => b.date.compareTo(a.date));
       yield filteredComments;
     }
     
     // Then yield all future filtered updates
-    yield* commentsStream.map((result) {
-      return result.items
-          .where((item) => item.value['movie_id'] == movieId)
-          .map((item) => item.value)
+    yield* commentsStream.map((comments) {
+      return comments
+          .where((comment) => comment.movieId == movieId)
           .toList()
-        ..sort((a, b) => (b['date'] ?? 0).compareTo(a['date'] ?? 0));
+        ..sort((a, b) => b.date.compareTo(a.date));
     });
   }
 
@@ -154,10 +154,14 @@ class DittoProvider with ChangeNotifier {
       );
       
       _moviesObserver!.changes.listen((result) {
-        _latestMoviesResult = result; // Cache the result
-        if (!_moviesStreamController.isClosed) {
-          _moviesStreamController.add(result);
-        }
+        // Deserialize in background using compute
+        compute(_deserializeMovieListings, result.items.map((item) => item.value).toList())
+          .then((movies) {
+            _latestMoviesList = movies; // Cache the deserialized result
+            if (!_moviesStreamController.isClosed) {
+              _moviesStreamController.add(movies);
+            }
+          });
       });
 
       // Comments observer - for global comment tracking
@@ -166,10 +170,14 @@ class DittoProvider with ChangeNotifier {
       );
       
       _commentsObserver!.changes.listen((result) {
-        _latestCommentsResult = result; // Cache the result
-        if (!_commentsStreamController.isClosed) {
-          _commentsStreamController.add(result);
-        }
+        // Deserialize in background using compute
+        compute(_deserializeComments, result.items.map((item) => item.value).toList())
+          .then((comments) {
+            _latestCommentsList = comments; // Cache the deserialized result
+            if (!_commentsStreamController.isClosed) {
+              _commentsStreamController.add(comments);
+            }
+          });
       });
 
       // Sync status observer - for the system tab
@@ -209,4 +217,13 @@ class DittoProvider with ChangeNotifier {
     
     super.dispose();
   }
+}
+
+// Static functions for background deserialization
+List<MovieListing> _deserializeMovieListings(List<Map<String, dynamic>> data) {
+  return data.map((item) => MovieListing.fromJson(item)).toList();
+}
+
+List<Comment> _deserializeComments(List<Map<String, dynamic>> data) {
+  return data.map((item) => Comment.fromJson(item)).toList();
 }
