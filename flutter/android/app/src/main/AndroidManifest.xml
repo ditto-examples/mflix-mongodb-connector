@@ -25,6 +25,10 @@
     <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES"
         android:usesPermissionFlags="neverForLocation"
         tools:targetApi="tiramisu" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" tools:targetApi="upside_down_cake" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:targetApi="tiramisu" />
+
     <application
         android:label="mflix_app"
         android:name="${applicationName}"
@@ -51,6 +55,18 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <service
+            android:name="live.ditto.transports.foregroundservice.DefaultDittoForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="connectedDevice"
+            android:stopWithTask="true">
+            <meta-data android:name="notificationChannelName" android:value="Background Data Sync" />
+            <meta-data android:name="notificationChannelId" android:value="BackgroundDataSyncId" />
+            <meta-data android:name="smallIcon" android:resource="@drawable/small_app_icon" />
+            <meta-data android:name="notificationTitle" android:value="Syncing Data" />
+            <meta-data android:name="notificationText" android:value="Syncing data across connected devices" />
+            <meta-data android:name="notificationId" android:value="1001" />
+        </service>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

@@ -53,7 +53,6 @@
 	<array>
 		<string>_dartobservatory._tcp</string>
 	</array>
-
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Uses Bluetooth to connect and sync with nearby devices</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>

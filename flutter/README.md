@@ -5,7 +5,7 @@ This is an [Flutter](https://flutter.dev/) project created with [Android Studio]
 ## Prerequisites
 - Basic understanding of Dart and Flutter
 - Tested with Flutter 3.27.4 and Dart 3.6.2
-- Xcode 16 or higher with Commnad Line Tools installed
+- Xcode 16 or higher with Command Line Tools installed (if you are using MacOS or iOS builds)
 - Android SDK installed (v34 or higher)
 - IDE of choice (Visual Studio Code, Android Studio "Koala" 2024.1.1 or higher, Cursor, etc)
 

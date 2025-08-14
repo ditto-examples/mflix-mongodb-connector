@@ -1,12 +1,13 @@
 import 'package:ditto_live/ditto_live.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:mflix_app/models/movie.dart';
 
 class CollectionItemBuilder extends StatefulWidget {
   final Ditto ditto;
   final String collectionName;
   final String documentId;
-  final Widget Function(BuildContext, QueryResult) builder;
+  final Widget Function(BuildContext, Movie) builder;
   final Widget? loading;
 
   const CollectionItemBuilder({
@@ -23,7 +24,7 @@ class CollectionItemBuilder extends StatefulWidget {
 }
 
 class _CollectionItemBuilderState extends State<CollectionItemBuilder> {
-  QueryResult? _queryResult;
+  Movie? _movie;
   String _message = '';
   bool _isError = false;
   bool _showNoData = false;
@@ -31,7 +32,10 @@ class _CollectionItemBuilderState extends State<CollectionItemBuilder> {
   @override
   void initState() {
     super.initState();
-    _fetchDocument();
+    // Defer the database operation to the next frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _fetchDocument();
+    });
   }
 
   @override
@@ -54,30 +58,41 @@ class _CollectionItemBuilderState extends State<CollectionItemBuilder> {
       final query = "SELECT * FROM ${widget.collectionName} WHERE _id = :id";
       final results =
           await widget.ditto.store.execute(query, arguments: argument);
+      
       if (results.items.isNotEmpty) {
-        setState(() {
-          _queryResult = results;
-          _message = '';
-          _isError = false;
-          _showNoData = false;
-        });
+        // Deserialize in background
+        final movieData = results.items.first.value;
+        final movie = await compute(_deserializeMovie, movieData);
+        
+        if (mounted) {
+          setState(() {
+            _movie = movie;
+            _message = '';
+            _isError = false;
+            _showNoData = false;
+          });
+        }
       } else {
-        setState(() {
-          _queryResult = null;
-          _message = 'Document not found';
-          _isError = false;
-          _showNoData = true;
-        });
+        if (mounted) {
+          setState(() {
+            _movie = null;
+            _message = 'Document not found';
+            _isError = false;
+            _showNoData = true;
+          });
+        }
       }
     } catch (e) {
       if (kDebugMode) {
+        print('Error fetching document: $e');
+      }
+      if (mounted) {
         setState(() {
-          _queryResult = null;
+          _movie = null;
           _message = 'Error fetching document: $e';
           _isError = true;
           _showNoData = false;
         });
-        print('Error fetching document: $e');
       }
     }
   }
@@ -86,12 +101,12 @@ class _CollectionItemBuilderState extends State<CollectionItemBuilder> {
   Widget build(BuildContext context) {
     final placeholder = widget.loading ?? _defaultLoading;
     if (_isError || _showNoData) return _warningMessage;
-    if (_queryResult == null) return placeholder;
-    return widget.builder(context, _queryResult!);
+    if (_movie == null) return placeholder;
+    return widget.builder(context, _movie!);
   }
 
   Widget get _warningMessage => Scaffold(
-        appBar: AppBar(title: const Text("Movie")),
+        appBar: AppBar(title: const Text("Error")),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center, // Center vertically
@@ -106,3 +121,8 @@ class _CollectionItemBuilderState extends State<CollectionItemBuilder> {
 }
 
 const _defaultLoading = Center(child: CircularProgressIndicator());
+
+// Function for background deserialization
+Movie _deserializeMovie(Map<String, dynamic> data) {
+  return Movie.fromJson(data);
+}

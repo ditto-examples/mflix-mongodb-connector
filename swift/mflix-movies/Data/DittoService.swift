@@ -26,8 +26,10 @@ import Foundation
     var onIndexesUpdate: (([IndexInfo]) -> Void)?
 
     // background queue for doing work
-    let backgroundQueue = DispatchQueue(label: "com.ditto.mflix.backgroundQueue", qos: .background)
-
+    let backgroundQueue = DispatchQueue(
+        label: "com.ditto.mflix.backgroundQueue",
+        qos: .background
+    )
 
     init(databaseConfig: DatabaseConfig) {
         self.databaseConfig = databaseConfig
@@ -105,14 +107,6 @@ import Foundation
                     }
                 }
 
-                // Configure transport
-                // https://docs.ditto.live/sdk/latest/sync/customizing-transport-configurations
-                ditto.updateTransportConfig { config in
-                    config.connect.webSocketURLs.insert(
-                        databaseConfig.url
-                    )
-                }
-
                 //Disable sync with v3 peers, required for DQL
                 try ditto.disableSyncWithV3()
 
@@ -133,11 +127,14 @@ import Foundation
                 )
 
                 // Register a subscription to the movies collection to only return kid movies by year
+                // Note with observers we can ask for the results to be delivered on a specific queue which
+                // can improve performance by doing serializastion on a background queue (thread) and then return
+                // to the main UI thread (MainActor) the final results.
                 // https://docs.ditto.live/sdk/latest/crud/observing-data-changes
                 moviesObserver = try ditto.store.registerObserver(
                     query:
-                        "SELECT _id, plot, poster, title, year, imdb.rating AS imdbRating, tomatoes.viewer.rating as rottenRating FROM movies WHERE rated = 'G' OR rated = 'PG' ORDER BY year DESC"
-                    ,deliverOn: backgroundQueue
+                        "SELECT _id, plot, poster, title, year, imdb.rating AS imdbRating, tomatoes.viewer.rating as rottenRating FROM movies WHERE rated = 'G' OR rated = 'PG' ORDER BY year DESC",
+                    deliverOn: backgroundQueue
                 ) {
                     [weak self] result in
                     let newMovies = result.items.compactMap { item in
@@ -155,7 +152,7 @@ import Foundation
 
                 // Register observer for sync status monitoring
                 // TODO update URL with production URL when published
-                // https://ditto-248bc0d1-release-4-12-0.mintlify.app/sdk/latest/sync/monitoring-sync-status
+                // https://docs.ditto.live/sdk/latest/sync/monitoring-sync-status
                 syncStatusObserver = try ditto.store.registerObserver(
                     query:
                         "SELECT * FROM system:data_sync_info ORDER BY documents.sync_session_status, documents.last_update_received_time desc",
@@ -183,8 +180,7 @@ import Foundation
                 }
 
                 // CREATE index on title and year field if it doesn't already exist
-                // TODO update with proper documentation linik once they are live
-                // https://ditto-248bc0d1-release-4-12-0.mintlify.app/dql/dql
+                // https://docs.ditto.live/dql/dql
                 try await ditto.store.execute(
                     query:
                         "CREATE INDEX IF NOT EXISTS movies_title_idx ON movies(title)"
@@ -255,7 +251,7 @@ import Foundation
         {
             return mutatedDocumentId
         }
-        throw DittoError.general( "No mutatedDocumentIDs returned")
+        throw DittoError.general("No mutatedDocumentIDs returned")
     }
 
     func getCommentsCount(by movieId: String) async throws -> Int {
@@ -277,17 +273,17 @@ import Foundation
 
         // Handle different possible types for the count
         switch commentsCountValue {
-            case let intValue as Int:
+        case let intValue as Int:
+            return intValue
+        case let doubleValue as Double:
+            return Int(doubleValue)
+        case let stringValue as String:
+            if let intValue = Int(stringValue) {
                 return intValue
-            case let doubleValue as Double:
-                return Int(doubleValue)
-            case let stringValue as String:
-                if let intValue = Int(stringValue) {
-                    return intValue
-                }
-                return 0
-            default:
-                return 0
+            }
+            return 0
+        default:
+            return 0
         }
     }
 
