@@ -408,7 +408,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 ].map((stop) => stop.clamp(0.0, 1.0)).toList(),
                 colors: [
                   Colors.transparent,
-                  Colors.white.withValues(alpha: 0.4),
+                  Colors.white.withOpacity(0.4),
                   Colors.transparent,
                 ],
               ),
