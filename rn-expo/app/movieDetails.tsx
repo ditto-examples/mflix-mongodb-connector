@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet, ScrollView, ActivityIndicator, TextInput, Alert, Pressable } from 'react-native';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { Image } from 'expo-image';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useMovie } from '../src/hooks/useMovie';
 import { useMovieImage } from '../src/hooks/useMovieImage';
 import { useUpdateMovie } from '../src/hooks/useUpdateMovie';
@@ -100,6 +101,7 @@ export default function MovieDetails() {
           headerTitleStyle: {
             color: '#fff',
           },
+          headerBackTitle: 'Movies',
           headerRight: () => (
             <View style={styles.headerButtons}>
               {!isEditMode ? (
@@ -129,7 +131,7 @@ export default function MovieDetails() {
           ),
         }} 
       />
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container} edges={['bottom']}>
         {isLoadingMovie ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color="#fff" />
@@ -144,7 +146,7 @@ export default function MovieDetails() {
           >
             <View style={styles.imageContainer}>
               {isLoadingImage && (
-                <View style={styles.loadingContainer}>
+                <View style={styles.imageLoadingOverlay}>
                   <ActivityIndicator size="large" color="#fff" />
                 </View>
               )}
@@ -154,8 +156,10 @@ export default function MovieDetails() {
                 contentFit="cover"
                 onLoadStart={() => setIsLoadingImage(true)}
                 onLoadEnd={() => setIsLoadingImage(false)}
-                transition={1000}
+                transition={300}
                 cachePolicy="memory-disk"
+                placeholder={{ blurhash: 'L6PZfSi_.AyE_3t7t7R**0o#DgR4' }}
+                placeholderContentFit="cover"
               />
             </View>
             {isEditMode ? (
@@ -194,7 +198,7 @@ export default function MovieDetails() {
             )}
           </ScrollView>
         ) : null}
-      </View>
+      </SafeAreaView>
     </>
   );
 }
@@ -221,10 +225,26 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#1e2127',
     marginBottom: 16,
+    position: 'relative',
+    overflow: 'hidden',
   },
   poster: {
     width: '100%',
-    height: '100%',
+    height: 300,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+  imageLoadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#1e2127',
+    zIndex: 1,
   },
   detailsContainer: {
     padding: 16,

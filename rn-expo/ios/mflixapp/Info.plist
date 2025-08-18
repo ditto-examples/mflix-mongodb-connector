@@ -27,6 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
+          <string>mflix</string>
           <string>com.mflix.app</string>
         </array>
       </dict>
@@ -60,8 +61,8 @@
     <string>This app uses location services to connect to a Ditto device.</string>
     <key>UIBackgroundModes</key>
     <array>
-      <string>bluetooth-peripheral</string>
       <string>bluetooth-central</string>
+      <string>bluetooth-peripheral</string>
     </array>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>

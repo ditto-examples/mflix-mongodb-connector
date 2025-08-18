@@ -3,7 +3,6 @@ import {
 	IdentityOnlinePlayground,
 	StoreObserver,
 	SyncSubscription,
-	TransportConfig,
   } from "@dittolive/ditto";
 
   import {
@@ -17,47 +16,26 @@ import {
      * UPDATE THESE VALUES WITH YOUR OWN VALUES FROM THE DITTO PORTAL
      * https://docs.ditto.live/cloud/portal/getting-sdk-connection-details
      */
-    private appId = 'insert Ditto Portal App ID here';
-    private token = 'insert Ditto Portal Online Playground Authentication Token here'; 
-    private authURL = 'insert Ditto Portal Auth URL here';
-    private websocketURL = 'insert Ditto Portal Websocket URL here';
+    private appId = 'a48453d8-c2c3-495b-9f36-80189bf5e135';
+    private token = '8304ca7f-e843-47ed-a0d8-32cc5ff1be7e'; 
+    private authURL = 'https://m1tpgv.cloud.dittolive.app';
+    private websocketURL = 'wss://m1tpgv.cloud.dittolive.app';
 
     private static instance: DittoService;
-    private ditto: Ditto | null = null;
-    public storeObserver: StoreObserver | undefined;
-    public syncSubscription: SyncSubscription | undefined;
+    public ditto: Ditto | null = null;
+
+    public movieObserver: StoreObserver | undefined;
+    public movieSubscription: SyncSubscription | undefined;
+
+    public commentsSubscription: SyncSubscription | undefined;
+    public commentsObserver: StoreObserver | undefined;
+
+    public syncStatusObserver: StoreObserver | undefined;
+
     private isInitializing = false;
 
     private constructor() {}
 
-    /**
-     * Creates and returns an identity configuration for Ditto's online playground environment.
-     * This identity is used to authenticate and connect to the Ditto cloud service.
-     * https://docs.ditto.live/sdk/latest/install-guides/react-native#onlineplayground
-     * 
-     * The identity includes:
-     * - App ID and token for authentication
-     * - Custom authentication URL for the MongoDB connector preview
-     * - Cloud sync configuration
-     * 
-     * @returns {IdentityOnlinePlayground} An identity configuration object containing:
-     * - type: 'onlinePlayground' - Specifies the identity type
-     * - appID: string - The application identifier
-     * - token: string - Authentication token
-     * - customAuthURL: string - Custom authentication endpoint URL
-     * - enableDittoCloudSync: boolean - Whether to enable cloud sync
-     * 
-     * @example
-     * const identity = createIdentity();
-     * // Returns:
-     * // {
-     * //   type: 'onlinePlayground',
-     * //   appID: 'your-app-id',
-     * //   token: 'your-playground-token',
-     * //   customAuthURL: 'your-auth-url',
-     * //   enableDittoCloudSync: false
-     * // }
-     */
     private createIdentity(): IdentityOnlinePlayground {
         return {
             type: 'onlinePlayground',
@@ -148,9 +126,7 @@ import {
         }
 
         try {
-            const identity = this.createIdentity();
-
-            this.ditto = new Ditto(identity);
+            this.ditto = new Ditto(this.createIdentity()); 
 
             //https://docs.ditto.live/sdk/latest/install-guides/react-native#setting-transport-configurations
             this.ditto.updateTransportConfig((config) => {
@@ -163,10 +139,31 @@ import {
                 } else {
                     config.peerToPeer.awdl.isEnabled = false;
                 }
-                
                 config.connect.websocketURLs.push(this.websocketURL);
             });
-            this.ditto.startSync();
+
+            //Disable sync with v3 peers, required for DQL
+            this.ditto.disableSyncWithV3();
+
+            // Disable DQL strict mode so that collection definitions are not required in DQL queries
+            // https://docs.ditto.live/dql/strict-mode#introduction
+            await this.ditto.store.execute("ALTER SYSTEM SET DQL_STRICT_MODE = false");
+
+            // Register a subscription to the movies collection to only return kid movies
+            // https://docs.ditto.live/sdk/latest/sync/syncing-data#subscriptions
+            this.movieSubscription = this.ditto.sync.registerSubscription("SELECT * FROM movies WHERE rated = 'G' OR rated = 'PG'");
+
+            // Register a subscription to the comments collection
+            // https://docs.ditto.live/sdk/latest/sync/syncing-data#subscriptions
+            this.commentsSubscription = this.ditto.sync.registerSubscription("SELECT * FROM comments");
+
+            // CREATE index on title and year field if it doesn't already exist
+            // https://docs.ditto.live/dql/dql
+            await this.ditto.store.execute("CREATE INDEX IF NOT EXISTS movies_title_idx ON movies(title)");
+            await this.ditto.store.execute("CREATE INDEX IF NOT EXISTS movies_year_idx ON movies(year)");
+
+            // https://docs.ditto.live/sdk/latest/sync/syncing-data#start-sync
+            this.ditto.sync.start();
             
         } catch (error) {
             console.log(error);
@@ -190,5 +187,4 @@ import {
         }
         return this.ditto;
     }
-
   }

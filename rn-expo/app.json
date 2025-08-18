@@ -24,7 +24,10 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mflix.app",
-      "associatedDomains": ["applinks:mflix.app"]
+      "associatedDomains": [
+        "applinks:mflix.app"
+      ],
+      "appleTeamId": "E3FRN9JNGJ"
     },
     "android": {
       "adaptiveIcon": {
@@ -43,7 +46,10 @@
               "pathPrefix": "/"
             }
           ],
-          "category": ["BROWSABLE", "DEFAULT"]
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
       ]
     },

@@ -15,7 +15,6 @@ import { QueryResult } from '@dittolive/ditto';
  * @remarks
  * - Uses a store observer to maintain real-time updates of the movies list
  * - Movies are sorted by year in descending order
- * - Includes a sync subscription for 'G' rated movies
  * - Automatically updates when changes occur in the database
  * - Handles loading and error states
  * 
@@ -39,34 +38,21 @@ export const useMovies = () => {
         const registerStoreObserverMovies = () => {
             try {
                 const observationQuery = "SELECT * FROM movies ORDER BY year DESC";
-                dittoService.storeObserver = dittoService.ditto?.store.registerObserver(observationQuery, (response: QueryResult) => {
+                dittoService.movieObserver = dittoService.ditto?.store.registerObserver(observationQuery, (response: QueryResult) => {
                     const fetchedMovies = response.items.map(item => Movie.fromJson(item.value));
                     setMovies(fetchedMovies);
                 });
                 
             } catch (err) {
+                console.log("Error in registering store observer for movies: ", err);
                 setError(err instanceof Error ? err.message : 'Failed to fetch movies');
             } finally {
                 setIsLoading(false);
             }
         };
-
-        const registerSyncSubscriptionMovies = () => {
-            try {
-                const subscriptionQuery = "SELECT * FROM movies WHERE rated = 'G'";
-                dittoService.syncSubscription = dittoService.ditto?.sync.registerSubscription(subscriptionQuery);
-            }
-            catch (err) {
-                setError(err instanceof Error ? err.message : 'Failed to register subscription for movies');
-            }
-        }
-
         registerStoreObserverMovies();
-        registerSyncSubscriptionMovies();
-
         // Cleanup function
-        return () => {
-        };
+        return () => { };
     }, [dittoService, isInitialized]);
 
     return { movies, isLoading, error };
