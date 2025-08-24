@@ -490,7 +490,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "mflix-movies/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "MFlix Movies";
+				INFOPLIST_KEY_CFBundleDisplayName = "mflix swift";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Uses Bluetooth to connect and sync with nearby devices";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Uses Bluetooth to connect and sync with nearby devices";
@@ -534,7 +534,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "mflix-movies/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "MFlix Movies";
+				INFOPLIST_KEY_CFBundleDisplayName = "mflix swift";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Uses Bluetooth to connect and sync with nearby devices";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Uses Bluetooth to connect and sync with nearby devices";

@@ -3,12 +3,12 @@ import { useRef, useCallback } from 'react';
 import { Stack, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
-import { Movie } from '../../src/models/movie';
-import { useMoviesOptimized } from '../../src/hooks/useMoviesOptimized';
+import { MovieListing } from '../../src/models/movieListing';
+import { useMovies } from '../../src/hooks/useMovies';
 import { MovieCard } from '../../src/components/MovieCard';
 
 export default function MoviesTab() {
-  const { movies, isLoading, error } = useMoviesOptimized();
+  const { movies, isLoading, error } = useMovies();
   const router = useRouter();
   const flatListRef = useRef<FlatList>(null);
   const scrollPositionRef = useRef(0);
@@ -17,7 +17,7 @@ export default function MoviesTab() {
     scrollPositionRef.current = event.nativeEvent.contentOffset.y;
   }, []);
 
-  const renderItem = useCallback(({ item: movie }: { item: Movie }) => (
+  const renderItem = useCallback(({ item: movie }: { item: MovieListing }) => (
     <View style={styles.cardContainer}>
       <MovieCard 
         movie={movie}

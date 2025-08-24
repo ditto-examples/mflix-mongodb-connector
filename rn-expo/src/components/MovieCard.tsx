@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable, ActivityIndicator, Platform } from 'react-native';
 import { Image } from 'expo-image';
 import { Asset } from 'expo-asset';
-import { Movie } from '../models/movie';
+import { MovieListing } from '../models/movieListing';
 import { useEffect, useState } from 'react';
 import { useMovieImage } from '../hooks/useMovieImage';
 
@@ -9,7 +9,7 @@ import { useMovieImage } from '../hooks/useMovieImage';
  * Props for the MovieCard component
  */
 interface MovieCardProps {
-    movie: Movie;
+    movie: MovieListing;
     onPress?: () => void;
 }
 

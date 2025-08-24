@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mflix-app",
-    "slug": "mflix-app",
+    "name": "mflix-expo",
+    "slug": "mflix-expo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
