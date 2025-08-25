@@ -19,10 +19,10 @@ export class Comment {
     );
   }
 
-  private static extractId(id: any): string {
+  private static extractId(id: IdType): string {
     if (typeof id === 'string') return id;
-    if (id && typeof id === 'object' && id.$oid) {
-      return id.$oid;
+    if (id && typeof id === 'object' && (id as { $oid?: string }).$oid) {
+      return (id as { $oid: string }).$oid;
     }
     return id?.toString() || '';
   }
