@@ -27,7 +27,7 @@ export class Comment {
     return id?.toString() || '';
   }
 
-  private static parseDate(date: any): Date {
+  private static parseDate(date: string | number | { $date: { $numberLong: string } } | Date): Date {
     if (typeof date === 'string') {
       return new Date(date);
     }
