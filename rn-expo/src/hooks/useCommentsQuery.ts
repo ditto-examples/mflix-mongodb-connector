@@ -30,8 +30,10 @@ export const useCommentsQuery = (movieId: string | undefined): UseCommentsQueryR
       const ditto = dittoService.getDitto();
 
       // Use store.execute to fetch comments directly
-      const query = `SELECT * FROM comments WHERE movie_id = '${movieId}' ORDER BY date DESC`;
-      const result = await ditto.store.execute(query);
+      const query = `SELECT * FROM comments WHERE movie_id = :movieId ORDER BY date DESC`;
+      const result = await ditto.store.execute(query,
+        { movieId: `${movieId}` }
+      );
       
       // Convert the result to Comment objects
       const commentsList = result.items.map((item: any) => Comment.fromJson(item.value));

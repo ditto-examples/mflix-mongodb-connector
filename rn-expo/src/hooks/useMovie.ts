@@ -42,8 +42,8 @@ export const useMovie = (movieId: string) => {
             return;
         }
         try {
-            const movieQuery = `SELECT * FROM movies WHERE _id = '${movieId}'`;
-            let response = await dittoService.ditto?.store.execute(movieQuery);
+            const movieQuery = `SELECT * FROM movies WHERE _id = :movieId`;
+            let response = await dittoService.ditto?.store.execute(movieQuery, { movieId: `${movieId}` });
             if (response.items !== null) {
                 const fetchedMovie = Movie.fromJson(response.items[0].value);
                 setMovie(fetchedMovie);

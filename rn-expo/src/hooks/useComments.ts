@@ -37,7 +37,7 @@ export const useComments = (movieId: string | undefined): UseCommentsResult => {
       }
 
       // Execute DQL query with movieId parameter
-      const query = `SELECT * FROM comments WHERE movie_id = '${movieId}' ORDER BY date DESC`;
+      const query = `SELECT * FROM comments WHERE movie_id = :movieId ORDER BY date DESC`;
       
       // Set up observer for real-time updates
       observerRef.current = await ditto.store.registerObserver(
@@ -46,7 +46,8 @@ export const useComments = (movieId: string | undefined): UseCommentsResult => {
           const commentsList = result.items.map((item: any) => Comment.fromJson(item.value));
           setComments(commentsList);
           setIsLoading(false);
-        }
+        },
+        { movieId: `${movieId}` },
       );
     } catch (err) {
       console.error('Error fetching comments:', err);
