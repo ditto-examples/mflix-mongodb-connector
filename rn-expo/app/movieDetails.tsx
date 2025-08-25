@@ -4,8 +4,8 @@ import { Image } from 'expo-image';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useMovie } from '../src/hooks/useMovie';
 import { useMovieImage } from '../src/hooks/useMovieImage';
-import { useComments } from '../src/hooks/useComments';
-import { useState, useMemo } from 'react';
+import { useCommentsQuery } from '../src/hooks/useCommentsQuery';
+import { useState, useMemo, useEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { MovieDetailsView } from '../src/components/MovieDetailsView';
 import { CommentsView } from '../src/components/CommentsView';
@@ -15,10 +15,17 @@ export default function MovieDetails() {
   const router = useRouter();
   const { movie, isLoading: isLoadingMovie, error } = useMovie(id);
   const { imageSource, isLoading: isLoadingImage, setIsLoading: setIsLoadingImage } = useMovieImage(movie?.poster);
-  const { comments, isLoading: isLoadingComments, error: commentsError, addComment } = useComments(id);
+  const { comments, isLoading: isLoadingComments, error: commentsError, addComment, refresh } = useCommentsQuery(id);
   const [selectedTab, setSelectedTab] = useState<'details' | 'comments'>('details');
 
   const commentCount = useMemo(() => comments.length, [comments]);
+
+  // Refresh comments when switching to comments tab
+  useEffect(() => {
+    if (selectedTab === 'comments') {
+      refresh();
+    }
+  }, [selectedTab, refresh]);
 
   return (
     <>

@@ -16,10 +16,10 @@ import {
      * UPDATE THESE VALUES WITH YOUR OWN VALUES FROM THE DITTO PORTAL
      * https://docs.ditto.live/cloud/portal/getting-sdk-connection-details
      */
-    private appId = 'a48453d8-c2c3-495b-9f36-80189bf5e135';
-    private token = '8304ca7f-e843-47ed-a0d8-32cc5ff1be7e'; 
-    private authURL = 'https://m1tpgv.cloud.dittolive.app';
-    private websocketURL = 'wss://m1tpgv.cloud.dittolive.app';
+    private appId = 'insert Ditto Portal App ID here';
+    private token = 'insert Ditto Portal Online Playground Authentication Token here'; 
+    private authURL = 'insert Ditto Portal Auth URL here';
+    private websocketURL = 'insert Ditto Portal Websocket URL here';
 
     private static instance: DittoService;
     public ditto: Ditto | null = null;
@@ -159,6 +159,7 @@ import {
 
             // CREATE index on title and year field if it doesn't already exist
             // https://docs.ditto.live/dql/dql
+            await this.ditto.store.execute("CREATE INDEX IF NOT EXISTS comments_movie_id_idx ON comments(movie_id)");
             await this.ditto.store.execute("CREATE INDEX IF NOT EXISTS movies_title_idx ON movies(title)");
             await this.ditto.store.execute("CREATE INDEX IF NOT EXISTS movies_year_idx ON movies(year)");
 

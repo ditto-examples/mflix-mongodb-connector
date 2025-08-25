@@ -52,6 +52,85 @@ Android:
 npx expo run android
 ```
 
+## Building Release Versions
+
+### Build Commands
+
+The following npm scripts are available for building release versions:
+
+```bash
+# Build Android release APK
+npm run build:android
+
+# Build iOS for simulator (default)
+npm run build:ios
+
+# Build iOS for physical device (requires valid signing)
+npm run build:ios-device
+
+# Build both platforms (Android + iOS simulator)
+npm run build:release
+```
+
+### Output Locations
+- **Android APK**: `android/app/build/outputs/apk/release/app-release.apk`
+- **iOS Simulator**: `ios/build/Release-iphonesimulator/mflixexpo.app`
+- **iOS Device Archive**: `ios/build/mflixexpo.xcarchive` (when using `build:ios-device`)
+
+## Installing Release Builds
+
+### Android Installation
+
+#### Using NPM Scripts (Recommended)
+```bash
+# Install on single connected device
+npm run install:android
+
+# Install on all connected Android devices
+npm run install:android-all
+```
+
+#### Using ADB Directly
+```bash
+# List connected devices
+adb devices
+
+# Install on specific device
+adb -s <device_id> install android/app/build/outputs/apk/release/app-release.apk
+
+# Install on first available device
+adb install android/app/build/outputs/apk/release/app-release.apk
+```
+
+#### Manual Installation
+1. Transfer the APK file to your Android device
+2. Enable "Unknown Sources" in Settings > Security
+3. Tap the APK file to install
+
+### iOS Installation
+
+#### Using NPM Scripts (iOS Simulator)
+```bash
+# Install on currently booted iOS simulator
+npm run install:ios-sim
+```
+
+#### Using Command Line (iOS Simulator)
+```bash
+# Install on iOS simulator
+xcrun simctl install booted ios/build/Release-iphonesimulator/mflixexpo.app
+```
+
+#### Using Xcode
+1. Open `ios/mflixexpo.xcworkspace` in Xcode
+2. Select your target device
+3. Build and run with Product > Run (⌘R)
+
+#### For Physical iOS Devices
+1. Open the `.xcarchive` file in Xcode
+2. Use Xcode's Organizer to distribute to devices or App Store
+3. Or use Xcode's "Devices and Simulators" window to install directly
+
 ## Learn more
 
 To learn more about developing your project with Expo, look at the following resources:

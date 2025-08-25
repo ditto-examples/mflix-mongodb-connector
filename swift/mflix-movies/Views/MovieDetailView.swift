@@ -4,7 +4,8 @@ import DittoSwift
 struct MovieDetailView: View {
     let movieId: String
     @Environment(AppState.self) private var appState
-    @State private var commentsObserver = CommentsObserver()
+    @State private var comments: [Comment] = []
+    @State private var isLoadingComments = false
     @State private var movie: Movie?
     @State private var isEditMode = false
     @State private var isLoading = true
@@ -87,7 +88,7 @@ struct MovieDetailView: View {
                                 // Segmented Control
                                 Picker("View", selection: $selectedTab) {
                                     Text("Details").tag(0)
-                                    Text("Comments (\(commentsObserver.comments.count))").tag(1)
+                                    Text("Comments (\(comments.count))").tag(1)
                                 }
                                 .pickerStyle(SegmentedPickerStyle())
                                 .padding(.top, 8)
@@ -103,8 +104,8 @@ struct MovieDetailView: View {
                                 } else {
                                     // Comments Section
                                     CommentsInlineView(
-                                        comments: commentsObserver.comments,
-                                        isLoading: commentsObserver.isLoading,
+                                        comments: comments,
+                                        isLoading: isLoadingComments
                                     )
                                 }
                             }
@@ -186,15 +187,23 @@ struct MovieDetailView: View {
         }
         .task {
             do {
-                // Load movie and register comments observer
+                // Load movie and comments
                 try await loadMovie()
-                commentsObserver.registerObserver(dittoService: appState.dittoService, movieId: movieId)
+                await loadComments()
                 
                 // Mark data as ready
                 isDataReady = true
             } catch {
                 print("Error loading data: \(error)")
                 isDataReady = true // Show error state
+            }
+        }
+        .onChange(of: selectedTab) { oldValue, newValue in
+            // Refresh comments when switching to comments tab
+            if newValue == 1 {
+                Task {
+                    await loadComments()
+                }
             }
         }
         .alert("Update Movie", isPresented: $showingSaveAlert) {
@@ -215,9 +224,6 @@ struct MovieDetailView: View {
                     }
                 }
             )
-        }
-        .onDisappear {
-            commentsObserver.cleanup()
         }
     }
     
@@ -335,6 +341,17 @@ struct MovieDetailView: View {
         isLoading = false
     }
     
+    private func loadComments() async {
+        isLoadingComments = true
+        do {
+            comments = try await appState.dittoService.getComments(by: movieId)
+        } catch {
+            print("Error loading comments: \(error)")
+            comments = []
+        }
+        isLoadingComments = false
+    }
+    
     
     private func addComment() async {
         guard !newCommentText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
@@ -354,6 +371,8 @@ struct MovieDetailView: View {
             if (try await appState.dittoService.addComment(newComment)) != nil {
                 showingAddComment = false
                 newCommentText = ""
+                // Refresh comments after adding a new one
+                await loadComments()
             }
         } catch {
             saveAlertMessage = "Failed to add comment: \(error)"

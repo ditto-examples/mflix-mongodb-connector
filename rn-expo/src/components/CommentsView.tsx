@@ -9,7 +9,9 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
-  Alert
+  Alert,
+  Modal,
+  SafeAreaView
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Comment } from '../models/comment';
@@ -76,11 +78,7 @@ export const CommentsView: React.FC<CommentsViewProps> = ({
   }
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={100}
-    >
+    <View style={styles.container}>
       <FlatList
         data={comments}
         renderItem={renderComment}
@@ -94,52 +92,71 @@ export const CommentsView: React.FC<CommentsViewProps> = ({
         }
       />
 
-      {showCommentInput ? (
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Write a comment..."
-            placeholderTextColor="#9ea3b0"
-            value={newComment}
-            onChangeText={setNewComment}
-            multiline
-            maxLength={500}
-            editable={!isAddingComment}
-          />
-          <View style={styles.inputButtons}>
-            <Pressable
-              style={[styles.button, styles.cancelButton]}
-              onPress={() => {
-                setShowCommentInput(false);
-                setNewComment('');
-              }}
-              disabled={isAddingComment}
-            >
-              <Text style={styles.buttonText}>Cancel</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.button, styles.postButton, isAddingComment && styles.disabledButton]}
-              onPress={handleAddComment}
-              disabled={isAddingComment}
-            >
-              {isAddingComment ? (
-                <ActivityIndicator size="small" color="#fff" />
-              ) : (
-                <Text style={styles.buttonText}>Post</Text>
-              )}
-            </Pressable>
-          </View>
-        </View>
-      ) : (
-        <Pressable
-          style={styles.addButton}
-          onPress={() => setShowCommentInput(true)}
-        >
-          <Ionicons name="add-circle" size={24} color="#fff" />
-          <Text style={styles.addButtonText}>Add Comment</Text>
-        </Pressable>
-      )}
-    </KeyboardAvoidingView>
+      <Pressable
+        style={styles.addButton}
+        onPress={() => setShowCommentInput(true)}
+      >
+        <Ionicons name="add-circle" size={24} color="#fff" />
+        <Text style={styles.addButtonText}>Add Comment</Text>
+      </Pressable>
+
+      <Modal
+        visible={showCommentInput}
+        animationType="slide"
+        transparent={false}
+        presentationStyle="formSheet"
+        onRequestClose={() => {
+          setShowCommentInput(false);
+          setNewComment('');
+        }}
+      >
+        <SafeAreaView style={styles.modalContainer}>
+          <KeyboardAvoidingView 
+            style={styles.modalContent}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          >
+            <View style={styles.modalHeader}>
+              <Pressable
+                onPress={() => {
+                  setShowCommentInput(false);
+                  setNewComment('');
+                }}
+                disabled={isAddingComment}
+              >
+                <Text style={styles.cancelText}>Cancel</Text>
+              </Pressable>
+              <Text style={styles.modalTitle}>Add Comment</Text>
+              <Pressable
+                onPress={handleAddComment}
+                disabled={isAddingComment || !newComment.trim()}
+              >
+                {isAddingComment ? (
+                  <ActivityIndicator size="small" color="#007AFF" />
+                ) : (
+                  <Text style={[styles.postText, (!newComment.trim() || isAddingComment) && styles.disabledText]}>Post</Text>
+                )}
+              </Pressable>
+            </View>
+            
+            <View style={styles.modalInputContainer}>
+              <TextInput
+                style={styles.modalInput}
+                placeholder="Write your comment here..."
+                placeholderTextColor="#9ea3b0"
+                value={newComment}
+                onChangeText={setNewComment}
+                multiline
+                maxLength={500}
+                editable={!isAddingComment}
+                autoFocus
+                textAlignVertical="top"
+              />
+              <Text style={styles.characterCount}>{newComment.length}/500</Text>
+            </View>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
+      </Modal>
+    </View>
   );
 };
 
@@ -165,7 +182,7 @@ const styles = StyleSheet.create({
   },
   listContent: {
     padding: 16,
-    paddingBottom: 80,
+    paddingBottom: 100,
   },
   commentCard: {
     backgroundColor: '#1e2127',
@@ -228,49 +245,57 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginLeft: 8,
   },
-  inputContainer: {
-    backgroundColor: '#1e2127',
-    padding: 16,
-    borderTopWidth: 1,
-    borderTopColor: '#3d434d',
-  },
-  input: {
+  modalContainer: {
+    flex: 1,
     backgroundColor: '#25292e',
+  },
+  modalContent: {
+    flex: 1,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#3d434d',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: '600',
     color: '#fff',
-    padding: 12,
+  },
+  cancelText: {
+    fontSize: 16,
+    color: '#007AFF',
+  },
+  postText: {
+    fontSize: 16,
+    color: '#007AFF',
+    fontWeight: '600',
+  },
+  disabledText: {
+    color: '#666',
+  },
+  modalInputContainer: {
+    flex: 1,
+    padding: 16,
+  },
+  modalInput: {
+    flex: 1,
+    backgroundColor: '#1e2127',
+    color: '#fff',
+    padding: 16,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#3d434d',
-    minHeight: 80,
-    maxHeight: 120,
-    textAlignVertical: 'top',
-    fontSize: 15,
-  },
-  inputButtons: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: 12,
-    gap: 12,
-  },
-  button: {
-    paddingVertical: 8,
-    paddingHorizontal: 20,
-    borderRadius: 6,
-    minWidth: 80,
-    alignItems: 'center',
-  },
-  cancelButton: {
-    backgroundColor: '#3d434d',
-  },
-  postButton: {
-    backgroundColor: '#007AFF',
-  },
-  disabledButton: {
-    opacity: 0.6,
-  },
-  buttonText: {
-    color: '#fff',
     fontSize: 16,
-    fontWeight: '500',
+    lineHeight: 24,
+  },
+  characterCount: {
+    textAlign: 'right',
+    color: '#9ea3b0',
+    fontSize: 12,
+    marginTop: 8,
   },
 });

@@ -10,7 +10,15 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "build:android": "expo prebuild --platform android && cd android && ./gradlew assembleRelease",
+    "build:ios-sim": "expo prebuild --platform ios && cd ios && xcodebuild -workspace mflixexpo.xcworkspace -scheme mflixexpo -configuration Release -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro'",
+    "build:ios-device": "expo prebuild --platform ios && cd ios && xcodebuild -workspace mflixexpo.xcworkspace -scheme mflixexpo -configuration Release -sdk iphoneos -archivePath build/mflixexpo.xcarchive archive",
+    "build:ios": "npm run build:ios-sim",
+    "build:release": "npm run build:android && npm run build:ios",
+    "install:android": "adb install android/app/build/outputs/apk/release/app-release.apk",
+    "install:android-all": "for device in $(adb devices | grep device | cut -f1); do adb -s $device install android/app/build/outputs/apk/release/app-release.apk; done",
+    "install:ios-sim": "xcrun simctl install booted ios/build/Release-iphonesimulator/mflixexpo.app"
   },
   "jest": {
     "preset": "jest-expo"
