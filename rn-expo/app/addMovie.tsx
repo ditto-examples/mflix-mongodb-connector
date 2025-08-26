@@ -1,5 +1,6 @@
 import { Text, View, StyleSheet, ScrollView, ActivityIndicator, TextInput, Alert, Pressable } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
 import { Movie } from '../src/models/movie';
 import { useAddMovie } from '../src/hooks/useAddMovie';
@@ -49,6 +50,7 @@ export default function AddMovie() {
           headerTitleStyle: {
             color: '#fff',
           },
+          headerBackTitle: 'Movies',
           headerRight: () => (
             <View style={styles.headerButtons}>
               <Pressable
@@ -62,7 +64,7 @@ export default function AddMovie() {
           ),
         }} 
       />
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container} edges={['bottom']}>
         <ScrollView 
           style={styles.scrollView}
           contentContainerStyle={styles.scrollViewContent}
@@ -121,7 +123,7 @@ export default function AddMovie() {
             <ActivityIndicator size="large" color="#fff" />
           </View>
         )}
-      </View>
+      </SafeAreaView>
     </>
   );
 }

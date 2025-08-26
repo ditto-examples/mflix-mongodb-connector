@@ -190,6 +190,11 @@ import Foundation
                         "CREATE INDEX IF NOT EXISTS movies_year_idx ON movies(year)"
                 )
 
+                try await ditto.store.execute(
+                    query:
+                        "CREATE INDEX IF NOT EXISTS comments_movie_id_idx ON comments(movie_id)"
+                )
+
                 isInitialized = true
             } catch {
                 throw DittoError.general(

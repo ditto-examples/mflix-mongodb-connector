@@ -35,26 +35,26 @@ export const useAddMovie = () => {
         }
 
         try {
+            const newMovie = {
+                title: movieData.title || '',
+                year: movieData.year || '',
+                plot: movieData.plot || '',
+                poster: movieData.poster || '',
+                fullplot: movieData.fullplot || '',
+                countries: movieData.countries || [],
+                rated: 'G', // Default rating for new movies
+                genres: movieData.genres || [],
+                directors: movieData.directors || [],
+                languages: movieData.languages || [],
+                imdb: {
+                    rating: 0,
+                    votes: 0
+                }
+            };
+            
             const result = await dittoService.ditto.store.execute(
                 "INSERT INTO movies DOCUMENTS (:newMovie)",
-                { 
-                    newMovie: {
-                        title: movieData.title,
-                        year: movieData.year,
-                        plot: movieData.plot,
-                        poster: movieData.poster,
-                        fullplot: movieData.fullplot,
-                        countries: movieData.countries,
-                        rated: 'G', // Default rating for new movies
-                        genres: movieData.genres || [],
-                        directors: movieData.directors || [],
-                        languages: movieData.languages || [],
-                        imdb: {
-                            rating: 0,
-                            votes: 0
-                        }
-                    }
-                }
+                { newMovie }
             );
 
             if (result.mutatedDocumentIDs().length === 0) {

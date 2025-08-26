@@ -268,6 +268,7 @@ final result = await ditto.store.execute('SELECT * FROM system:indexes');
 3. Maintain offline-first approach - all operations should work without network
 4. **Always provide loading states** - Use cached data from provider streams for instant loading
 5. **State Preservation** - Use `AutomaticKeepAliveClientMixin` and `PageStorageKey` for maintaining state
+6. **Background Processing** - MANDATORY: All database operations and serialization must use `compute()` or isolates (see Threading & Database Operations section)
 
 ### Testing Ditto Features
 - Test offline mode by disabling network
@@ -283,10 +284,47 @@ final result = await ditto.store.execute('SELECT * FROM system:indexes');
 - **Image Caching**: Use `CachedNetworkImage` to reduce bandwidth
 - **Error Handling**: Implement proper error handling for network/sync failures
 
+### Threading & Database Operations (CRITICAL)
+**ALL database operations and data serialization/deserialization MUST be performed off the main UI thread for optimal performance.**
+
+#### Background Processing Requirements
+1. **Database Queries**: All DQL queries, document fetches, and database operations must use `compute()` or isolates
+2. **JSON Serialization**: Model `fromJson()` operations for large datasets must run on background threads
+3. **Data Transformation**: Complex data processing, filtering, and mapping operations must be isolated from UI thread
+4. **File I/O**: Any file system operations must use background processing
+
+#### Implementation Patterns
+```dart
+// Use compute() for heavy JSON processing
+final movies = await compute(_parseMoviesData, jsonData);
+
+// Background query execution
+final result = await compute(_executeQuery, queryString);
+
+// Isolate-based data processing
+static List<Movie> _parseMoviesData(List<dynamic> jsonList) {
+  return jsonList.map((json) => Movie.fromJson(json)).toList();
+}
+
+// Background DQL query execution
+static Future<List<Map<String, dynamic>>> _executeQuery(String query) async {
+  // Execute DQL query and return results
+  return await DittoSingleton.instance.store.execute(query);
+}
+```
+
+#### Threading Best Practices
+- **UI Thread Protection**: Never perform database operations or heavy JSON parsing on the main thread
+- **Batch Processing**: Use background threads for batch operations like bulk data imports or exports
+- **Stream Processing**: Ensure stream data transformations happen off-main-thread before yielding to UI
+- **Provider Operations**: DittoProvider should delegate heavy operations to background processors
+- **Memory Management**: Use isolates for memory-intensive operations to prevent UI freezing
+
 ### Architecture Benefits
 This centralized stream architecture provides:
 - **No Observer Leaks**: Observers created once at app startup, no lifecycle issues
 - **Instant Tab Switching**: Cached data means no loading delays when switching tabs
 - **Preserved State**: Scroll positions and widget state maintained across navigation
-- **Better Performance**: Single observers serve multiple UI components
-- **Crash Prevention**: Eliminates race conditions from observer creation/disposal
+- **Better Performance**: Single observers serve multiple UI components, background processing prevents UI blocking
+- **Crash Prevention**: Eliminates race conditions from observer creation/disposal and UI thread blocking
+- **Smooth UI Experience**: Off-main-thread database operations ensure 60fps performance and responsive interactions
