@@ -9,24 +9,21 @@ import 'package:mflix_app/models/comment.dart';
 class DittoProvider with ChangeNotifier {
   Ditto? _ditto;
   
-  // Subscriptions
-  SyncSubscription? _commentsSubscription;
-  SyncSubscription? _moviesSubscription;
+  // Subscriptions - made public for SyncStatusView
+  SyncSubscription? commentsSubscription;
+  SyncSubscription? moviesSubscription;
   
   // Observers  
   StoreObserver? _moviesObserver;
   StoreObserver? _commentsObserver;
-  StoreObserver? _syncStatusObserver;
   
   // Stream controllers with replay capability - now return actual objects
   final _moviesStreamController = StreamController<List<MovieListing>>.broadcast();
-  final _commentsStreamController = StreamController<List<Comment>>.broadcast(); 
-  final _syncStatusStreamController = StreamController<QueryResult>.broadcast();
+  final _commentsStreamController = StreamController<List<Comment>>.broadcast();
   
   // Cache the latest results for immediate access
   List<MovieListing>? _latestMoviesList;
   List<Comment>? _latestCommentsList;
-  QueryResult? _latestSyncStatusResult;
 
   /// The Ditto instance used for database operations
   Ditto? get ditto => _ditto;
@@ -51,15 +48,6 @@ class DittoProvider with ChangeNotifier {
     yield* _commentsStreamController.stream;
   }
   
-  /// Stream of sync status information with immediate cache
-  Stream<QueryResult> get syncStatusStream async* {
-    // Immediately yield cached result if available
-    if (_latestSyncStatusResult != null) {
-      yield _latestSyncStatusResult!;
-    }
-    // Then yield all future updates
-    yield* _syncStatusStreamController.stream;
-  }
   
   /// Get comments for a specific movie by filtering the global comments stream
   Stream<List<Comment>> getCommentsForMovie(String movieId) async* {
@@ -134,8 +122,8 @@ class DittoProvider with ChangeNotifier {
     }
 
     // Set up subscriptions for app lifecycle
-    _commentsSubscription = _ditto?.sync.registerSubscription("SELECT * FROM comments");
-    _moviesSubscription = _ditto?.sync.registerSubscription("SELECT * FROM movies WHERE rated = 'G' OR rated = 'PG'");
+    commentsSubscription = _ditto?.sync.registerSubscription("SELECT * FROM comments");
+    moviesSubscription = _ditto?.sync.registerSubscription("SELECT * FROM movies WHERE rated = 'G' OR rated = 'PG'");
 
     // Set up observers that will run for the app lifecycle
     _setupObservers();
@@ -180,17 +168,6 @@ class DittoProvider with ChangeNotifier {
           });
       });
 
-      // Sync status observer - for the system tab
-      _syncStatusObserver = _ditto!.store.registerObserver(
-        "SELECT * FROM system:data_sync_info ORDER BY documents.sync_session_status, documents.last_update_received_time DESC",
-      );
-      
-      _syncStatusObserver!.changes.listen((result) {
-        _latestSyncStatusResult = result; // Cache the result
-        if (!_syncStatusStreamController.isClosed) {
-          _syncStatusStreamController.add(result);
-        }
-      });
       
     } catch (e) {
       if (kDebugMode) {
@@ -202,18 +179,16 @@ class DittoProvider with ChangeNotifier {
   @override
   void dispose() {
     // Cancel subscriptions
-    _commentsSubscription?.cancel();
-    _moviesSubscription?.cancel();
+    commentsSubscription?.cancel();
+    moviesSubscription?.cancel();
     
     // Cancel observers 
     _moviesObserver?.cancel();
     _commentsObserver?.cancel();
-    _syncStatusObserver?.cancel();
     
     // Close stream controllers
     _moviesStreamController.close();
     _commentsStreamController.close();
-    _syncStatusStreamController.close();
     
     super.dispose();
   }

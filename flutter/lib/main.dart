@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mflix_app/screens/movies_screen.dart';
-import 'package:mflix_app/screens/settings_screen.dart';
+import 'package:mflix_app/screens/ditto_tools_screen.dart';
 
 import 'providers/ditto_provider.dart';
 
@@ -122,7 +122,7 @@ class _MoviesExampleState extends State<MoviesExample> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_selectedIndex == 0 ? "Kid Movies" : "System"),
+        title: Text(_selectedIndex == 0 ? "Kid Movies" : "Ditto Tools"),
       ),
       body: PageView(
         controller: _pageController,
@@ -136,8 +136,8 @@ class _MoviesExampleState extends State<MoviesExample> {
           MoviesScreen(
               key: const PageStorageKey('movies'),
               dittoProvider: _dittoProvider!),
-          SettingsScreen(
-              key: const PageStorageKey('settings'),
+          DittoToolsScreen(
+              key: const PageStorageKey('ditto_tools'),
               dittoProvider: _dittoProvider!),
         ],
       ),
@@ -148,8 +148,8 @@ class _MoviesExampleState extends State<MoviesExample> {
             label: 'Movies',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'System',
+            icon: Icon(Icons.build),
+            label: 'Ditto Tools',
           ),
         ],
         currentIndex: _selectedIndex,
