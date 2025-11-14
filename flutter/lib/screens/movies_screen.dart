@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mflix_app/models/movie_listing.dart';
 import 'package:mflix_app/providers/ditto_provider.dart';
@@ -20,111 +17,14 @@ class MoviesScreen extends StatefulWidget {
 class _MoviesScreenState extends State<MoviesScreen>
     with AutomaticKeepAliveClientMixin {
   final ScrollController _scrollController = ScrollController();
-  final TextEditingController _searchController = TextEditingController();
-  
-  // Search state
-  bool _isSearching = false;
-  bool _isLoadingSearch = false;
-  List<MovieListing>? _searchResults;
-  Timer? _debounceTimer;
 
   @override
   bool get wantKeepAlive => true; // Keep state alive when switching tabs
 
   @override
-  void initState() {
-    super.initState();
-    _searchController.addListener(_onSearchChanged);
-  }
-
-  @override
   void dispose() {
-    _debounceTimer?.cancel();
-    _searchController.removeListener(_onSearchChanged);
-    _searchController.dispose();
     _scrollController.dispose();
     super.dispose();
-  }
-
-  void _onSearchChanged() {
-    // Cancel previous timer
-    _debounceTimer?.cancel();
-    
-    final searchTerm = _searchController.text.trim();
-    
-    // If search is empty, return to observer stream
-    if (searchTerm.isEmpty) {
-      setState(() {
-        _isSearching = false;
-        _searchResults = null;
-        _isLoadingSearch = false;
-      });
-      return;
-    }
-    
-    // Set searching state
-    if (!_isSearching) {
-      setState(() {
-        _isSearching = true;
-        _isLoadingSearch = true;
-      });
-    }
-    
-    // Debounce the search
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-      _performSearch(searchTerm);
-    });
-  }
-
-  Future<void> _performSearch(String searchTerm) async {
-    if (!mounted) return;
-    
-    setState(() {
-      _isLoadingSearch = true;
-    });
-    
-    try {
-      final ditto = widget.dittoProvider.ditto;
-      if (ditto != null) {
-        final query = "SELECT _id, plot, poster, title, year, imdb.rating AS imdbRating, tomatoes.viewer.rating as rottenRating FROM movies WHERE title LIKE :searchTerm AND (rated = 'G' OR rated = 'PG') ORDER BY year DESC";
-        final result = await ditto.store.execute(
-          query,
-          arguments: {'searchTerm': '%$searchTerm%'},
-        );
-        
-        if (mounted) {
-          // Deserialize search results in background
-          final rawData = result.items.map((r) => r.value).toList();
-          final movies = await compute(_deserializeSearchResults, rawData);
-          
-          setState(() {
-            _searchResults = movies;
-            _isLoadingSearch = false;
-          });
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _isLoadingSearch = false;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Search failed: $e'),
-            duration: const Duration(seconds: 2),
-          ),
-        );
-      }
-    }
-  }
-
-  void _clearSearch() {
-    _searchController.clear();
-    setState(() {
-      _isSearching = false;
-      _searchResults = null;
-      _isLoadingSearch = false;
-    });
   }
 
   @override
@@ -135,38 +35,7 @@ class _MoviesScreenState extends State<MoviesScreen>
         onPressed: () => _addMovie(context),
         child: const Icon(Icons.add_circle),
       ),
-      body: Column(
-        children: [
-          // Search bar
-          Container(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Search movies by title...',
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: _searchController.text.isNotEmpty
-                    ? IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: _clearSearch,
-                      )
-                    : null,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                filled: true,
-                fillColor: Theme.of(context).colorScheme.surface,
-              ),
-            ),
-          ),
-          // Movie list
-          Expanded(
-            child: _isSearching
-                ? _buildSearchResults()
-                : _buildMovieList(context),
-          ),
-        ],
-      ),
+      body: _buildMovieList(context),
     );
   }
 
@@ -178,58 +47,6 @@ class _MoviesScreenState extends State<MoviesScreen>
             AddMovieScreen(dittoProvider: widget.dittoProvider),
       ),
     );
-  }
-
-  Widget _buildSearchResults() {
-    if (_isLoadingSearch) {
-      return const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 16),
-            Text(
-              'Searching movies...',
-              style: TextStyle(fontSize: 16),
-            ),
-          ],
-        ),
-      );
-    }
-
-    if (_searchResults == null) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    }
-
-    if (_searchResults!.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.search_off,
-              size: 64,
-              color: Colors.grey,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'No movies found for "${_searchController.text}"',
-              style: const TextStyle(fontSize: 16),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Try a different search term',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return _buildMovieListView(_searchResults!);
   }
 
   Widget _buildMovieList(BuildContext context) {
@@ -434,9 +251,4 @@ class _MoviesScreenState extends State<MoviesScreen>
     );
   }
 
-}
-
-// Function for background deserialization of search results
-List<MovieListing> _deserializeSearchResults(List<Map<String, dynamic>> data) {
-  return data.map((item) => MovieListing.fromJson(item)).toList();
 }

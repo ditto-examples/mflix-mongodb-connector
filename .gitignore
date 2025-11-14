@@ -140,3 +140,6 @@ rn-expo/android/build
 rn-expo/android/app/build
 swift/build
 flutter/macos/build
+CLAUDE.md
+flutter/.metadata
+flutter/claude

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mflix_app/screens/movies_screen.dart';
 import 'package:mflix_app/screens/ditto_tools_screen.dart';
+import 'package:mflix_app/widgets/movie_search_delegate.dart';
 
 import 'providers/ditto_provider.dart';
 
@@ -123,6 +124,20 @@ class _MoviesExampleState extends State<MoviesExample> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_selectedIndex == 0 ? "Kid Movies" : "Ditto Tools"),
+        actions: _selectedIndex == 0
+            ? [
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  tooltip: 'Search movies',
+                  onPressed: () {
+                    showSearch(
+                      context: context,
+                      delegate: MovieSearchDelegate(_dittoProvider!),
+                    );
+                  },
+                ),
+              ]
+            : null,
       ),
       body: PageView(
         controller: _pageController,
