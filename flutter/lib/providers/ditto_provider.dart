@@ -114,16 +114,19 @@ class DittoProvider with ChangeNotifier {
 
     // CREATE index on title and year field if it doesn't already exist
     // https://docs.ditto.live/dql/dql
+    // https://docs.ditto.live/dql/indexing#best-practices-for-initialization
     if (platform != SupportedPlatform.web) {
+        _ditto?.store.execute(
+          "CREATE INDEX IF NOT EXISTS comments_movieId_idx ON comments(movieId)");
         _ditto?.store.execute(
           "CREATE INDEX IF NOT EXISTS movies_title_idx ON movies(title)");
         _ditto?.store.execute(
-          "CREATE INDEX IF NOT EXISTS movies_year_idx ON movies(year)");
+            "CREATE INDEX IF NOT EXISTS movies_rated_idx ON movies(rated)");
     }
 
     // Set up subscriptions for app lifecycle
     commentsSubscription = _ditto?.sync.registerSubscription("SELECT * FROM comments");
-    moviesSubscription = _ditto?.sync.registerSubscription("SELECT * FROM movies WHERE rated = 'G' OR rated = 'PG'");
+    moviesSubscription = _ditto?.sync.registerSubscription("SELECT * FROM movies");
 
     // Set up observers that will run for the app lifecycle
     _setupObservers();

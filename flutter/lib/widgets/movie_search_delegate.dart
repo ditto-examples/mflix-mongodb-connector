@@ -112,7 +112,7 @@ class MovieSearchDelegate extends SearchDelegate<MovieListing?> {
         final queryStr = "SELECT _id, plot, poster, title, year, imdb.rating AS imdbRating, tomatoes.viewer.rating as rottenRating FROM movies WHERE title LIKE :searchTerm AND (rated = 'G' OR rated = 'PG') ORDER BY year DESC";
         final result = await ditto.store.execute(
           queryStr,
-          arguments: {'searchTerm': '%$searchTerm%'},
+          arguments: {'searchTerm': '$searchTerm%'},
         );
 
         // Deserialize search results in background
