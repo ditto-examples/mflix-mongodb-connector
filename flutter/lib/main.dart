@@ -11,7 +11,8 @@ import 'providers/ditto_provider.dart';
 //https://docs.ditto.live/sdk/latest/install-guides/flutter
 //
 const _appId = 'insert Ditto Portal App ID here';
-const _token = 'insert Ditto Portal Online Playground Authentication Token here';
+const _token =
+    'insert Ditto Portal Online Playground Authentication Token here';
 const _authUrl = 'insert Ditto Portal Auth URL here';
 const _websocketUrl = 'insert Ditto Portal Websocket URL here';
 
@@ -45,7 +46,7 @@ class MyMovieApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           elevation: 4,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -61,7 +62,7 @@ class MyMovieApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           elevation: 4,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -117,7 +118,7 @@ class _MoviesExampleState extends State<MoviesExample> {
   @override
   Widget build(BuildContext context) {
     if (_dittoProvider == null) {
-      return _warningMessage;
+      return const MoviesLoadingView();
     }
 
     return Scaffold(
@@ -134,19 +135,18 @@ class _MoviesExampleState extends State<MoviesExample> {
         children: [
           // Use keys to maintain widget state
           MoviesScreen(
-              key: const PageStorageKey('movies'),
-              dittoProvider: _dittoProvider!),
+            key: const PageStorageKey('movies'),
+            dittoProvider: _dittoProvider!,
+          ),
           DittoToolsScreen(
-              key: const PageStorageKey('ditto_tools'),
-              dittoProvider: _dittoProvider!),
+            key: const PageStorageKey('ditto_tools'),
+            dittoProvider: _dittoProvider!,
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.movie),
-            label: 'Movies',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.movie), label: 'Movies'),
           BottomNavigationBarItem(
             icon: Icon(Icons.build),
             label: 'Ditto Tools',
@@ -157,16 +157,21 @@ class _MoviesExampleState extends State<MoviesExample> {
       ),
     );
   }
+}
 
-  Widget get _warningMessage => Scaffold(
+class MoviesLoadingView extends StatelessWidget {
+  const MoviesLoadingView({super.key});
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: const Text("Kid Movies")),
-        body: Center(
+        body: const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const CircularProgressIndicator(),
-              const Padding(
+              CircularProgressIndicator(),
+              Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Text(
                   "Trying to retrieve data - if this is first data sync this can take a while",
