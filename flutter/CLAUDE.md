@@ -69,7 +69,7 @@ The app uses a **centralized observer pattern** with app-lifecycle managed strea
 - **lib/models/comment.dart**: Comment data model with MongoDB ObjectId parsing
 - **lib/models/index.dart**: Index data model for database index information
 - **lib/models/sync_status.dart**: Sync status model for peer connection information
-- **lib/screens/**: UI screens with state preservation (MoviesScreen, SettingsScreen, IndexesScreen, SyncStatusView, MovieDetailScreen)
+- **lib/screens/**: UI screens with state preservation (MoviesScreen, SettingsScreen, IndexesScreen, PeerSyncStatusView, MovieDetailScreen)
 - **lib/widgets/**: Reusable reactive components for Ditto integration and comments display
 
 ### System Features
@@ -97,14 +97,14 @@ Uses a **centralized stream-based architecture** with state preservation:
 
 Before running, update these constants in `lib/main.dart` with values from Ditto Portal:
 ```dart
-const _appId = 'insert Ditto Portal App ID here';
+const _databaseId = 'insert Ditto Portal Database ID here';
 const _token = 'insert Ditto Portal Online Playground Authentication Token here';
-const _authUrl = 'insert Ditto Portal Auth URL here';
-const _websocketUrl = 'insert Ditto Portal Websocket URL here';
+const _serverUrl = 'insert Ditto Portal Server URL here';
 ```
 
 ## Key Dependencies
-- **ditto_live**: ^4.12.0-preview.3 - Core real-time sync SDK
+- **ditto_live**: ^5.0.3 - Core real-time sync SDK
+- **ditto_flutter_tools**: ^3.0.0-rc.1 - Diagnostic and debugging tools
 - **provider**: ^6.1.5 - Dependency injection
 - **cached_network_image**: ^3.3.0 - Image caching
 - **permission_handler**: ^12.0.0+1 - Runtime permissions for P2P

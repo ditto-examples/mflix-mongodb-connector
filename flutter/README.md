@@ -10,7 +10,7 @@ This is an [Flutter](https://flutter.dev/) project created with [Android Studio]
 - IDE of choice (Visual Studio Code, Android Studio "Koala" 2024.1.1 or higher, Cursor, etc)
 
 ## Get started
-To get started, you need to update the main.dart file with your own Ditto App ID, Online Playground Token, Authentication URL, and Websocket URL.  You can find these in the Ditto Portal.  For documentation on how to do this, see the [Ditto Documentation](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
+To get started, update `main.dart` with your Ditto Database ID, Online Playground Token, and URL. You can find these in the Ditto Portal. For documentation, see [Getting SDK Connection Details](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
 
 Once you have this information, you can update the Ditto Service in the `lib/main.dart` file
 
@@ -20,10 +20,9 @@ Once you have this information, you can update the Ditto Service in the `lib/mai
 //https://docs.ditto.live/cloud/portal/getting-sdk-connection-details
 //https://docs.ditto.live/sdk/latest/install-guides/flutter
 //
-const _appId = 'insert Ditto Portal App ID here';
+const _databaseId = 'insert Ditto Portal Database ID here';
 const _token = 'insert Ditto Portal Online Playground Authentication Token here';
-const _authUrl = 'insert Ditto Portal Auth URL here';
-const _websocketUrl = 'insert Ditto Portal Websocket URL here';
+const _serverUrl = 'insert Ditto Portal Server URL here';
 ```
 
 Once you have updated the Ditto Service, you can start the app by following the instructions below:

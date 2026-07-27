@@ -10,11 +10,10 @@ import 'providers/ditto_provider.dart';
 //https://docs.ditto.live/cloud/portal/getting-sdk-connection-details
 //https://docs.ditto.live/sdk/latest/install-guides/flutter
 //
-const _appId = 'insert Ditto Portal App ID here';
+const _databaseId = 'insert Ditto Portal Database ID here';
 const _token =
     'insert Ditto Portal Online Playground Authentication Token here';
-const _authUrl = 'insert Ditto Portal Auth URL here';
-const _websocketUrl = 'insert Ditto Portal Websocket URL here';
+const _serverUrl = 'insert Ditto Portal Server URL here';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -100,7 +99,7 @@ class _MoviesExampleState extends State<MoviesExample> {
 
   Future<void> _initDitto() async {
     final dittoProvider = DittoProvider();
-    await dittoProvider.initialize(_appId, _token, _authUrl, _websocketUrl);
+    await dittoProvider.initialize(_databaseId, _token, _serverUrl);
     setState(() => _dittoProvider = dittoProvider);
   }
 

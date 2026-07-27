@@ -58,12 +58,12 @@ class _CollectionItemBuilderState extends State<CollectionItemBuilder> {
       final query = "SELECT * FROM ${widget.collectionName} WHERE _id = :id";
       final results =
           await widget.ditto.store.execute(query, arguments: argument);
-      
+
       if (results.items.isNotEmpty) {
         // Deserialize in background
         final movieData = results.items.first.value;
         final movie = await compute(_deserializeMovie, movieData);
-        
+
         if (mounted) {
           setState(() {
             _movie = movie;

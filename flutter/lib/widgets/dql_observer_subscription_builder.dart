@@ -22,10 +22,12 @@ class DqlObserverSubscriptionBuilder extends StatefulWidget {
   });
 
   @override
-  State<DqlObserverSubscriptionBuilder> createState() => _DqlObserverSubscriptionBuilderState();
+  State<DqlObserverSubscriptionBuilder> createState() =>
+      _DqlObserverSubscriptionBuilderState();
 }
 
-class _DqlObserverSubscriptionBuilderState extends State<DqlObserverSubscriptionBuilder> {
+class _DqlObserverSubscriptionBuilderState
+    extends State<DqlObserverSubscriptionBuilder> {
   // https://docs.ditto.live/sdk/latest/crud/observing-data-changes
   StoreObserver? _observer;
 
@@ -40,9 +42,8 @@ class _DqlObserverSubscriptionBuilderState extends State<DqlObserverSubscription
   }
 
   void setupState() {
-
-     //https://docs.ditto.live/sdk/latest/crud/observing-data-changes#store-observer-with-query-arguments
-     final observer = widget.ditto.store.registerObserver(
+    //https://docs.ditto.live/sdk/latest/crud/observing-data-changes#store-observer-with-query-arguments
+    final observer = widget.ditto.store.registerObserver(
       widget.observationQuery,
       arguments: widget.observationQueryArgs ?? {},
     );

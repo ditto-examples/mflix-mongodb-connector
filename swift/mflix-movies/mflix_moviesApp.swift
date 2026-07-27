@@ -18,7 +18,7 @@ struct mflix_moviesApp: App {
         errorMessage = nil
     }
 
-    /// Read the dittoConfig.plist file and store the appId, endpointUrl, and authToken to use elsewhere.
+    /// Read the dittoConfig.plist file and store the database ID, server URL, and token to use elsewhere.
     static func loadDatabaseConfig() -> DatabaseConfig {
         guard let path = Bundle.main.path(forResource: "dittoConfig", ofType: "plist") else {
             fatalError("Could not load dittoConfig.plist file!")
@@ -26,9 +26,9 @@ struct mflix_moviesApp: App {
 
         // Any errors here indicate that the dittoConfig.plist file has not been formatted properly.
         // Expected key/values:
-        //      "url": "your BigPeer Cloud URL Endpoint"
-        //      "databaseId": "your BigPeer DatabaseID (used to be called appId)"
-        //      "token": "your Server Authentication Token (used to be called online playground authentication token)"
+        //      "url": "your Ditto server URL"
+        //      "databaseID": "your Ditto database ID"
+        //      "token": "your development authentication token"
         let data = NSData(contentsOfFile: path)! as Data
         let dittoConfigPropertyList = try! PropertyListSerialization.propertyList(from: data, format: nil) as! [String: Any]
         let url = dittoConfigPropertyList["url"]! as! String

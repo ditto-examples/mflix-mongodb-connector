@@ -3,10 +3,10 @@
 <plist version="1.0">
     <dict>
         <key>databaseID</key>
-        <string>insert Ditto Portal App ID here</string>
+        <string>insert Ditto Portal Database ID here</string>
         <key>token</key>
         <string>insert Ditto Portal Online Playground Authentication Token here</string>
         <key>url</key>
-        <string>insert Ditto Portal Auth URL here</string>
+        <string>insert Ditto Portal Server URL here</string>
     </dict>
 </plist>

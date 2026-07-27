@@ -126,10 +126,10 @@ swift/mflix-movies/
   - Performance optimization through indexing
 
 - **Database Configuration:**
-  - DQL strict mode disabled for flexibility
-  - V3 sync disabled for performance
+  - DittoConfig-based database and server setup
+  - Token authentication with expiration handling
   - Parameterized queries for security
-  - WebSocket transport configuration
+  - Server transport derived from the Portal URL
 
 #### CommentsObserver.swift (@Observable class)
 - Real-time comments synchronization using @Observable macro
@@ -383,8 +383,8 @@ swift/mflix-movies/
 ### Configuration
 - **dittoConfig.plist**: Central configuration file
 - **Authentication**: Token-based with expiration handling
-- **Transport**: WebSocket URL configuration
-- **Sync Settings**: V3 sync disabled, DQL strict mode off
+- **Transport**: Server connection derived from the Portal URL
+- **Sync Settings**: Ditto SDK v5 defaults with DQL strict mode off
 - **Security**: App sandboxing enabled
 
 ### Database Operations

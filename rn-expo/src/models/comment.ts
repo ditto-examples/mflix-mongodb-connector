@@ -1,3 +1,6 @@
+type IdType = string | number | { $oid?: string } | null | undefined;
+type ExtendedJsonDate = { $date: { $numberLong: string } };
+
 export class Comment {
   constructor(
     public id: string,
@@ -27,11 +30,11 @@ export class Comment {
     return id?.toString() || '';
   }
 
-  private static parseDate(date: string | number | { $date: { $numberLong: string } } | Date): Date {
+  private static parseDate(date: string | number | ExtendedJsonDate | Date): Date {
     if (typeof date === 'string') {
       return new Date(date);
     }
-    if (date && typeof date === 'object' && date.$date) {
+    if (date && typeof date === 'object' && '$date' in date) {
       const dateInfo = date.$date;
       if (dateInfo && typeof dateInfo === 'object' && dateInfo.$numberLong) {
         const timestamp = parseInt(dateInfo.$numberLong) || 0;

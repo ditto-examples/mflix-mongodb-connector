@@ -14,8 +14,8 @@ dependencies:
   provider: ^6.1.5
   http: ^1.5.0
   cached_network_image: ^3.3.0
-  ditto_live: ^4.12.1
-  ditto_flutter_tools: ^2.0.0
+  ditto_live: ^5.0.3
+  ditto_flutter_tools: ^3.0.0-rc.1
   permission_handler: ^11.3.1
   intl: ^0.18.1
 

@@ -32,8 +32,8 @@ class _DqlObserverBuilderState extends State<DqlObserverBuilder> {
   }
 
   void setupState() {
-     //https://docs.ditto.live/sdk/latest/crud/observing-data-changes#store-observer-with-query-arguments
-     final observer = widget.ditto.store.registerObserver(
+    //https://docs.ditto.live/sdk/latest/crud/observing-data-changes#store-observer-with-query-arguments
+    final observer = widget.ditto.store.registerObserver(
       widget.observationQuery,
       arguments: widget.observationQueryArgs ?? {},
     );

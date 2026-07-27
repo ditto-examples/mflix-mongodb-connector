@@ -40,7 +40,8 @@ class Comment {
     }
     if (date is Map<String, dynamic> && date.containsKey('\$date')) {
       final dateInfo = date['\$date'];
-      if (dateInfo is Map<String, dynamic> && dateInfo.containsKey('\$numberLong')) {
+      if (dateInfo is Map<String, dynamic> &&
+          dateInfo.containsKey('\$numberLong')) {
         final timestamp = int.tryParse(dateInfo['\$numberLong']) ?? 0;
         return DateTime.fromMillisecondsSinceEpoch(timestamp);
       }
@@ -52,11 +53,11 @@ class Comment {
   }
 
   String get displayName => name.isNotEmpty ? name : 'Anonymous';
-  
+
   String get formattedDate {
     final now = DateTime.now();
     final difference = now.difference(date);
-    
+
     if (difference.inDays > 365) {
       return '${(difference.inDays / 365).floor()} year${difference.inDays > 365 * 2 ? 's' : ''} ago';
     } else if (difference.inDays > 30) {
@@ -71,11 +72,11 @@ class Comment {
       return 'Just now';
     }
   }
-  
+
   String get displayText => text;
-  
+
   bool get hasValidMovieId => movieId.isNotEmpty;
-  
+
   Map<String, dynamic> toJson() {
     return {
       '_id': id,

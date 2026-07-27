@@ -30,30 +30,30 @@ class MovieListing {
   }
 
   String get displayYear => year;
-  
+
   String get displayPlot => plot;
-  
+
   String get displayTitle => title;
-  
+
   bool get hasPoster => poster.isNotEmpty;
-  
+
   bool get hasImdbRating => imdbRating != null;
-  
+
   bool get hasRottenRating => rottenRating != null;
-  
+
   bool get hasRatings => hasImdbRating || hasRottenRating;
-  
+
   String get ratingsDisplay {
     final ratings = <String>[];
-    
+
     if (hasImdbRating) {
       ratings.add('IMDB: ${imdbRating!.toStringAsFixed(1)}');
     }
-    
+
     if (hasRottenRating) {
       ratings.add('Rotten Tomatoes: ${rottenRating!.toStringAsFixed(1)}');
     }
-    
+
     return ratings.join(' ');
   }
 }

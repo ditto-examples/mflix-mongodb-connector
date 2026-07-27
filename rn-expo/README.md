@@ -9,7 +9,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 - IDE of choice (Visual Studio Code, Cursor, etc)
 
 ## Get started
-To get started, you need to update the Ditto Service with your own Ditto App ID, Online Playground Token, Authentication URL, and Websocket URL.  You can find these in the Ditto Portal.  For documentation on how to do this, see the [Ditto Documentation](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
+To get started, update the Ditto service with your Ditto Database ID, Online Playground Token, and URL. You can find these in the Ditto Portal. For documentation, see [Getting SDK Connection Details](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
 
 Once you have this information, you can update the Ditto Service in the `src/services/dittoService.ts` file
 
@@ -18,10 +18,9 @@ Once you have this information, you can update the Ditto Service in the `src/ser
      * UPDATE THESE VALUES WITH YOUR OWN VALUES FROM THE DITTO PORTAL
      * https://docs.ditto.live/cloud/portal/getting-sdk-connection-details
      */
-    private appId = 'insert Ditto Portal App ID here';
+    private databaseId = 'insert Ditto Portal Database ID here';
     private token = 'insert Ditto Portal Online Playground Authentication Token here'; 
-    private authURL = 'insert Ditto Portal Auth URL here';
-    private websocketURL = 'insert Ditto Portal Websocket URL here';
+    private serverURL = 'insert Ditto Portal Server URL here';
 ```
 
 

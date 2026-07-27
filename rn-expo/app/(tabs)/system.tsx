@@ -1,17 +1,20 @@
 import { Text, View, StyleSheet, Pressable, FlatList, ActivityIndicator } from 'react-native';
 import { Stack } from 'expo-router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { PeersList } from '@dittolive/ditto-react-native-tools';
 import { useIndexes } from '../../src/hooks/useIndexes';
 import { useSyncStatus } from '../../src/hooks/useSyncStatus';
 import { IndexItem } from '../../src/components/IndexItem';
 import { SyncStatusItem } from '../../src/components/SyncStatusItem';
 import { IndexInfo } from '../../src/models/indexInfo';
 import { SyncStatusInfo } from '../../src/models/syncStatusInfo';
+import DittoContext from '../../src/providers/DittoContext';
 
-type SystemSection = 'sync' | 'indexes';
+type SystemSection = 'sync' | 'indexes' | 'peers';
 
 export default function SystemTab() {
   const [selectedSection, setSelectedSection] = useState<SystemSection>('sync');
+  const ditto = useContext(DittoContext)?.dittoService.ditto;
   const { indexes, isLoading: indexesLoading, error: indexesError, refresh: refreshIndexes } = useIndexes();
   const { syncStatuses, isLoading: syncLoading, error: syncError } = useSyncStatus();
 
@@ -101,6 +104,22 @@ export default function SystemTab() {
             )}
           />
         );
+      case 'peers':
+        if (!ditto) {
+          return (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="large" color="#fff" />
+            </View>
+          );
+        }
+
+        return (
+          <PeersList
+            ditto={ditto}
+            showConnectionDetails
+            style={styles.toolsContainer}
+          />
+        );
       default:
         return null;
     }
@@ -144,7 +163,6 @@ export default function SystemTab() {
               style={[
                 styles.segmentButton,
                 selectedSection === 'indexes' && styles.segmentButtonActive,
-                styles.segmentButtonRight,
               ]}
               onPress={() => setSelectedSection('indexes')}
             >
@@ -155,6 +173,23 @@ export default function SystemTab() {
                 ]}
               >
                 Indexes
+              </Text>
+            </Pressable>
+            <Pressable
+              style={[
+                styles.segmentButton,
+                selectedSection === 'peers' && styles.segmentButtonActive,
+                styles.segmentButtonRight,
+              ]}
+              onPress={() => setSelectedSection('peers')}
+            >
+              <Text
+                style={[
+                  styles.segmentText,
+                  selectedSection === 'peers' && styles.segmentTextActive,
+                ]}
+              >
+                Peers
               </Text>
             </Pressable>
           </View>
@@ -218,6 +253,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  toolsContainer: {
+    flex: 1,
+    backgroundColor: '#25292e',
   },
   errorText: {
     color: '#ff6b6b',

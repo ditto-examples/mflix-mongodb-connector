@@ -50,7 +50,16 @@ target 'mflixexpo' do
       :ccache_enabled => podfile_properties['apple.ccacheEnabled'] == 'true',
     )
 
-    # This is necessary for Xcode 14, because it signs resource bundles by default
+
+    # Ditto: fmt consteval workaround for Xcode 26.4 (SDKS-3242).
+    installer.pods_project.targets.each do |target|
+      if target.name == 'fmt'
+        target.build_configurations.each do |cfg|
+          cfg.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
+        end
+      end
+    end
+# This is necessary for Xcode 14, because it signs resource bundles by default
     # when building for devices.
     installer.target_installation_results.pod_target_installation_results
       .each do |pod_name, target_installation_result|

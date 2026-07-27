@@ -57,7 +57,7 @@ export const useAddMovie = () => {
                 { newMovie }
             );
 
-            if (result.mutatedDocumentIDs().length === 0) {
+            if (result.mutatedDocumentIDsV2().length === 0) {
                 throw new Error('Failed to add movie');
             }
 
@@ -69,4 +69,4 @@ export const useAddMovie = () => {
     };
 
     return { addMovie };
-}; 
+};
