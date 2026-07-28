@@ -1,3 +1,4 @@
+import DittoAllToolsMenu
 import SwiftUI
 
 struct ContentView: View {
@@ -41,6 +42,17 @@ struct ContentView: View {
                         Text("System")
                     }
                     .tag(1)
+
+                    NavigationStack {
+                        AllToolsMenu(ditto: appState.dittoService.dittoInstance)
+                            .navigationTitle("Ditto Tools")
+                    }
+                    .tabItem {
+                        Image(systemName: "wrench.and.screwdriver")
+                            .fontWeight(.light)
+                        Text("Tools")
+                    }
+                    .tag(2)
                 }
             }
         }

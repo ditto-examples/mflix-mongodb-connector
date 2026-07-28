@@ -47,34 +47,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		0D2858402E4687D900BF0330 /* Exceptions for "mflix-movies" folder in "mflix-moviesTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Data/AppState.swift,
-				Data/CommentsObserver.swift,
-				Data/DatabaseConfig.swift,
-				Data/DittoService.swift,
-				dittoConfig.plist,
-				Models/Movie.swift,
-				Models/MovieListing.swift,
-			);
-			target = 0D2858002E4686FA00BF0330 /* mflix-moviesTests */;
-		};
-		0D2858412E4687D900BF0330 /* Exceptions for "mflix-movies" folder in "mflix-moviesUITests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Data/AppState.swift,
-				Data/CommentsObserver.swift,
-				Data/DatabaseConfig.swift,
-				Data/DittoService.swift,
-				dittoConfig.plist,
-				Models/Movie.swift,
-				Models/MovieListing.swift,
-				Views/MovieDetailView.swift,
-				Views/MoviesListView.swift,
-			);
-			target = 0D28580A2E4686FA00BF0330 /* mflix-moviesUITests */;
-		};
 		0D6125D72E4B8D9E00C2F357 /* Exceptions for "mflix-movies" folder in "mflix-movies" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -89,8 +61,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				0D6125D72E4B8D9E00C2F357 /* Exceptions for "mflix-movies" folder in "mflix-movies" target */,
-				0D2858402E4687D900BF0330 /* Exceptions for "mflix-movies" folder in "mflix-moviesTests" target */,
-				0D2858412E4687D900BF0330 /* Exceptions for "mflix-movies" folder in "mflix-moviesUITests" target */,
 			);
 			path = "mflix-movies";
 			sourceTree = "<group>";
