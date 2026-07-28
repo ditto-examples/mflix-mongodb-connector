@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@dittolive/ditto": "^5.0.3",
-    "@dittolive/ditto-react-native-tools": "^2.0.0-rc.2",
+    "@dittolive/ditto-react-native-tools": "^2.0.0-rc.3",
     "@dr.pogodin/react-native-fs": "^2.39.2",
     "@expo/config-plugins": "~10.1.1",
     "@expo/vector-icons": "^15.0.3",
