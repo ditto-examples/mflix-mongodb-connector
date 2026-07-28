@@ -12,6 +12,7 @@ import Foundation
     var databaseConfig: DatabaseConfig
 
     var isInitialized = false
+    var dittoInstance: Ditto? { ditto }
 
     // Closure to handle errors without circular reference
     var onError: ((DittoError) -> Void)?
