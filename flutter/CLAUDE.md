@@ -104,7 +104,7 @@ const _serverUrl = 'insert Ditto Portal Server URL here';
 
 ## Key Dependencies
 - **ditto_live**: ^5.0.3 - Core real-time sync SDK
-- **ditto_flutter_tools**: ^3.0.0-rc.2 - Diagnostic and debugging tools
+- **ditto_flutter_tools**: ^3.0.0-rc.3 - Diagnostic and debugging tools
 - **provider**: ^6.1.5 - Dependency injection
 - **cached_network_image**: ^3.3.0 - Image caching
 - **permission_handler**: ^12.0.0+1 - Runtime permissions for P2P
