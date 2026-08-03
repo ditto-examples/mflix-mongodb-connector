@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputError should correctly render an input error 1`] = `
+<div>
+  <div
+    class="text-fill-critical mt-1.5 text-xs"
+    style="margin-bottom: 5px;"
+  >
+    This is the error
+  </div>
+</div>
+`;

@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonGroup should correctly render button group with horizontal orientation (default). 1`] = `
+<div>
+  <div
+    class="flex w-fit items-stretch has-[>[data-slot=button-group]]:gap-2 *:focus-visible:relative *:focus-visible:z-10 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1 [&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none"
+    data-slot="button-group"
+    role="group"
+  >
+    <button
+      class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-background text-foreground-normal enabled:hover:bg-background-surface/70 border border-border-normal h-8 px-4"
+      type="button"
+    >
+      Button 1
+    </button>
+    <button
+      class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-background text-foreground-normal enabled:hover:bg-background-surface/70 border border-border-normal h-8 px-4"
+      type="button"
+    >
+      Button 2
+    </button>
+  </div>
+</div>
+`;
+
+exports[`ButtonGroup should correctly render button group with vertical orientation. 1`] = `
+<div>
+  <div
+    class="flex w-fit items-stretch has-[>[data-slot=button-group]]:gap-2 *:focus-visible:relative *:focus-visible:z-10 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1 flex-col [&>*:not(:first-child)]:rounded-t-none [&>*:not(:first-child)]:border-t-0 [&>*:not(:last-child)]:rounded-b-none"
+    data-orientation="vertical"
+    data-slot="button-group"
+    role="group"
+  >
+    <button
+      class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-background text-foreground-normal enabled:hover:bg-background-surface/70 border border-border-normal h-8 px-4"
+      type="button"
+    >
+      Button 1
+    </button>
+    <button
+      class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-background text-foreground-normal enabled:hover:bg-background-surface/70 border border-border-normal h-8 px-4"
+      type="button"
+    >
+      Button 2
+    </button>
+  </div>
+</div>
+`;
+
+exports[`ButtonGroupSeparator should correctly render separator with horizontal orientation. 1`] = `
+<div>
+  <div
+    class="shrink-0 h-px w-full bg-input m-0! relative self-stretch data-[orientation=vertical]:h-auto"
+    data-orientation="horizontal"
+    data-slot="button-group-separator"
+    role="none"
+  />
+</div>
+`;
+
+exports[`ButtonGroupSeparator should correctly render separator with vertical orientation (default). 1`] = `
+<div>
+  <div
+    class="shrink-0 h-full w-px bg-input m-0! relative self-stretch data-[orientation=vertical]:h-auto"
+    data-orientation="vertical"
+    data-slot="button-group-separator"
+    role="none"
+  />
+</div>
+`;

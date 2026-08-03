@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableActionsHeaderButton should match the snapshot for all variants and open states 1`] = `
+<div>
+  <button
+    class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent text-foreground-normal enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none"
+    type="button"
+  />
+</div>
+`;
+
+exports[`TableActionsHeaderButton should match the snapshot for all variants and open states 2`] = `
+<div>
+  <button
+    class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none text-foreground-normal enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none bg-background-surface/80"
+    type="button"
+  />
+</div>
+`;
+
+exports[`TableActionsHeaderButton should match the snapshot for all variants and open states 3`] = `
+<div>
+  <button
+    class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none text-foreground-subtle/50 cursor-not-allowed"
+    disabled=""
+    type="button"
+  />
+</div>
+`;
+
+exports[`TableActionsHeaderButton should match the snapshot for all variants and open states 4`] = `
+<div>
+  <button
+    class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-fill-critical text-foreground-on-fill enabled:hover:bg-fill-critical/90 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none"
+    type="button"
+  />
+</div>
+`;
+
+exports[`TableActionsHeaderButton should match the snapshot for all variants and open states 5`] = `
+<div>
+  <button
+    class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none text-foreground-on-fill enabled:hover:bg-fill-critical/90 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none bg-background-surface/80"
+    type="button"
+  />
+</div>
+`;
+
+exports[`TableActionsHeaderButton should match the snapshot for all variants and open states 6`] = `
+<div>
+  <button
+    class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-fill-critical enabled:hover:bg-fill-critical/90 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none text-foreground-subtle/50 cursor-not-allowed"
+    disabled=""
+    type="button"
+  />
+</div>
+`;

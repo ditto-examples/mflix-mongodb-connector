@@ -1,0 +1,511 @@
+@import './theme-palette.css';
+@import './codeEditor/theme.css';
+@plugin "tailwindcss-animate";
+@source './';
+
+/* ============================================================
+   NOTE: theme variants (`light`, `dark`, etc.) are declared at
+   the bottom of this file. They are class-based so that the
+   ThemeProvider's user-selected theme always wins over the OS
+   preference, while `:root` selectors below still default to
+   the OS preference for users who haven't picked a theme.
+   ============================================================ */
+
+/* ============================================================
+   Static theme — replaces tailwind.config.js `theme` block
+   ============================================================ */
+@theme {
+  /* transparent / current */
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-black-static: #000;
+  --color-white-static: #fff;
+
+  /* ----------------------------------------------------------
+     Base tokens
+     ---------------------------------------------------------- */
+
+  /* background */
+  --background: var(--color-neutral-50);
+  --background-surface: var(--color-white);
+  --background-surface-hovered: --alpha(var(--color-neutral-500) / 2%);
+  --background-surface-secondary: --alpha(var(--color-neutral-500) / 4%);
+  --background-overlay: var(--color-white);
+  --background-overlay-hovered: var(--color-neutral-50);
+  --background-inverse: var(--color-neutral-950);
+
+  /* fills */
+  --fill-brand-primary: var(--color-citrus-800);
+  --fill-brand-primary-hovered: var(--color-citrus-900);
+  --fill-brand-secondary: var(--color-neutral-950);
+  --fill-brand-secondary-hovered: var(--color-neutral-950);
+  --fill-disabled: var(--color-neutral-300);
+  --fill-opaque: --alpha(var(--color-neutral-950) / 3%);
+  --fill-info: var(--color-sky-500);
+  --fill-info-secondary: var(--color-sky-50);
+  --fill-success: var(--color-emerald-600);
+  --fill-success-secondary: var(--color-emerald-100);
+  --fill-warning: var(--color-orange-600);
+  --fill-warning-secondary: var(--color-orange-100);
+  --fill-critical: var(--color-red-600);
+  --fill-critical-secondary: var(--color-red-100);
+  --fill-promo: var(--color-violet-500);
+  --fill-promo-secondary: var(--color-violet-100);
+  --fill-control-selected: var(--color-black);
+
+  /* foreground */
+  --foreground-normal: var(--color-neutral-950);
+  --foreground-subtle: var(--color-neutral-600);
+  --foreground-accent: var(--color-citrus-700);
+  --foreground-warning: var(--color-orange-600);
+  --foreground-disabled: var(--color-neutral-500);
+  --foreground-on-fill: var(--color-white);
+  --foreground-on-inverse: var(--color-white);
+  --foreground-on-brand-primary: var(--color-black-static);
+
+  /* border */
+  --border-normal: --alpha(var(--color-neutral-950) / 12%);
+  --border-strong: var(--color-neutral-950);
+  --border-info: var(--color-sky-500);
+  --border-success: var(--color-emerald-600);
+  --border-warning: var(--color-orange-600);
+  --border-critical: var(--color-red-600);
+  --border-promo: var(--color-violet-500);
+  --border-control-selected: var(--color-black);
+
+  /* ring */
+  --ring: var(--color-citrus-700);
+
+  /* progress */
+  --progress: var(--color-primary);
+  --progress-remaining: --alpha(var(--color-primary) / 20%);
+
+  /* focus */
+  --focus-outline: var(--color-citrus-700);
+
+  /* ----------------------------------------------------------
+     Font families
+     ---------------------------------------------------------- */
+  --font-sans: 'Inter var', ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+  --font-plex-mono: 'IBM Plex Mono';
+  --font-aeonik: 'Aeonik Fono';
+  --font-kairos: 'Kairos Sans Variable';
+
+  /* ----------------------------------------------------------
+     Font sizes  (old config replaced theme.fontSize entirely)
+     ---------------------------------------------------------- */
+  --text-xs: 0.65rem;
+  --text-sm: 0.75rem;
+  --text-base: 0.875rem;
+  --text-lg: 1rem;
+  --text-xl: 1.125rem;
+  --text-2xl: 1.25rem;
+  --text-3xl: 1.5rem;
+  --text-4xl: 1.875rem;
+  --text-5xl: 2.25rem;
+  --text-6xl: 3rem;
+  --text-7xl: 4rem;
+
+  /* line-height pair for sm */
+  --text-sm--line-height: 1rem;
+
+  /* ----------------------------------------------------------
+     Cursors
+     ---------------------------------------------------------- */
+  --cursor-ns-resize: ns-resize;
+  --cursor-inherit: inherit;
+
+  /* ----------------------------------------------------------
+     Transition properties
+     ---------------------------------------------------------- */
+  --transition-height: height;
+  --transition-width: width;
+
+  /* ----------------------------------------------------------
+     Animations
+     ---------------------------------------------------------- */
+  --animate-scan: scan 4s infinite ease-in-out;
+
+  /* ----------------------------------------------------------
+     Shadows
+     ---------------------------------------------------------- */
+  --shadow-2xs: 0 1px var(--color-shadow-shallow);
+  --shadow-xs: 0 1px 2px 0 var(--color-shadow-shallow);
+  --shadow-sm: 0 1px 3px 0 var(--color-shadow),
+    0 1px 2px -1px var(--color-shadow);
+  --shadow-md: 0 4px 6px -1px var(--color-shadow),
+    0 2px 4px -2px var(--color-shadow);
+  --shadow-lg: 0 10px 15px -3px var(--color-shadow),
+    0 4px 6px -4px var(--color-shadow);
+  --shadow-xl: 0 20px 25px -5px var(--color-shadow),
+    0 8px 10px -6px var(--color-shadow);
+  --shadow-2xl: 0 25px 50px -12px var(--color-shadow-deep);
+}
+
+/* Keyframes must live outside @theme in v4 */
+@keyframes scan {
+  0%,
+  100% {
+    transform: translateY(-100%);
+  }
+  25%,
+  75% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(100%);
+  }
+}
+
+/* ----------------------------------------------------------
+   Custom utilities that can't be expressed with @theme keys
+   ---------------------------------------------------------- */
+@utility grid-cols-min-fr {
+  grid-template-columns: min-content 1fr;
+}
+
+/* ============================================================
+   Semantic tokens — light theme (default / :root)
+   ============================================================ */
+:root,
+:root.light,
+:root[data-theme='light'],
+:root[data-applied-theme='light'] {
+  color-scheme: light;
+
+  /* shadows */
+  --color-shadow-shallow: --alpha(var(--color-black-static) / 6%);
+  --color-shadow: --alpha(var(--color-black-static) / 10%);
+  --color-shadow-deep: --alpha(var(--color-black-static) / 25%);
+
+  /* progress */
+  --progress: var(--color-citrus-700);
+  --progress-remaining: --alpha(var(--color-citrus-700) / 20%);
+
+  /* highlighting */
+  --code-background: var(--background-surface);
+  --code-foreground: var(--foreground-normal);
+  --code-muted: var(--foreground-subtle);
+  --code-keyword: var(--color-citrus-700);
+  --code-literal: var(--color-sunset-600);
+  --code-string: var(--color-sky-800);
+  --code-selection: --alpha(var(--color-citrus-500) / 15%);
+  --code-selection-match: --alpha(var(--color-citrus-500) / 40%);
+  --code-line-highlight: --alpha(var(--color-citrus-500) / 10%);
+  --code-bracket-match: --alpha(var(--color-citrus-500) / 20%);
+}
+
+/* ============================================================
+   Semantic tokens — dark theme
+   ============================================================ */
+:root.dark,
+:root[data-theme='dark'],
+:root[data-applied-theme='dark'] {
+  color-scheme: dark;
+
+  --background: var(--color-neutral-100);
+  --background-surface: var(--color-neutral-200);
+  --background-overlay: var(--color-neutral-200);
+  --background-overlay-hovered: var(--color-neutral-100);
+
+  --foreground-subtle: var(--color-neutral-700);
+
+  /* border */
+  --border-normal: --alpha(var(--color-neutral-950) / 25%);
+
+  /* background */
+  --background-surface-hovered: --alpha(var(--color-neutral-500) / 7%);
+  --background-surface-secondary: --alpha(var(--color-neutral-500) / 15%);
+
+  /* fills */
+  --fill-disabled: var(--color-neutral-600);
+
+  --fill-brand-primary: var(--color-citrus-600);
+  --fill-brand-primary-hovered: var(--color-citrus-700);
+
+  --fill-control-selected: var(--color-primary);
+  --border-control-selected: var(--color-primary);
+
+  --fill-info: var(--color-sky-600);
+  --fill-info-secondary: var(--color-sky-50);
+  --fill-success-secondary: var(--color-emerald-50);
+  --fill-warning-secondary: var(--color-orange-50);
+  --fill-critical-secondary: var(--color-red-50);
+  --fill-promo: var(--color-violet-600);
+  --fill-promo-secondary: var(--color-violet-50);
+
+  --foreground-accent: var(--color-citrus-600);
+
+  --focus-outline: var(--color-citrus-600);
+
+  /* shadows */
+  --color-shadow-shallow: --alpha(var(--color-black-static) / 30%);
+  --color-shadow: --alpha(var(--color-black-static) / 90%);
+  --color-shadow-deep: --alpha(var(--color-black-static) / 97%);
+}
+
+/* ============================================================
+   Semantic tokens — light high contrast theme
+   ============================================================ */
+:root.light-high-contrast,
+:root[data-theme='light-high-contrast'],
+:root[data-applied-theme='light-high-contrast'] {
+  color-scheme: light;
+
+  /* border */
+  --border-normal: var(--color-neutral-950);
+
+  --foreground-normal: var(--color-black);
+  --foreground-subtle: var(--color-neutral-800);
+
+  --fill-critical: var(--color-red-800);
+  --fill-disabled: --alpha(var(--color-neutral-300) / 60%);
+
+  --progress: var(--color-citrus-800);
+  --progress-remaining: --alpha(var(--color-citrus-800) / 20%);
+
+  --code-keyword: var(--color-citrus-900);
+  --code-literal: var(--color-sunset-800);
+  --code-string: var(--color-sky-950);
+}
+
+/* ============================================================
+   Semantic tokens — dark high contrast mode
+   ============================================================ */
+:root.dark-high-contrast,
+:root[data-theme='dark-high-contrast'],
+:root[data-applied-theme='dark-high-contrast'] {
+  color-scheme: dark;
+
+  /* border */
+  --border-normal: var(--color-neutral-950);
+
+  --foreground-normal: var(--color-black);
+  --foreground-subtle: var(--color-neutral-800);
+  --foreground-accent: var(--color-citrus-800);
+
+  --fill-brand-primary: var(--color-citrus-800);
+  --fill-brand-primary-hovered: var(--color-citrus-900);
+  --fill-disabled: var(--color-black);
+  --fill-critical: var(--color-red-800);
+  --fill-info-secondary: var(--color-sky-50);
+  --fill-success-secondary: var(--color-emerald-50);
+  --fill-warning-secondary: var(--color-orange-50);
+  --fill-critical-secondary: var(--color-red-50);
+  --fill-promo-secondary: var(--color-violet-50);
+
+  --fill-control-selected: var(--color-primary);
+  --border-control-selected: var(--color-primary);
+
+  --border-info: var(--color-sky-800);
+  --border-success: var(--color-emerald-800);
+  --border-warning: var(--color-orange-800);
+  --border-critical: var(--color-red-800);
+  --border-promo: var(--color-violet-800);
+
+  --foreground-on-fill: var(--color-black);
+
+  --code-keyword: var(--color-citrus-900);
+  --code-literal: var(--color-sunset-800);
+  --code-string: var(--color-sky-950);
+}
+
+/* ============================================================
+   Map semantic tokens → Tailwind color utilities
+   (@theme inline does NOT replace the default palette)
+   ============================================================ */
+@theme inline {
+  /* background */
+  --color-background: var(--background);
+  --color-background-surface: var(--background-surface);
+  --color-background-surface-hovered: var(--background-surface-hovered);
+  --color-background-surface-secondary: var(--background-surface-secondary);
+  --color-background-overlay: var(--background-overlay);
+  --color-background-overlay-hovered: var(--background-overlay-hovered);
+  --color-background-inverse: var(--background-inverse);
+
+  /* fill */
+  --color-fill-brand-primary: var(--fill-brand-primary);
+  --color-fill-brand-primary-hovered: var(--fill-brand-primary-hovered);
+  --color-fill-brand-secondary: var(--fill-brand-secondary);
+  --color-fill-brand-secondary-hovered: var(--fill-brand-secondary-hovered);
+  --color-fill-disabled: var(--fill-disabled);
+  --color-fill-opaque: var(--fill-opaque);
+  --color-fill-info: var(--fill-info);
+  --color-fill-info-secondary: var(--fill-info-secondary);
+  --color-fill-success: var(--fill-success);
+  --color-fill-success-secondary: var(--fill-success-secondary);
+  --color-fill-warning: var(--fill-warning);
+  --color-fill-warning-secondary: var(--fill-warning-secondary);
+  --color-fill-critical: var(--fill-critical);
+  --color-fill-critical-secondary: var(--fill-critical-secondary);
+  --color-fill-promo: var(--fill-promo);
+  --color-fill-promo-secondary: var(--fill-promo-secondary);
+  --color-fill-control-selected: var(--fill-control-selected);
+
+  /* foreground */
+  --color-foreground-normal: var(--foreground-normal);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-foreground-accent: var(--foreground-accent);
+  --color-foreground-warning: var(--foreground-warning);
+  --color-foreground-disabled: var(--foreground-disabled);
+  --color-foreground-on-fill: var(--foreground-on-fill);
+  --color-foreground-on-inverse: var(--foreground-on-inverse);
+  --color-foreground-on-brand-primary: var(--foreground-on-brand-primary);
+
+  /* border */
+  --color-border-normal: var(--border-normal);
+  --color-border-strong: var(--border-strong);
+  --color-border-info: var(--border-info);
+  --color-border-success: var(--border-success);
+  --color-border-warning: var(--border-warning);
+  --color-border-critical: var(--border-critical);
+  --color-border-promo: var(--border-promo);
+  --color-border-control-selected: var(--border-control-selected);
+
+  /* ring */
+  --color-ring: var(--ring);
+
+  /* progress */
+  --color-progress: var(--progress);
+  --color-progress-remaining: var(--progress-remaining);
+
+  /* focus */
+  --color-focus-outline: var(--focus-outline);
+}
+
+/* Base pre/code surface */
+.prism-code {
+  background-color: var(--code-background);
+  color: var(--code-foreground);
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--code-muted);
+}
+
+.token.punctuation,
+.token.namespace,
+.token.operator,
+.token.function,
+.token.variable {
+  color: var(--code-foreground);
+}
+
+.token.tag,
+.token.boolean,
+.token.number,
+.token.deleted {
+  color: var(--code-literal);
+}
+
+.token.keyword,
+.token.property,
+.token.selector,
+.token.constant,
+.token.symbol,
+.token.builtin {
+  color: var(--code-keyword);
+}
+
+.token.attr-name,
+.token.attr-value,
+.token.string,
+.token.char,
+.token.entity,
+.token.url,
+.token.plain,
+.token.inserted {
+  color: var(--code-string);
+}
+
+.token.atrule {
+  color: var(--code-keyword);
+}
+
+.token.regex,
+.token.important {
+  color: var(--code-string);
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+/* Markup (HTML/XML) overrides */
+.language-markup .token.tag,
+.language-markup .token.attr-name,
+.language-markup .token.punctuation {
+  color: var(--code-string);
+}
+
+.token {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   Hide or show scrollbars
+   ============================================================ */
+
+@utility scrollbar-hide {
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* Safari and Chrome */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility scrollbar-default {
+  /* Firefox */
+  scrollbar-width: auto;
+
+  /* Safari and Chrome */
+  &::-webkit-scrollbar {
+    display: block;
+  }
+}
+
+@custom-variant light (&:where(.light, .light *, [data-theme="light"], [data-applied-theme="light"]));
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-applied-theme="dark"]));
+@custom-variant high-contrast (&:where(.light-high-contrast, .light-high-contrast *, [data-theme="light-high-contrast"], [data-applied-theme="light-high-contrast"]));
+@custom-variant dark-high-contrast (&:where(.dark-high-contrast, .dark-high-contrast *, [data-theme="dark-high-contrast"], [data-applied-theme="dark-high-contrast"]));
+
+@layer base {
+  body {
+    @apply text-base;
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+
+  * {
+    @apply outline-ring/50;
+  }
+
+  h1.font-kairos {
+    font-variation-settings:
+      'wght' 400,
+      'wdth' 112;
+  }
+}

@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RawLink should correctly render blank links with the noreferrer property 1`] = `
+<div>
+  <a
+    class="cursor-pointer my-class-name"
+    href="http://ditto.live"
+    rel="noreferrer"
+    target="_blank"
+  >
+    Child content
+  </a>
+</div>
+`;
+
+exports[`RawLink should render an active link correctly. 1`] = `
+<div>
+  <a
+    class="cursor-pointer my-class-name"
+    data-discover="true"
+    href="/internal"
+  >
+    Child content
+  </a>
+</div>
+`;
+
+exports[`RawLink should render an external link correctly. 1`] = `
+<div>
+  <a
+    class="cursor-pointer my-class-name"
+    href="http://ditto.live"
+  >
+    Child content
+  </a>
+</div>
+`;
+
+exports[`RawLink should render an internal application link correctly. 1`] = `
+<div>
+  <a
+    class="cursor-pointer my-class-name"
+    data-discover="true"
+    href="/internal"
+  >
+    Child content
+  </a>
+</div>
+`;

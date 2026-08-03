@@ -1,0 +1,28 @@
+{
+  "extends": "../portal/tsconfig.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "ESNext"],
+    "baseUrl": "src",
+    "sourceMap": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "jsx": "react-jsx",
+    "noFallthroughCasesInSwitch": true,
+    "verbatimModuleSyntax": false,
+    "rootDir": "src",
+    "outDir": "dist/esm",
+    "declaration": true,
+    "types": [
+      "node",
+      "jest",
+      "react",
+      "react-dom",
+      "testing-library__jest-dom"
+    ]
+  },
+  "include": ["src/**/*", "theme"]
+}

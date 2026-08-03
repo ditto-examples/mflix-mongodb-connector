@@ -7,6 +7,9 @@
     "types": ["vite/client"],
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
+    "paths": {
+      "@dittolive/anvil": ["./src/types/anvil-shim.d.ts"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",

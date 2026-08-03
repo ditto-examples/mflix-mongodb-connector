@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Separator should correctly render separator with decorative=false. 1`] = `
+<div>
+  <div
+    class="bg-border-normal shrink-0 h-px w-full"
+    data-orientation="horizontal"
+    role="separator"
+  />
+</div>
+`;
+
+exports[`Separator should correctly render separator with horizontal orientation (default). 1`] = `
+<div>
+  <div
+    class="bg-border-normal shrink-0 h-px w-full"
+    data-orientation="horizontal"
+    role="none"
+  />
+</div>
+`;
+
+exports[`Separator should correctly render separator with vertical orientation. 1`] = `
+<div>
+  <div
+    class="bg-border-normal shrink-0 h-full w-px"
+    data-orientation="vertical"
+    role="none"
+  />
+</div>
+`;

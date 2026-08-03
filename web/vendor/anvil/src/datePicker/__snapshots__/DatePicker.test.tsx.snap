@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DatePicker should correctly render a form date picker 1`] = `
+<div>
+  <div>
+    <label
+      class="uppercase font-aeonik text-sm text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 tracking-wider font-medium"
+      for="testPicker"
+    >
+      Some label
+    </label>
+    <input
+      aria-expanded="false"
+      aria-haspopup="dialog"
+      class="flex w-full rounded-md border border-border-normal px-3 py-1 placeholder:text-foreground-subtle disabled:cursor-not-allowed disabled:opacity-50 bg-background-surface text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-8 focus-visible:outline-border-critical focus:outline-border-critical text-fill-critical"
+      id="testPicker"
+      value=""
+    />
+    <p
+      class="text-foreground-subtle mt-1.5 text-sm"
+    >
+      Some description
+    </p>
+  </div>
+</div>
+`;

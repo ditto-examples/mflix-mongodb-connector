@@ -1,0 +1,190 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JSONKeyPicker should render and match snapshot: Closed 1`] = `
+<div>
+  <div
+    aria-controls="radix-:r0:"
+    aria-expanded="false"
+    aria-haspopup="dialog"
+    class="w-full flex flex-col items-start"
+    data-state="closed"
+    type="button"
+  >
+    <button
+      class="whitespace-nowrap transition-colors font-aeonik tracking-wider font-medium gap-1 shrink-0 border-none enabled:hover:bg-background-surface/70 active:bg-background-surface/80 data-[state=open]:bg-background-surface/80 flex w-full rounded-md border border-border-normal text-foreground-normal px-3 py-1 placeholder:text-foreground-subtle disabled:cursor-not-allowed disabled:opacity-50 bg-background-surface text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-8 items-center justify-between normal-case"
+      data-testid="JSONKeyPickerTrigger"
+      type="button"
+    >
+      <span
+        class="text-foreground-subtle"
+      >
+        myObj.key
+      </span>
+      <svg
+        class="shrink-0 text-foreground-subtle size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`JSONKeyPicker should render and match snapshot: Open 1`] = `
+<div>
+  <div
+    aria-controls="radix-:r0:"
+    aria-expanded="true"
+    aria-haspopup="dialog"
+    class="w-full flex flex-col items-start"
+    data-state="open"
+    type="button"
+  >
+    <button
+      class="whitespace-nowrap transition-colors font-aeonik tracking-wider font-medium gap-1 shrink-0 border-none enabled:hover:bg-background-surface/70 active:bg-background-surface/80 data-[state=open]:bg-background-surface/80 flex w-full rounded-md border border-border-normal text-foreground-normal px-3 py-1 placeholder:text-foreground-subtle disabled:cursor-not-allowed disabled:opacity-50 bg-background-surface text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-8 items-center justify-between normal-case"
+      data-testid="JSONKeyPickerTrigger"
+      type="button"
+    >
+      <span
+        class="text-foreground-subtle"
+      >
+        myObj.key
+      </span>
+      <svg
+        class="shrink-0 text-foreground-subtle size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
+        />
+      </svg>
+    </button>
+  </div>
+  <div
+    data-radix-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content;"
+  >
+    <div
+      class="border-border-normal text-foreground-normal data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 rounded-lg border outline-none bg-background-overlay scrollbar-hide max-h-75 w-50 z-50 overflow-y-scroll p-1 shadow-sm"
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="radix-:r0:"
+      role="dialog"
+      style="--radix-popover-content-transform-origin: var(--radix-popper-transform-origin); --radix-popover-content-available-width: var(--radix-popper-available-width); --radix-popover-content-available-height: var(--radix-popper-available-height); --radix-popover-trigger-width: var(--radix-popper-anchor-width); --radix-popover-trigger-height: var(--radix-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="whitespace-nowrap transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik tracking-wider font-medium gap-1 shrink-0 bg-transparent border-none enabled:hover:bg-background-surface/70 active:bg-background-surface/80 data-[state=open]:bg-background-surface/80 h-8 flex w-full items-center text-base text-foreground-normal rounded-lg focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none normal-case justify-between p-1"
+        data-testid="JSONKeyPickerOption"
+        type="button"
+      >
+        <div
+          class="flex h-full w-full items-center justify-between border-border-normal bg-background-overlay-hovered rounded-md border px-3"
+        >
+          <div
+            class="flex items-center"
+          >
+            <svg
+              class="shrink-0 text-foreground-subtle mr-2 size-4"
+              fill="currentColor"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M43.18,128a29.78,29.78,0,0,1,8,10.26c4.8,9.9,4.8,22,4.8,33.74,0,24.31,1,36,24,36a8,8,0,0,1,0,16c-17.48,0-29.32-6.14-35.2-18.26-4.8-9.9-4.8-22-4.8-33.74,0-24.31-1-36-24-36a8,8,0,0,1,0-16c23,0,24-11.69,24-36,0-11.72,0-23.84,4.8-33.74C50.68,38.14,62.52,32,80,32a8,8,0,0,1,0,16C57,48,56,59.69,56,84c0,11.72,0,23.84-4.8,33.74A29.78,29.78,0,0,1,43.18,128ZM240,120c-23,0-24-11.69-24-36,0-11.72,0-23.84-4.8-33.74C205.32,38.14,193.48,32,176,32a8,8,0,0,0,0,16c23,0,24,11.69,24,36,0,11.72,0,23.84,4.8,33.74a29.78,29.78,0,0,0,8,10.26,29.78,29.78,0,0,0-8,10.26c-4.8,9.9-4.8,22-4.8,33.74,0,24.31-1,36-24,36a8,8,0,0,0,0,16c17.48,0,29.32-6.14,35.2-18.26,4.8-9.9,4.8-22,4.8-33.74,0-24.31,1-36,24-36a8,8,0,0,0,0-16Z"
+              />
+            </svg>
+            <span>
+              a
+            </span>
+          </div>
+          <svg
+            class="shrink-0 text-foreground-subtle size-4"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
+            />
+          </svg>
+        </div>
+      </button>
+      <button
+        class="whitespace-nowrap transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik tracking-wider font-medium gap-1 shrink-0 bg-transparent border-none enabled:hover:bg-background-surface/70 active:bg-background-surface/80 data-[state=open]:bg-background-surface/80 flex w-full items-center text-base text-foreground-normal rounded-lg focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none normal-case justify-between hover:bg-background-overlay-hovered h-8 px-4"
+        data-testid="JSONKeyPickerOption"
+        type="button"
+      >
+        <div
+          class="flex h-full w-full items-center justify-between"
+        >
+          <div
+            class="flex items-center"
+          >
+            <svg
+              class="shrink-0 text-foreground-subtle mr-2 size-4"
+              fill="currentColor"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M48,48V208H80a8,8,0,0,1,0,16H40a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8H80a8,8,0,0,1,0,16ZM216,32H176a8,8,0,0,0,0,16h32V208H176a8,8,0,0,0,0,16h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32Z"
+              />
+            </svg>
+            <span>
+              a_arr
+            </span>
+          </div>
+        </div>
+      </button>
+      <button
+        class="whitespace-nowrap transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik tracking-wider font-medium gap-1 shrink-0 bg-transparent border-none enabled:hover:bg-background-surface/70 active:bg-background-surface/80 data-[state=open]:bg-background-surface/80 flex w-full items-center text-base text-foreground-normal rounded-lg focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none normal-case justify-between hover:bg-background-overlay-hovered h-8 px-4"
+        data-testid="JSONKeyPickerOption"
+        type="button"
+      >
+        <div
+          class="flex h-full w-full items-center justify-between"
+        >
+          <div
+            class="flex items-center"
+          >
+            <svg
+              class="shrink-0 text-foreground-subtle mr-2 size-4"
+              fill="currentColor"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M224,88H175.4l8.47-46.57a8,8,0,0,0-15.74-2.86l-9,49.43H111.4l8.47-46.57a8,8,0,0,0-15.74-2.86L95.14,88H48a8,8,0,0,0,0,16H92.23L83.5,152H32a8,8,0,0,0,0,16H80.6l-8.47,46.57a8,8,0,0,0,6.44,9.3A7.79,7.79,0,0,0,80,224a8,8,0,0,0,7.86-6.57l9-49.43H144.6l-8.47,46.57a8,8,0,0,0,6.44,9.3A7.79,7.79,0,0,0,144,224a8,8,0,0,0,7.86-6.57l9-49.43H208a8,8,0,0,0,0-16H163.77l8.73-48H224a8,8,0,0,0,0-16Zm-76.5,64H99.77l8.73-48h47.73Z"
+              />
+            </svg>
+            <span>
+              num
+            </span>
+          </div>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+`;

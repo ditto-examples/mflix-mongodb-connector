@@ -11,9 +11,11 @@ const SEARCH_DEBOUNCE_MS = 200
 // filter documents intent. Deviation from rn-expo: the imdb/tomatoes rating
 // projections are dropped — the original fetched them and then discarded
 // them in conversion (MovieListing has no rating fields).
+// DQL LIKE is case-sensitive; lower() on the column plus a pre-lowercased
+// search term makes matching case-insensitive ("toy story" finds "Toy Story").
 const SEARCH_QUERY = `SELECT _id, plot, poster, title, year
   FROM movies
-  WHERE title LIKE :searchTerm AND (rated = 'G' OR rated = 'PG')
+  WHERE lower(title) LIKE :searchTerm AND (rated = 'G' OR rated = 'PG')
   ORDER BY year DESC`
 
 // One-shot search hook. Further fixes vs rn-expo: Ditto comes through
@@ -48,7 +50,7 @@ export function useMovieSearch() {
       try {
         const result = await dittoService
           .getDitto()
-          .store.execute(SEARCH_QUERY, { searchTerm: `%${trimmed}%` })
+          .store.execute(SEARCH_QUERY, { searchTerm: `%${trimmed.toLowerCase()}%` })
         if (stale) return
         setSearchResults(result.items.map((item) => movieListingFromJson(item.value)))
         setIsSearching(false)

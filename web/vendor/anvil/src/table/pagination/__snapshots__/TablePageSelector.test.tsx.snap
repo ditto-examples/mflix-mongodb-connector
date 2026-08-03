@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TablePageSelector should match the snapshot 1`] = `
+<div>
+  <form
+    class="flex h-full shrink-0 items-center gap-2 px-4 text-base"
+    data-testid="tablePageSelectorForm"
+  >
+    <span>
+      Page
+    </span>
+    <input
+      class="bg-background-surface-secondary focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-8 rounded-md border border-transparent p-0 text-center text-sm outline-none [appearance:textfield] disabled:cursor-not-allowed [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-8"
+      data-testid="tablePageSelectorInput"
+      max="10"
+      min="1"
+      type="number"
+      value="1"
+    />
+    <span>
+      of 
+      10
+    </span>
+  </form>
+</div>
+`;
