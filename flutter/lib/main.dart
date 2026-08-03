@@ -5,18 +5,19 @@ import 'package:mflix_app/screens/ditto_tools_screen.dart';
 
 import 'providers/ditto_provider.dart';
 
-//
-//Get these values from the Ditto Portal
-//https://docs.ditto.live/cloud/portal/getting-sdk-connection-details
-//https://docs.ditto.live/sdk/latest/install-guides/flutter
-//
-const _databaseId = 'insert Ditto Portal Database ID here';
-const _token =
-    'insert Ditto Portal Online Playground Authentication Token here';
-const _serverUrl = 'insert Ditto Portal Server URL here';
+const _databaseId = String.fromEnvironment('DITTO_DATABASE_ID');
+const _token = String.fromEnvironment('DITTO_DEVELOPMENT_TOKEN');
+const _serverUrl = String.fromEnvironment('DITTO_SERVER_URL');
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (_databaseId.isEmpty || _token.isEmpty || _serverUrl.isEmpty) {
+    throw StateError(
+      'Missing Ditto configuration. Run Flutter with '
+      '--dart-define-from-file=../.env.',
+    );
+  }
 
   // Set preferred orientations
   SystemChrome.setPreferredOrientations([

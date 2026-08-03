@@ -83,6 +83,7 @@ When making changes, always verify:
 
 ### Configuration Files
 - `package.json` - Dependencies and scripts
+- `app.config.js` - Loads Ditto development credentials from the root `.env`
 - `app.json` - Expo configuration
 - `tsconfig.json` - TypeScript configuration
 - `metro.config.js` - Metro bundler configuration

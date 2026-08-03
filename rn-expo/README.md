@@ -9,29 +9,18 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 - IDE of choice (Visual Studio Code, Cursor, etc)
 
 ## Get started
-To get started, update the Ditto service with your Ditto Database ID, Online Playground Token, and URL. You can find these in the Ditto Portal. For documentation, see [Getting SDK Connection Details](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
+Create and fill in the root `.env` file as described in the
+[repository setup](../README.md#ditto-development-credentials). You can find
+these values in the [Ditto Portal](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
 
-Once you have this information, you can update the Ditto Service in the `src/services/dittoService.ts` file
-
-```javascript
-    /* 
-     * UPDATE THESE VALUES WITH YOUR OWN VALUES FROM THE DITTO PORTAL
-     * https://docs.ditto.live/cloud/portal/getting-sdk-connection-details
-     */
-    private databaseId = 'insert Ditto Portal Database ID here';
-    private token = 'insert Ditto Portal Online Playground Authentication Token here'; 
-    private serverURL = 'insert Ditto Portal Server URL here';
-```
-
-
-Once you have updated the Ditto Service, you can start the app.
+The Expo configuration loads that root file when you start or build the app.
 
 Because of how the current Ditto package works,  you will need to use Expo Development Builds:
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 
-The basics steps are:
+The basic steps are:
 
 1. Install dependencies
 

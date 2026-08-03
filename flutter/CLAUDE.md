@@ -100,11 +100,11 @@ Uses a **centralized stream-based architecture** with state preservation:
 
 ## Critical Configuration
 
-Before running, update these constants in `lib/main.dart` with values from Ditto Portal:
-```dart
-const _databaseId = 'insert Ditto Portal Database ID here';
-const _token = 'insert Ditto Portal Online Playground Authentication Token here';
-const _serverUrl = 'insert Ditto Portal Server URL here';
+Before running, copy `.env.example` to `.env` at the repository root and add
+the values from the Ditto Portal. Pass that file to Flutter:
+
+```sh
+flutter run --dart-define-from-file=../.env
 ```
 
 ## Key Dependencies

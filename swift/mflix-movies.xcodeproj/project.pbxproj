@@ -139,6 +139,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0D2858152E4686FA00BF0330 /* Build configuration list for PBXNativeTarget "mflix-movies" */;
 			buildPhases = (
+				D17A00112E95000100A1B2C3 /* Generate Env.swift */,
 				0D2857EF2E4686F900BF0330 /* Sources */,
 				0D2857F02E4686F900BF0330 /* Frameworks */,
 				0D2857F12E4686F900BF0330 /* Resources */,
@@ -286,6 +287,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D17A00112E95000100A1B2C3 /* Generate Env.swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/buildEnv.sh",
+				"$(SRCROOT)/../.env",
+			);
+			name = "Generate Env.swift";
+			outputPaths = (
+				"$(SRCROOT)/mflix-movies/Env.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/buildEnv.sh\" \"${SRCROOT}/../.env\" \"${SRCROOT}/mflix-movies\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0D2857EF2E4686F900BF0330 /* Sources */ = {

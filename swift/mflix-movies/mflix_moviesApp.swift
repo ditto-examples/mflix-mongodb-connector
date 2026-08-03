@@ -18,27 +18,22 @@ struct mflix_moviesApp: App {
         errorMessage = nil
     }
 
-    /// Read the dittoConfig.plist file and store the database ID, server URL, and token to use elsewhere.
+    /// Read the Ditto values generated from the root .env file.
     static func loadDatabaseConfig() -> DatabaseConfig {
-        guard let path = Bundle.main.path(forResource: "dittoConfig", ofType: "plist") else {
-            fatalError("Could not load dittoConfig.plist file!")
-        }
+        let databaseID = Env.DITTO_DATABASE_ID
+        let token = Env.DITTO_DEVELOPMENT_TOKEN
+        let serverURL = Env.DITTO_SERVER_URL
 
-        // Any errors here indicate that the dittoConfig.plist file has not been formatted properly.
-        // Expected key/values:
-        //      "url": "your Ditto server URL"
-        //      "databaseID": "your Ditto database ID"
-        //      "token": "your development authentication token"
-        let data = NSData(contentsOfFile: path)! as Data
-        let dittoConfigPropertyList = try! PropertyListSerialization.propertyList(from: data, format: nil) as! [String: Any]
-        let url = dittoConfigPropertyList["url"]! as! String
-        let databaseID = dittoConfigPropertyList["databaseID"]! as! String
-        let token = dittoConfigPropertyList["token"]! as! String
+        guard !databaseID.isEmpty, !token.isEmpty, !serverURL.isEmpty else {
+            fatalError(
+                "Missing Ditto configuration. Copy .env.example to .env at the repository root and set the Ditto development credentials."
+            )
+        }
 
         return DatabaseConfig(
             databaseID: databaseID,
             token: token,
-            url: url
+            url: serverURL
         )
     }
 }

@@ -4,6 +4,27 @@ This is a sample application that demonstrates how to use the MongoDB Connector 
 
 # Prerequisites
 
+## Ditto development credentials
+
+Copy the environment template at the repository root:
+
+```sh
+cp .env.example .env
+```
+
+Fill in the values from the Ditto Portal. Copy `DITTO_SERVER_URL` as-is,
+including the `https://` scheme.
+
+```dotenv
+DITTO_DATABASE_ID=
+DITTO_DEVELOPMENT_TOKEN=
+DITTO_SERVER_URL=
+```
+
+The root `.env` file is ignored by Git and is shared by the Flutter, React
+Native, and Swift apps. Development tokens are embedded into local application
+builds and must not be used as production credentials.
+
 ## MongoDb Atlas 
 
 - Basic understanding of MongoDB Atlas

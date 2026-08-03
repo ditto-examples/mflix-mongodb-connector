@@ -45,7 +45,7 @@ swift/mflix-movies/
 │   └── SystemView.swift      		# System info, sync status, and indexes
 ├── mflix_moviesApp.swift     		# App entry point
 ├── mflix_movies.entitlements 		# App sandboxing and security
-└── dittoConfig.plist         		# Ditto configuration file
+└── Info.plist                		# Runtime configuration populated from the root .env
 ```
 
 ## Key Components
@@ -381,7 +381,7 @@ swift/mflix-movies/
 ## Ditto Integration
 
 ### Configuration
-- **dittoConfig.plist**: Central configuration file
+- **Root `.env`**: Local Ditto development credentials imported by `Environment.xcconfig`
 - **Authentication**: Token-based with expiration handling
 - **Transport**: Server connection derived from the Portal URL
 - **Sync Settings**: Ditto SDK v5 defaults - DQL strict mode and v3 sync compatibility no longer exist, so neither is configured
@@ -769,7 +769,7 @@ struct DetailView: View {
 ### Runtime Issues
 - Enable Ditto logging for debugging
 - Check network permissions
-- Verify configuration file values
+- Verify the root `.env` values
 - Monitor memory usage in Instruments
 
 ### Sync Issues

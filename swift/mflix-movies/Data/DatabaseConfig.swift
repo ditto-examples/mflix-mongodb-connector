@@ -6,5 +6,3 @@ struct DatabaseConfig {
     var token: String
     var url: String
 }
-
-

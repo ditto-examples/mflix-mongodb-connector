@@ -2,6 +2,10 @@
 # See https://github.com/flutter/flutter/issues/128635 for more context.
 
 # Miscellaneous
+.env
+.env.*
+!.env.example
+swift/mflix-movies/Env.swift
 *.class
 *.lock
 *.log
