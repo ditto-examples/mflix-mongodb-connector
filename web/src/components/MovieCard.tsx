@@ -16,7 +16,11 @@ export function MovieCard({ movie }: { movie: MovieListing }) {
   return (
     <Link
       to={`/movies/${encodeURIComponent(movie.id)}`}
-      className="block transition-transform hover:-translate-y-0.5"
+      // content-visibility lets the browser skip layout/paint for
+      // offscreen cards — mounting 2,330 of these no longer stalls the
+      // main thread (which stuttered the nav pill's slide onto this
+      // screen). The intrinsic-size hint keeps scrollbar math sane.
+      className="block [contain-intrinsic-size:auto_340px] [content-visibility:auto] transition-transform hover:-translate-y-0.5"
     >
       <Card className="h-full overflow-hidden">
         <Image

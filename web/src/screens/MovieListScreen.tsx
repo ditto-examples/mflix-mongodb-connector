@@ -32,7 +32,7 @@ export function MovieListScreen() {
 
   return (
     <>
-      <div className="mb-6 flex flex-wrap items-end gap-3">
+      <div className="mb-6 flex flex-wrap items-center gap-3">
         <Input
           type="search"
           label="Search"
@@ -47,16 +47,18 @@ export function MovieListScreen() {
             Clear
           </Button>
         )}
-        <Button type="button" variant="primary" asChild>
-          <Link to="/movies/new">Add movie</Link>
-        </Button>
-        <p className="text-foreground-subtle ml-auto text-sm">
-          {searching
-            ? isSearching
-              ? 'Searching…'
-              : `${searchResults.length.toLocaleString()} matches`
-            : `${movies.length.toLocaleString()} movies synced${movies.length >= 2330 ? ' — full G/PG subset' : ' (syncing…)'}`}
-        </p>
+        <div className="ml-auto flex items-center gap-3">
+          <p className="text-foreground-subtle text-sm">
+            {searching
+              ? isSearching
+                ? 'Searching…'
+                : `${searchResults.length.toLocaleString()} matches`
+              : `${movies.length.toLocaleString()} movies synced${movies.length >= 2330 ? ' — full G/PG subset' : ' (syncing…)'}`}
+          </p>
+          <Button type="button" variant="primary" asChild>
+            <Link to="/movies/new">Add movie</Link>
+          </Button>
+        </div>
       </div>
 
       {searching && !isSearching && searchResults.length === 0 ? (

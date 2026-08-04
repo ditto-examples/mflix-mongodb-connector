@@ -99,3 +99,14 @@ export declare const TextArea: React.ComponentType<
 export declare const DittoLogo: React.ComponentType<
   React.SVGProps<SVGSVGElement>
 >
+
+/** CodeMirror wrapper; `language` takes a CodeMirror language Extension. */
+export declare const CodeEditor: React.ComponentType<{
+  value?: string
+  onChange?: (value: string) => void
+  height?: string
+  readOnly?: boolean
+  language: unknown
+  className?: string
+  onKeyDown?: (e: React.KeyboardEvent) => void
+}>

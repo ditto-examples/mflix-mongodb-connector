@@ -3,6 +3,14 @@
    demo styling that used to live here — the fixed-width #root column with
    border-inline "boundary lines", centered text, heading overrides — is
    gone.) */
+html {
+  /* Reserve scrollbar space permanently: without this, navigating between
+     a tall page (Movies, scrollbar) and a short one (Console, none)
+     changes the viewport width and shifts all centered content sideways —
+     visibly knocking the nav pill off course mid-slide. */
+  scrollbar-gutter: stable;
+}
+
 body {
   margin: 0;
 }

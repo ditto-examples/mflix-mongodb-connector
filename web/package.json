@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@codemirror/lang-sql": "^6.10.0",
     "@dittolive/anvil": "file:vendor/anvil",
     "@dittolive/ditto": "5.1.0-preview.11",
     "classnames": "^2.5.1",
