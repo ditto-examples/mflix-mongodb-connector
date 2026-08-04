@@ -1,4 +1,64 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ProgressBar > should correctly render differing scales (when max value changes) 1`] = `
+<div>
+  <div
+    class="h-4 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
+    data-testid="progressBarContainer"
+  >
+    <div
+      class="h-4 bg-primary rounded-full transition-all duration-1000 ease-out"
+      data-testid="progressBarFilledSection"
+      style="width: 10%;"
+    />
+  </div>
+</div>
+`;
+
+exports[`ProgressBar > should correctly render progress bar in each possible variant. 1`] = `
+<div>
+  <div
+    class="h-1.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
+    data-testid="progressBarContainer"
+  >
+    <div
+      class="h-1.5 bg-primary rounded-full transition-all duration-1000 ease-out"
+      data-testid="progressBarFilledSection"
+      style="width: 50%;"
+    />
+  </div>
+</div>
+`;
+
+exports[`ProgressBar > should correctly render progress bar in each possible variant. 2`] = `
+<div>
+  <div
+    class="h-2.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
+    data-testid="progressBarContainer"
+  >
+    <div
+      class="h-2.5 bg-primary rounded-full transition-all duration-1000 ease-out"
+      data-testid="progressBarFilledSection"
+      style="width: 50%;"
+    />
+  </div>
+</div>
+`;
+
+exports[`ProgressBar > should correctly render progress bar in each possible variant. 3`] = `
+<div>
+  <div
+    class="h-4 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
+    data-testid="progressBarContainer"
+  >
+    <div
+      class="h-4 bg-primary rounded-full transition-all duration-1000 ease-out"
+      data-testid="progressBarFilledSection"
+      style="width: 50%;"
+    />
+  </div>
+</div>
+`;
 
 exports[`ProgressBar should correctly render differing scales (when max value changes) 1`] = `
 <div>

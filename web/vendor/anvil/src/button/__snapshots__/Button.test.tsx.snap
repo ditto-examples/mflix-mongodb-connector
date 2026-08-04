@@ -1,4 +1,119 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Button > should correctly render button in disabled mode. 1`] = `
+<div>
+  <button
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-background-inverse text-foreground-on-inverse enabled:hover:bg-background-inverse/85 disabled:border-border-normal disabled:opacity-100 disabled:bg-background-surface-hovered disabled:text-foreground-disabled h-8 px-4"
+    disabled=""
+    type="button"
+  >
+    Primary
+  </button>
+</div>
+`;
+
+exports[`Button > should correctly render button in disabled mode. 2`] = `
+<div>
+  <button
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-fill-critical text-foreground-on-fill enabled:hover:bg-fill-critical/90 h-8 px-4"
+    disabled=""
+    type="button"
+  >
+    Critical
+  </button>
+</div>
+`;
+
+exports[`Button > should correctly render button in disabled mode. 3`] = `
+<div>
+  <button
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-background text-foreground-normal enabled:hover:bg-background-surface/70 border border-border-normal h-8 px-4"
+    disabled=""
+    type="button"
+  >
+    Default
+  </button>
+</div>
+`;
+
+exports[`Button > should correctly render button in disabled mode. 4`] = `
+<div>
+  <button
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent text-foreground-normal border-none enabled:hover:bg-background-surface/70 active:bg-background-surface/80 data-[state=open]:bg-background-surface/80 h-8 px-4"
+    disabled=""
+    type="button"
+  >
+    Ghost
+  </button>
+</div>
+`;
+
+exports[`Button > should correctly render button in disabled mode. 5`] = `
+<div>
+  <button
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent text-foreground-normal border border-border-normal hover:bg-background-surface/70 h-8 px-4"
+    disabled=""
+    type="button"
+  >
+    Outline
+  </button>
+</div>
+`;
+
+exports[`Button > should correctly render button in each possible variant. 1`] = `
+<div>
+  <button
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-background-inverse text-foreground-on-inverse enabled:hover:bg-background-inverse/85 disabled:border-border-normal disabled:opacity-100 disabled:bg-background-surface-hovered disabled:text-foreground-disabled h-8 px-4"
+    type="button"
+  >
+    Primary
+  </button>
+</div>
+`;
+
+exports[`Button > should correctly render button in each possible variant. 2`] = `
+<div>
+  <button
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-fill-critical text-foreground-on-fill enabled:hover:bg-fill-critical/90 h-8 px-4"
+    type="button"
+  >
+    Critical
+  </button>
+</div>
+`;
+
+exports[`Button > should correctly render button in each possible variant. 3`] = `
+<div>
+  <button
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-background text-foreground-normal enabled:hover:bg-background-surface/70 border border-border-normal h-8 px-4"
+    type="button"
+  >
+    Default
+  </button>
+</div>
+`;
+
+exports[`Button > should correctly render button in each possible variant. 4`] = `
+<div>
+  <button
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent text-foreground-normal border-none enabled:hover:bg-background-surface/70 active:bg-background-surface/80 data-[state=open]:bg-background-surface/80 h-8 px-4"
+    type="button"
+  >
+    Ghost
+  </button>
+</div>
+`;
+
+exports[`Button > should correctly render button in each possible variant. 5`] = `
+<div>
+  <button
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent text-foreground-normal border border-border-normal hover:bg-background-surface/70 h-8 px-4"
+    type="button"
+  >
+    Outline
+  </button>
+</div>
+`;
 
 exports[`Button should correctly render button in disabled mode. 1`] = `
 <div>

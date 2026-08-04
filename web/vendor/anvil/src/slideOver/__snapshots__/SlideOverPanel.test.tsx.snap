@@ -1,4 +1,38 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SlideOverPanel > should render a slide over panel in closed state 1`] = `
+<div>
+  <section
+    aria-labelledby="slide-over-heading"
+    class="absolute inset-y-0 right-0 z-10 flex max-w-full pl-10 pointer-events-none"
+  />
+</div>
+`;
+
+exports[`SlideOverPanel > should render a slide over panel in open state 1`] = `
+<div>
+  <section
+    aria-labelledby="slide-over-heading"
+    class="absolute inset-y-0 right-0 z-10 flex max-w-full pl-10"
+  >
+    <div>
+      <div
+        class="h-full w-[calc(100vw-2.5rem)] sm:w-screen max-w-md"
+      >
+        <div
+          class="flex h-full flex-col shadow-xl externalClassNames"
+        >
+          <div
+            data-testid="panelContents"
+          >
+            Contents go here
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+`;
 
 exports[`SlideOverPanel should render a slide over panel in closed state 1`] = `
 <div>

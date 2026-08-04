@@ -1,4 +1,29 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Link > renders a RawLink component for external routing 1`] = `
+<div>
+  <a
+    class="cursor-pointer hover:opacity-80"
+    href="/external"
+    rel="noreferrer"
+    target="_blank"
+  >
+    Example link
+  </a>
+</div>
+`;
+
+exports[`Link > renders a RawLink component for internal routing 1`] = `
+<div>
+  <a
+    class="cursor-pointer hover:opacity-80"
+    data-discover="true"
+    href="/internal"
+  >
+    Example link
+  </a>
+</div>
+`;
 
 exports[`Link renders a RawLink component for external routing 1`] = `
 <div>

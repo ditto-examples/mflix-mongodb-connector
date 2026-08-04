@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -9,6 +10,16 @@ export default defineConfig({
   // classes, and compiling anvil from source means our build must generate
   // them.
   plugins: [react(), tailwindcss()],
+  // Vitest reads this same file (test block below) so tests inherit the
+  // anvil alias and plugins — deliberately NOT a separate vitest.config.ts,
+  // which would supersede this config instead of sharing it.
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./src/test/setup.ts'],
+    // Vendored anvil ships its own (Jest) test suite — not ours to run.
+    exclude: ['**/node_modules/**', 'vendor/**'],
+  },
   resolve: {
     alias: {
       // Vendored anvil (snapshot of getditto/cloud-services anvil/ at

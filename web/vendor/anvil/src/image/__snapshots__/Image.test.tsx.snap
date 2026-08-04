@@ -1,4 +1,26 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Image > should render an image, setting the alt and src props correctly. 1`] = `
+<div>
+  <img
+    alt="my alt text"
+    height="100"
+    src="https://ditto.live/someimage.jpg"
+    width="100"
+  />
+</div>
+`;
+
+exports[`Image > should render the fallback image if the src property is falsy 1`] = `
+<div>
+  <img
+    alt="my alt text"
+    height="100"
+    src="/vendor/anvil/src/image/user_placeholder.png"
+    width="100"
+  />
+</div>
+`;
 
 exports[`Image should render an image, setting the alt and src props correctly. 1`] = `
 <div>

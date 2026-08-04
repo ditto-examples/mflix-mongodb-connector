@@ -1,4 +1,275 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`RadioButtonList > should render a RadioButtonList component with disabled options 1`] = `
+<div>
+  <div
+    class="mx-auto w-full"
+  >
+    <div
+      aria-required="false"
+      dir="ltr"
+      role="radiogroup"
+      style="outline: none;"
+      tabindex="0"
+    >
+      <label
+        class="uppercase font-aeonik text-sm text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 tracking-wider font-medium sr-only"
+      >
+        My options
+      </label>
+      <div
+        class="border-border-normal flex overflow-hidden rounded-xl border flex-col"
+      >
+        <div
+          aria-checked="true"
+          aria-describedby="option1-description"
+          class="radio-item bg-background focus-visible:ring-3 focus-visible:ring-ring/50 w-full flex-1 outline-none focus-visible:ring-inset border-border-normal border-b last-of-type:border-b-0 cursor-not-allowed opacity-50 relative flex p-4"
+          data-disabled=""
+          data-radix-collection-item=""
+          data-state="checked"
+          data-testid="option-option1"
+          disabled=""
+          id="option1-label"
+          role="radio"
+          tabindex="-1"
+          type="button"
+          value="option1"
+        >
+          <div
+            class="size-4 rounded-full border [.radio-item[data-state=checked]_&]:bg-fill-control-selected [.radio-item[data-state=checked]_&]:border-border-control-selected"
+          >
+            <span
+              class="relative flex size-full items-center justify-center after:block after:size-1.5 after:rounded-full after:bg-white"
+              data-disabled=""
+              data-state="checked"
+            />
+          </div>
+          <label
+            class="uppercase font-aeonik text-sm text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 tracking-wider font-medium cursor-inherit ml-3 flex w-full flex-1 flex-col"
+            data-testid="option1-label"
+            for="option1-label"
+          >
+            <span
+              class="text-foreground-normal block text-base font-medium leading-tight"
+            >
+              Option 1
+            </span>
+            <span
+              class="text-foreground-subtle mt-1 block font-sans text-sm font-normal normal-case tracking-normal"
+              id="option1-description"
+            >
+              some description 1
+            </span>
+          </label>
+        </div>
+        <div
+          aria-checked="false"
+          aria-describedby="option2-description"
+          class="radio-item bg-background focus-visible:ring-3 focus-visible:ring-ring/50 w-full flex-1 outline-none focus-visible:ring-inset border-border-normal border-b last-of-type:border-b-0 cursor-not-allowed opacity-50 relative flex p-4"
+          data-disabled=""
+          data-radix-collection-item=""
+          data-state="unchecked"
+          data-testid="option-option2"
+          disabled=""
+          id="option2-label"
+          role="radio"
+          tabindex="-1"
+          type="button"
+          value="option2"
+        >
+          <div
+            class="size-4 rounded-full border [.radio-item[data-state=checked]_&]:bg-fill-control-selected [.radio-item[data-state=checked]_&]:border-border-control-selected"
+          />
+          <label
+            class="uppercase font-aeonik text-sm text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 tracking-wider font-medium cursor-inherit ml-3 flex w-full flex-1 flex-col"
+            data-testid="option2-label"
+            for="option2-label"
+          >
+            <span
+              class="text-foreground-normal block text-base font-medium leading-tight"
+            >
+              Option 2
+            </span>
+            <span
+              class="text-foreground-subtle mt-1 block font-sans text-sm font-normal normal-case tracking-normal"
+              id="option2-description"
+            >
+              some description 2
+            </span>
+          </label>
+        </div>
+        <div
+          aria-checked="false"
+          aria-describedby="option3-description"
+          class="radio-item bg-background focus-visible:ring-3 focus-visible:ring-ring/50 w-full flex-1 outline-none focus-visible:ring-inset border-border-normal border-b last-of-type:border-b-0 cursor-pointer relative flex p-4"
+          data-radix-collection-item=""
+          data-state="unchecked"
+          data-testid="option-option3"
+          id="option3-label"
+          role="radio"
+          tabindex="-1"
+          type="button"
+          value="option3"
+        >
+          <div
+            class="size-4 rounded-full border [.radio-item[data-state=checked]_&]:bg-fill-control-selected [.radio-item[data-state=checked]_&]:border-border-control-selected"
+          />
+          <label
+            class="uppercase font-aeonik text-sm text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 tracking-wider font-medium cursor-inherit ml-3 flex w-full flex-1 flex-col"
+            data-testid="option3-label"
+            for="option3-label"
+          >
+            <span
+              class="text-foreground-normal block text-base font-medium leading-tight"
+            >
+              Option 3
+            </span>
+            <span
+              class="text-foreground-subtle mt-1 block font-sans text-sm font-normal normal-case tracking-normal"
+              id="option3-description"
+            >
+              some description 3
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`RadioButtonList > should render a RadioButtonList component with each of the options passed in as a prop 1`] = `
+<div>
+  <div
+    class="mx-auto w-full"
+  >
+    <div
+      aria-required="false"
+      dir="ltr"
+      role="radiogroup"
+      style="outline: none;"
+      tabindex="0"
+    >
+      <label
+        class="uppercase font-aeonik text-sm text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 tracking-wider font-medium sr-only"
+      >
+        My options
+      </label>
+      <div
+        class="border-border-normal flex overflow-hidden rounded-xl border flex-col"
+      >
+        <div
+          aria-checked="true"
+          aria-describedby="option1-description"
+          class="radio-item bg-background focus-visible:ring-3 focus-visible:ring-ring/50 w-full flex-1 outline-none focus-visible:ring-inset border-border-normal border-b last-of-type:border-b-0 cursor-pointer relative flex p-4"
+          data-radix-collection-item=""
+          data-state="checked"
+          data-testid="option-option1"
+          id="option1-label"
+          role="radio"
+          tabindex="-1"
+          type="button"
+          value="option1"
+        >
+          <div
+            class="size-4 rounded-full border [.radio-item[data-state=checked]_&]:bg-fill-control-selected [.radio-item[data-state=checked]_&]:border-border-control-selected"
+          >
+            <span
+              class="relative flex size-full items-center justify-center after:block after:size-1.5 after:rounded-full after:bg-white"
+              data-state="checked"
+            />
+          </div>
+          <label
+            class="uppercase font-aeonik text-sm text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 tracking-wider font-medium cursor-inherit ml-3 flex w-full flex-1 flex-col"
+            data-testid="option1-label"
+            for="option1-label"
+          >
+            <span
+              class="text-foreground-normal block text-base font-medium leading-tight"
+            >
+              Option 1
+            </span>
+            <span
+              class="text-foreground-subtle mt-1 block font-sans text-sm font-normal normal-case tracking-normal"
+              id="option1-description"
+            >
+              some description 1
+            </span>
+          </label>
+        </div>
+        <div
+          aria-checked="false"
+          aria-describedby="option2-description"
+          class="radio-item bg-background focus-visible:ring-3 focus-visible:ring-ring/50 w-full flex-1 outline-none focus-visible:ring-inset border-border-normal border-b last-of-type:border-b-0 cursor-pointer relative flex p-4"
+          data-radix-collection-item=""
+          data-state="unchecked"
+          data-testid="option-option2"
+          id="option2-label"
+          role="radio"
+          tabindex="-1"
+          type="button"
+          value="option2"
+        >
+          <div
+            class="size-4 rounded-full border [.radio-item[data-state=checked]_&]:bg-fill-control-selected [.radio-item[data-state=checked]_&]:border-border-control-selected"
+          />
+          <label
+            class="uppercase font-aeonik text-sm text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 tracking-wider font-medium cursor-inherit ml-3 flex w-full flex-1 flex-col"
+            data-testid="option2-label"
+            for="option2-label"
+          >
+            <span
+              class="text-foreground-normal block text-base font-medium leading-tight"
+            >
+              Option 2
+            </span>
+            <span
+              class="text-foreground-subtle mt-1 block font-sans text-sm font-normal normal-case tracking-normal"
+              id="option2-description"
+            >
+              some description 2
+            </span>
+          </label>
+        </div>
+        <div
+          aria-checked="false"
+          aria-describedby="option3-description"
+          class="radio-item bg-background focus-visible:ring-3 focus-visible:ring-ring/50 w-full flex-1 outline-none focus-visible:ring-inset border-border-normal border-b last-of-type:border-b-0 cursor-pointer relative flex p-4"
+          data-radix-collection-item=""
+          data-state="unchecked"
+          data-testid="option-option3"
+          id="option3-label"
+          role="radio"
+          tabindex="-1"
+          type="button"
+          value="option3"
+        >
+          <div
+            class="size-4 rounded-full border [.radio-item[data-state=checked]_&]:bg-fill-control-selected [.radio-item[data-state=checked]_&]:border-border-control-selected"
+          />
+          <label
+            class="uppercase font-aeonik text-sm text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 tracking-wider font-medium cursor-inherit ml-3 flex w-full flex-1 flex-col"
+            data-testid="option3-label"
+            for="option3-label"
+          >
+            <span
+              class="text-foreground-normal block text-base font-medium leading-tight"
+            >
+              Option 3
+            </span>
+            <span
+              class="text-foreground-subtle mt-1 block font-sans text-sm font-normal normal-case tracking-normal"
+              id="option3-description"
+            >
+              some description 3
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`RadioButtonList should render a RadioButtonList component with disabled options 1`] = `
 <div>

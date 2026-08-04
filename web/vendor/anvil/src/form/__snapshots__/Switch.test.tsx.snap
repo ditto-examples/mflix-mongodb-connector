@@ -1,4 +1,61 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Switch > should match snapshot when checked 1`] = `
+<div>
+  <button
+    aria-checked="true"
+    class="peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none data-[state=unchecked]:bg-fill-disabled data-[state=checked]:bg-fill-control-selected"
+    data-state="checked"
+    data-testid="test-switch"
+    role="switch"
+    type="button"
+    value="on"
+  >
+    <span
+      class="pointer-events-none block h-4 w-4 rounded-full shadow-sm ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0 bg-white dark:shadow-none dark-high-contrast:shadow-none"
+      data-state="checked"
+    />
+  </button>
+</div>
+`;
+
+exports[`Switch > should match snapshot with default size 1`] = `
+<div>
+  <button
+    aria-checked="false"
+    class="peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none data-[state=unchecked]:bg-fill-disabled data-[state=checked]:bg-fill-control-selected"
+    data-state="unchecked"
+    data-testid="test-switch"
+    role="switch"
+    type="button"
+    value="on"
+  >
+    <span
+      class="pointer-events-none block h-4 w-4 rounded-full shadow-sm ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0 bg-white dark:shadow-none dark-high-contrast:shadow-none"
+      data-state="unchecked"
+    />
+  </button>
+</div>
+`;
+
+exports[`Switch > should match snapshot with tiny size 1`] = `
+<div>
+  <button
+    aria-checked="false"
+    class="peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none data-[state=unchecked]:bg-fill-disabled data-[state=checked]:bg-fill-control-selected h-3.5 w-5.5"
+    data-state="unchecked"
+    data-testid="test-switch"
+    role="switch"
+    type="button"
+    value="on"
+  >
+    <span
+      class="pointer-events-none block rounded-full shadow-sm ring-0 transition-transform bg-white dark:shadow-none dark-high-contrast:shadow-none h-2.5 w-2.5 data-[state=checked]:translate-x-2 data-[state=unchecked]:translate-x-0"
+      data-state="unchecked"
+    />
+  </button>
+</div>
+`;
 
 exports[`Switch should match snapshot when checked 1`] = `
 <div>

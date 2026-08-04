@@ -1,4 +1,170 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ProgressSpinner > should correctly render a progress spinner with completed progress 1`] = `
+<div>
+  <svg
+    aria-valuemax="100"
+    aria-valuemin="0"
+    aria-valuenow="100"
+    class="relative animate-pulse"
+    fill="none"
+    height="40"
+    role="progressbar"
+    viewBox="0 0 100 100"
+    width="40"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height="100"
+      rx="14"
+      width="100"
+    />
+    <circle
+      cx="50"
+      cy="50"
+      r="44"
+      stroke="var(--color-progress-remaining)"
+      stroke-width="12"
+    />
+    <circle
+      cx="50"
+      cy="50"
+      r="44"
+      stroke="var(--color-progress)"
+      stroke-dasharray="276.46015351590177"
+      stroke-dashoffset="0"
+      stroke-linecap="round"
+      stroke-width="12"
+      transform="rotate(-90 50 50)"
+    />
+  </svg>
+</div>
+`;
+
+exports[`ProgressSpinner > should correctly render a progress spinner with no progress 1`] = `
+<div>
+  <svg
+    aria-valuemax="100"
+    aria-valuemin="0"
+    aria-valuenow="0"
+    class="relative animate-spin"
+    fill="none"
+    height="40"
+    role="progressbar"
+    viewBox="0 0 100 100"
+    width="40"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height="100"
+      rx="14"
+      width="100"
+    />
+    <circle
+      cx="50"
+      cy="50"
+      r="44"
+      stroke="var(--color-progress-remaining)"
+      stroke-width="12"
+    />
+    <circle
+      cx="50"
+      cy="50"
+      r="44"
+      stroke="var(--color-progress)"
+      stroke-dasharray="276.46015351590177"
+      stroke-dashoffset="276.46015351590177"
+      stroke-linecap="round"
+      stroke-width="12"
+      transform="rotate(-90 50 50)"
+    />
+  </svg>
+</div>
+`;
+
+exports[`ProgressSpinner > should correctly render a progress spinner with some progress 1`] = `
+<div>
+  <svg
+    aria-valuemax="100"
+    aria-valuemin="0"
+    aria-valuenow="50"
+    class="relative animate-spin"
+    fill="none"
+    height="40"
+    role="progressbar"
+    viewBox="0 0 100 100"
+    width="40"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height="100"
+      rx="14"
+      width="100"
+    />
+    <circle
+      cx="50"
+      cy="50"
+      r="44"
+      stroke="var(--color-progress-remaining)"
+      stroke-width="12"
+    />
+    <circle
+      cx="50"
+      cy="50"
+      r="44"
+      stroke="var(--color-progress)"
+      stroke-dasharray="276.46015351590177"
+      stroke-dashoffset="138.23007675795088"
+      stroke-linecap="round"
+      stroke-width="12"
+      transform="rotate(-90 50 50)"
+    />
+  </svg>
+</div>
+`;
+
+exports[`ProgressSpinner > should correctly render an indeterminate spinner 1`] = `
+<div>
+  <svg
+    aria-label="Loading"
+    class="relative animate-spin"
+    fill="none"
+    height="40"
+    role="progressbar"
+    viewBox="0 0 100 100"
+    width="40"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height="100"
+      rx="14"
+      width="100"
+    />
+    <circle
+      cx="50"
+      cy="50"
+      r="44"
+      stroke="var(--color-progress-remaining)"
+      stroke-width="12"
+    />
+    <circle
+      cx="50"
+      cy="50"
+      r="44"
+      stroke="var(--color-progress)"
+      stroke-dasharray="276.46015351590177"
+      stroke-dashoffset="207.34511513692632"
+      stroke-linecap="round"
+      stroke-width="12"
+      transform="rotate(-90 50 50)"
+    />
+  </svg>
+</div>
+`;
 
 exports[`ProgressSpinner should correctly render a progress spinner with completed progress 1`] = `
 <div>

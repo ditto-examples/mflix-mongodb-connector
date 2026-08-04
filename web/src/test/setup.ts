@@ -1,0 +1,3 @@
+// Vitest setup, run before every test file (wired in vite.config.ts).
+// Adds Testing Library's DOM matchers: toBeInTheDocument(), toHaveValue()…
+import '@testing-library/jest-dom/vitest'

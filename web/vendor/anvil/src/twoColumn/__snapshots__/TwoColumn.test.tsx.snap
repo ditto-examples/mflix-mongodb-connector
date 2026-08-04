@@ -1,4 +1,31 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TwoColumn snapshot test > should show children 1`] = `
+<div>
+  <div
+    class="py-5 md:grid md:grid-cols-12 md:gap-6"
+  >
+    <div
+      class="md:col-span-4"
+    >
+      <div
+        class="px-4 sm:px-0"
+      >
+        <div
+          class="text-foreground-subtle font-sans"
+        />
+      </div>
+    </div>
+    <div
+      class="mt-5 md:col-span-7 md:col-start-6 md:mt-0"
+    >
+      <p>
+        Hello World
+      </p>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`TwoColumn snapshot test should show children 1`] = `
 <div>

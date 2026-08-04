@@ -1,4 +1,80 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Card > should render a card component correctly 1`] = `
+<div>
+  <div
+    class="bg-background-surface border-border-normal rounded-xl border shadow-lg some-classname"
+  >
+    <div
+      class="px-4 py-5 sm:p-6"
+    >
+      Some body
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Card > should render a card component that is flushed correctly. 1`] = `
+<div>
+  <div
+    class="bg-background-surface border-border-normal rounded-xl border shadow-lg some-classname"
+  >
+    <div
+      class=""
+    >
+      My flushed header
+    </div>
+    <div
+      class=""
+    >
+      Some flushed body
+    </div>
+    <div
+      class="flex justify-end"
+    >
+      My flushed footer
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Card > should render a card component with a footer correctly. 1`] = `
+<div>
+  <div
+    class="bg-background-surface border-border-normal rounded-xl border shadow-lg some-classname"
+  >
+    <div
+      class="px-4 py-5 sm:p-6"
+    >
+      Some body
+    </div>
+    <div
+      class="flex justify-end px-4 py-5 sm:px-6"
+    >
+      My footer
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Card > should render a card component with a header correctly. 1`] = `
+<div>
+  <div
+    class="bg-background-surface border-border-normal rounded-xl border shadow-lg some-classname"
+  >
+    <div
+      class="px-4 pt-5 sm:px-6 sm:pt-6"
+    >
+      My header
+    </div>
+    <div
+      class="px-4 py-5 sm:p-6"
+    >
+      Some body
+    </div>
+  </div>
+</div>
+`;
 
 exports[`Card should render a card component correctly 1`] = `
 <div>
