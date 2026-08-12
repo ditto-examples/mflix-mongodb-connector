@@ -100,7 +100,7 @@ Uses a **centralized stream-based architecture** with state preservation:
 
 ## Critical Configuration
 
-Before running, copy `.env.example` to `.env` at the repository root and add
+Before running, copy `.env.template` to `.env` at the repository root and add
 the values from the Ditto Portal. Pass that file to Flutter:
 
 ```sh

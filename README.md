@@ -9,7 +9,7 @@ This is a sample application that demonstrates how to use the MongoDB Connector 
 Copy the environment template at the repository root:
 
 ```sh
-cp .env.example .env
+cp .env.template .env
 ```
 
 Fill in the values from the Ditto Portal. Copy `DITTO_SERVER_URL` as-is,

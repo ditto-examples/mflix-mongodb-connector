@@ -4,7 +4,7 @@
 # Miscellaneous
 .env
 .env.*
-!.env.example
+!.env.template
 swift/mflix-movies/Env.swift
 *.class
 *.lock

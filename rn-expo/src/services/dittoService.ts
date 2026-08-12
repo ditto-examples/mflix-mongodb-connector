@@ -30,7 +30,7 @@ function requiredDittoValue(
   const value = dittoEnvironment?.[key];
   if (!value) {
     throw new Error(
-      `Missing ${environmentName}. Copy .env.example to .env at the repository root and set the Ditto development credentials.`
+      `Missing ${environmentName}. Copy .env.template to .env at the repository root and set the Ditto development credentials.`
     );
   }
   return value;

@@ -26,7 +26,7 @@ struct mflix_moviesApp: App {
 
         guard !databaseID.isEmpty, !token.isEmpty, !serverURL.isEmpty else {
             fatalError(
-                "Missing Ditto configuration. Copy .env.example to .env at the repository root and set the Ditto development credentials."
+                "Missing Ditto configuration. Copy .env.template to .env at the repository root and set the Ditto development credentials."
             )
         }
 

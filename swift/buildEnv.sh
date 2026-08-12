@@ -6,7 +6,7 @@ if [ "$#" -ne 2 ]; then
 fi
 
 if [ ! -f "$1" ]; then
-    echo "Missing root .env file. Copy .env.example to .env and fill in the Ditto development credentials." >&2
+    echo "Missing root .env file. Copy .env.template to .env and fill in the Ditto development credentials." >&2
     exit 1
 fi
 
