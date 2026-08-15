@@ -45,7 +45,9 @@ swift/mflix-movies/
 │   └── SystemView.swift      		# System info, sync status, and indexes
 ├── mflix_moviesApp.swift     		# App entry point
 ├── mflix_movies.entitlements 		# App sandboxing and security
-└── dittoConfig.plist         		# Ditto configuration file
+└── Info.plist                		# App bundle configuration
+
+swift/Generated/Env.swift        		# Gitignored, generated from the root .env at build time
 ```
 
 ## Key Components
@@ -381,7 +383,7 @@ swift/mflix-movies/
 ## Ditto Integration
 
 ### Configuration
-- **dittoConfig.plist**: Central configuration file
+- **Root `.env`**: Local Ditto development credentials. A "Generate Env.swift" build phase runs `swift/buildEnv.sh`, which writes the three `DITTO_*` values into the gitignored `swift/Generated/Env.swift` before compiling
 - **Authentication**: Token-based with expiration handling
 - **Transport**: Server connection derived from the Portal URL
 - **Sync Settings**: Ditto SDK v5 defaults - DQL strict mode and v3 sync compatibility no longer exist, so neither is configured
@@ -769,7 +771,7 @@ struct DetailView: View {
 ### Runtime Issues
 - Enable Ditto logging for debugging
 - Check network permissions
-- Verify configuration file values
+- Verify the root `.env` values
 - Monitor memory usage in Instruments
 
 ### Sync Issues

@@ -39,15 +39,15 @@ import Foundation
     func initialize() async throws {
         if !isInitialized {
             guard
-                !(databaseConfig.databaseID.contains("insert")
-                    || databaseConfig.token.contains("insert")
-                    || databaseConfig.url.contains("insert"))
+                !(databaseConfig.databaseID.isEmpty
+                    || databaseConfig.token.isEmpty
+                    || databaseConfig.url.isEmpty)
             else {
                 print(
-                    "Ditto configuration is not set up properly in dittoConfig.plist"
+                    "Ditto configuration is not set up properly in the root .env file"
                 )
                 throw DittoError.configError(
-                    "Please configure your Ditto credentials in dittoConfig.plist"
+                    "Please configure your Ditto credentials in the root .env file"
                 )
             }
             DittoLogger.isEnabled = true
@@ -79,7 +79,7 @@ import Foundation
                 ditto = try await Ditto.open(config: config)
                 guard let ditto = ditto else {
                     throw DittoError.configError(
-                        "Ditto not initialized properly, please check dittoConfig.plist to make sure you have values set correctly"
+                        "Ditto not initialized properly, please check the root .env file to make sure you have values set correctly"
                     )
                 }
 

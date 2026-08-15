@@ -103,7 +103,7 @@ struct MoviesListView: View {
         VStack(spacing: 20) {
             ProgressView()
                 .scaleEffect(1.5)
-            Text("No Movies Found - Ensure your config values in the dittoConfig.plist file is correct.")
+            Text("No Movies Found - Ensure your values in the root .env file are correct.")
                 .font(.headline)
                 .foregroundColor(.secondary)
         }

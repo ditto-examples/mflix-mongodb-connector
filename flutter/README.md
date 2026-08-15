@@ -11,22 +11,11 @@ This is an [Flutter](https://flutter.dev/) project created with [Android Studio]
 - IDE of choice (Visual Studio Code, Android Studio "Koala" 2024.1.1 or higher, Cursor, etc)
 
 ## Get started
-To get started, update `main.dart` with your Ditto Database ID, Online Playground Token, and URL. You can find these in the Ditto Portal. For documentation, see [Getting SDK Connection Details](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
+Create and fill in the root `.env` file as described in the
+[repository setup](../README.md#ditto-development-credentials). You can find
+these values in the [Ditto Portal](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
 
-Once you have this information, you can update the Ditto Service in the `lib/main.dart` file
-
-```dart
-//
-//Get these values from the Ditto Portal
-//https://docs.ditto.live/cloud/portal/getting-sdk-connection-details
-//https://docs.ditto.live/sdk/latest/install-guides/flutter
-//
-const _databaseId = 'insert Ditto Portal Database ID here';
-const _token = 'insert Ditto Portal Online Playground Authentication Token here';
-const _serverUrl = 'insert Ditto Portal Server URL here';
-```
-
-Once you have updated the Ditto Service, you can start the app by following the instructions below:
+Then start the app:
 
 1. Install dependencies
 
@@ -37,8 +26,19 @@ Once you have updated the Ditto Service, you can start the app by following the 
 2. Start the app
 
 ```bash
-flutter run
+flutter run --dart-define-from-file=../.env
 ```
+
+Pass the same flag to release builds, otherwise the app starts with no
+configuration and shows the "Could not start Ditto" screen:
+
+```bash
+flutter build apk --dart-define-from-file=../.env
+flutter build ios --dart-define-from-file=../.env
+```
+
+If you launch from an IDE, add the flag to your run configuration
+(`"args": ["--dart-define-from-file=../.env"]` in VS Code's `launch.json`).
 
 ## Learn more
 To learn more about developing your project with Flutter, look at the following resources:

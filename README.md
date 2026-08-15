@@ -4,6 +4,41 @@ This is a sample application that demonstrates how to use the MongoDB Connector 
 
 # Prerequisites
 
+## Ditto development credentials
+
+Copy the environment template at the repository root:
+
+```sh
+cp .env.template .env
+```
+
+Fill in the values from the Ditto Portal. Copy `DITTO_SERVER_URL` as-is,
+including the `https://` scheme.
+
+```dotenv
+DITTO_DATABASE_ID=
+DITTO_DEVELOPMENT_TOKEN=
+DITTO_SERVER_URL=
+```
+
+Write one `KEY=VALUE` per line. Surrounding quotes are optional, but an
+`export` prefix is not supported - Flutter rejects the file with
+`Invalid property line`.
+
+The root `.env` file is ignored by Git and is shared by the Flutter, React
+Native, and Swift apps. Development tokens are embedded into local application
+builds and must not be used as production credentials. The Swift build reads
+only the three `DITTO_*` keys, so any other secrets you keep in this file stay
+out of the app binary.
+
+Each app picks the file up differently:
+
+| App | How it reads the root `.env` |
+| --- | --- |
+| Flutter | `flutter run --dart-define-from-file=../.env` (pass the same flag to `flutter build`) |
+| React Native | `rn-expo/app.config.js` loads it into `expo.extra.ditto` (requires Node 20.12 or newer) |
+| Swift | A "Generate Env.swift" build phase runs `swift/buildEnv.sh` before compiling |
+
 ## MongoDb Atlas 
 
 - Basic understanding of MongoDB Atlas
