@@ -87,7 +87,7 @@ class _AddMovieScreenState extends State<AddMovieScreen> {
             .where((e) => e.isNotEmpty)
             .toList();
 
-        String insertQuery ="INSERT INTO movies DOCUMENTS (:newMovie)";
+        String insertQuery = "INSERT INTO movies DOCUMENTS (:newMovie)";
         var args = {
           'newMovie': {
             'title': _titleController.text,
@@ -114,7 +114,7 @@ class _AddMovieScreenState extends State<AddMovieScreen> {
           var result = await ditto.store.execute(insertQuery, arguments: args);
           if (!mounted) return;
 
-          if (result.mutatedDocumentIDs.isNotEmpty) {
+          if (result.mutatedDocumentIDs().isNotEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Movie added successfully'),

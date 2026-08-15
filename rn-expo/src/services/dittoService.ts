@@ -1,6 +1,7 @@
 import {
+	Authenticator,
 	Ditto,
-	IdentityOnlinePlayground,
+	DittoConfig,
 	StoreObserver,
 	SyncSubscription,
   } from "@dittolive/ditto";
@@ -16,10 +17,9 @@ import {
      * UPDATE THESE VALUES WITH YOUR OWN VALUES FROM THE DITTO PORTAL
      * https://docs.ditto.live/cloud/portal/getting-sdk-connection-details
      */
-    private appId = 'insert Ditto Portal App ID here';
+    private databaseId = 'insert Ditto Portal Database ID here';
     private token = 'insert Ditto Portal Online Playground Authentication Token here'; 
-    private authURL = 'insert Ditto Portal Auth URL here';
-    private websocketURL = 'insert Ditto Portal Websocket URL here';
+    private serverURL = 'insert Ditto Portal Server URL here';
 
     private static instance: DittoService;
     public ditto: Ditto | null = null;
@@ -32,19 +32,19 @@ import {
 
     public syncStatusObserver: StoreObserver | undefined;
 
+    /**
+     * The most recent authentication failure, if any. Authentication runs in the
+     * background whenever the token needs refreshing, so failures cannot be
+     * thrown back to `initDitto`'s caller - they land here instead.
+     */
+    public authError: Error | null = null;
+
+    /** Called whenever {@link authError} changes. */
+    public onAuthError: ((error: Error) => void) | undefined;
+
     private isInitializing = false;
 
     private constructor() {}
-
-    private createIdentity(): IdentityOnlinePlayground {
-        return {
-            type: 'onlinePlayground',
-            appID: this.appId,
-            token: this.token,
-			customAuthURL: this.authURL,
-			enableDittoCloudSync: false,
-        };
-    }
 
     /**
      * Requests the necessary permissions for Ditto's peer-to-peer functionality on Android devices.
@@ -86,12 +86,12 @@ import {
 
     /**
      * Initializes the Ditto service with the required configuration and permissions.
-     * This function sets up the Ditto instance with identity, transport configuration, and starts sync.
+     * This function configures the Ditto instance, authenticates, and starts sync.
      * 
      * The initialization process includes:
      * 1. Requesting necessary permissions (Android only)
-     * 2. Creating identity configuration
-     * 3. Setting up transport configuration
+     * 2. Creating the database and server configuration
+     * 3. Setting up authentication
      * 4. Starting Ditto sync
      * 
      * @returns {Promise<void>} A promise that resolves when initialization is complete
@@ -126,28 +126,38 @@ import {
         }
 
         try {
-            this.ditto = new Ditto(this.createIdentity()); 
-
-            //https://docs.ditto.live/sdk/latest/install-guides/react-native#setting-transport-configurations
-            this.ditto.updateTransportConfig((config) => {
-                config.peerToPeer.bluetoothLE.isEnabled = true;
-                config.peerToPeer.lan.isEnabled = true;
-                config.peerToPeer.lan.isMdnsEnabled = true;
-
-                if (Platform.OS === 'ios') {
-                    config.peerToPeer.awdl.isEnabled = true;
-                } else {
-                    config.peerToPeer.awdl.isEnabled = false;
-                }
-                config.connect.websocketURLs.push(this.websocketURL);
+            const config = new DittoConfig(this.databaseId, {
+                mode: 'server',
+                url: this.serverURL,
             });
+            this.ditto = await Ditto.open(config);
 
-            //Disable sync with v3 peers, required for DQL
-            this.ditto.disableSyncWithV3();
-
-            // Disable DQL strict mode so that collection definitions are not required in DQL queries
-            // https://docs.ditto.live/dql/strict-mode#introduction
-            await this.ditto.store.execute("ALTER SYSTEM SET DQL_STRICT_MODE = false");
+            // The expiration handler is how a server connection authenticates: it
+            // runs once at startup and again whenever the token nears expiration.
+            // https://docs.ditto.live/sdk/latest/auth-and-authorization/cloud-authentication
+            //
+            // It runs in the background, so a failure here cannot be thrown back to
+            // the caller of initDitto - it is reported through onAuthError so the UI
+            // can tell the user why sync is not working.
+            await this.ditto.auth.setExpirationHandler(async (ditto, timeUntilExpiration) => {
+                try {
+                    const result = await ditto.auth.login(
+                        this.token,
+                        Authenticator.DEVELOPMENT_PROVIDER,
+                    );
+                    if (result.error) {
+                        this.reportAuthError(
+                            new Error(
+                                `Ditto authentication failed with ${timeUntilExpiration} seconds remaining: ${result.error}`,
+                            ),
+                        );
+                    }
+                } catch (e) {
+                    this.reportAuthError(
+                        e instanceof Error ? e : new Error(`Ditto authentication failed: ${e}`),
+                    );
+                }
+            });
 
             // Register a subscription to the movies collection to only return kid movies
             // https://docs.ditto.live/sdk/latest/sync/syncing-data#subscriptions
@@ -173,6 +183,12 @@ import {
         } finally {
             this.isInitializing = false;
         }
+    }
+
+    private reportAuthError(error: Error): void {
+        this.authError = error;
+        console.error(error.message);
+        this.onAuthError?.(error);
     }
 
     public static getInstance(): DittoService {

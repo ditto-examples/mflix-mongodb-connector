@@ -21,7 +21,7 @@ class _MoviesScreenState extends State<MoviesScreen>
     with AutomaticKeepAliveClientMixin {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _searchController = TextEditingController();
-  
+
   // Search state
   bool _isSearching = false;
   bool _isLoadingSearch = false;
@@ -49,9 +49,9 @@ class _MoviesScreenState extends State<MoviesScreen>
   void _onSearchChanged() {
     // Cancel previous timer
     _debounceTimer?.cancel();
-    
+
     final searchTerm = _searchController.text.trim();
-    
+
     // If search is empty, return to observer stream
     if (searchTerm.isEmpty) {
       setState(() {
@@ -61,7 +61,7 @@ class _MoviesScreenState extends State<MoviesScreen>
       });
       return;
     }
-    
+
     // Set searching state
     if (!_isSearching) {
       setState(() {
@@ -69,7 +69,7 @@ class _MoviesScreenState extends State<MoviesScreen>
         _isLoadingSearch = true;
       });
     }
-    
+
     // Debounce the search
     _debounceTimer = Timer(const Duration(milliseconds: 500), () {
       _performSearch(searchTerm);
@@ -78,25 +78,26 @@ class _MoviesScreenState extends State<MoviesScreen>
 
   Future<void> _performSearch(String searchTerm) async {
     if (!mounted) return;
-    
+
     setState(() {
       _isLoadingSearch = true;
     });
-    
+
     try {
       final ditto = widget.dittoProvider.ditto;
       if (ditto != null) {
-        final query = "SELECT _id, plot, poster, title, year, imdb.rating AS imdbRating, tomatoes.viewer.rating as rottenRating FROM movies WHERE title LIKE :searchTerm AND (rated = 'G' OR rated = 'PG') ORDER BY year DESC";
+        final query =
+            "SELECT _id, plot, poster, title, year, imdb.rating AS imdbRating, tomatoes.viewer.rating as rottenRating FROM movies WHERE title LIKE :searchTerm AND (rated = 'G' OR rated = 'PG') ORDER BY year DESC";
         final result = await ditto.store.execute(
           query,
           arguments: {'searchTerm': '%$searchTerm%'},
         );
-        
+
         if (mounted) {
           // Deserialize search results in background
           final rawData = result.items.map((r) => r.value).toList();
           final movies = await compute(_deserializeSearchResults, rawData);
-          
+
           setState(() {
             _searchResults = movies;
             _isLoadingSearch = false;
@@ -161,9 +162,8 @@ class _MoviesScreenState extends State<MoviesScreen>
           ),
           // Movie list
           Expanded(
-            child: _isSearching
-                ? _buildSearchResults()
-                : _buildMovieList(context),
+            child:
+                _isSearching ? _buildSearchResults() : _buildMovieList(context),
           ),
         ],
       ),
@@ -336,8 +336,7 @@ class _MoviesScreenState extends State<MoviesScreen>
                   context,
                   MaterialPageRoute(
                     builder: (context) => MovieDetailScreen(
-                        movieId: movie.id,
-                        dittoProvider: widget.dittoProvider),
+                        movieId: movie.id, dittoProvider: widget.dittoProvider),
                   ),
                 );
 
@@ -417,8 +416,7 @@ class _MoviesScreenState extends State<MoviesScreen>
                               .textTheme
                               .bodySmall
                               ?.copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.primary,
+                                color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w500,
                               ),
                         ),
@@ -433,7 +431,6 @@ class _MoviesScreenState extends State<MoviesScreen>
       },
     );
   }
-
 }
 
 // Function for background deserialization of search results

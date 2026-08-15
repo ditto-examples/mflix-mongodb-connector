@@ -4,8 +4,11 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
-  flutter: ">=3.0.0"
+  sdk: '>=3.3.0 <4.0.0'
+  # The iOS Runner uses the UIScene lifecycle (FlutterSceneDelegate and
+  # FlutterImplicitEngineDelegate), which Flutter added in 3.38.0. Older
+  # Flutter versions fail to compile ios/Runner/AppDelegate.swift.
+  flutter: ">=3.38.0"
 
 dependencies:
   flutter:
@@ -14,8 +17,8 @@ dependencies:
   provider: ^6.1.5
   http: ^1.5.0
   cached_network_image: ^3.3.0
-  ditto_live: ^4.12.1
-  ditto_flutter_tools: ^2.0.0
+  ditto_live: ^5.0.3
+  ditto_flutter_tools: ^3.0.0
   permission_handler: ^11.3.1
   intl: ^0.18.1
 

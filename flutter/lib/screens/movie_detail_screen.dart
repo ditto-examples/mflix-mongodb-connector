@@ -138,22 +138,28 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       if (_dittoProvider?.ditto != null) {
         var ditto = _dittoProvider!.ditto!;
         List<String> updates = [];
+        final arguments = <String, dynamic>{'movieId': movie.id};
 
         // Compare and add changed fields
         if (_titleController.text != movie.title) {
-          updates.add("title = '${_titleController.text}'");
+          updates.add('title = :title');
+          arguments['title'] = _titleController.text;
         }
         if (_yearController.text != movie.year) {
-          updates.add("year = '${_yearController.text}'");
+          updates.add('year = :year');
+          arguments['year'] = _yearController.text;
         }
         if (_plotController.text != movie.plot) {
-          updates.add("plot = '${_plotController.text}'");
+          updates.add('plot = :plot');
+          arguments['plot'] = _plotController.text;
         }
         if (_posterController.text != movie.poster) {
-          updates.add("poster = '${_posterController.text}'");
+          updates.add('poster = :poster');
+          arguments['poster'] = _posterController.text;
         }
         if (_fullPlotController.text != movie.fullplot) {
-          updates.add("fullplot = '${_fullPlotController.text}'");
+          updates.add('fullplot = :fullplot');
+          arguments['fullplot'] = _fullPlotController.text;
         }
 
         final newCountries = _countriesController.text
@@ -162,17 +168,19 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             .where((e) => e.isNotEmpty)
             .toList();
         if (!listEquals(newCountries, movie.countries)) {
-          final countriesString = newCountries.map((c) => "'$c'").join(',');
-          updates.add('countries = [$countriesString]');
+          updates.add('countries = :countries');
+          arguments['countries'] = newCountries;
         }
 
         if (updates.isNotEmpty) {
           String updateQuery =
-              "UPDATE movies SET ${updates.join(', ')} WHERE _id = '${movie.id}'";
+              'UPDATE movies SET ${updates.join(', ')} WHERE _id = :movieId';
           try {
-            var result = await ditto.store.execute(updateQuery);
+            var result =
+                await ditto.store.execute(updateQuery, arguments: arguments);
             if (!mounted) return;
-            if (result.mutatedDocumentIDs.isNotEmpty) {
+            final mutatedIds = result.mutatedDocumentIDs();
+            if (mutatedIds.isNotEmpty) {
               setState(() {
                 _isEditMode = false;
                 _rebuildKey++;
@@ -180,13 +188,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
               // Extract commitID and mutatedDocumentIDs for user feedback
               final commitId = result.commitID ?? 'Unknown';
-              final mutatedIds = result.mutatedDocumentIDs.join(', ');
+              final mutatedIdsDisplay = mutatedIds.join(', ');
 
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Movie updated successfully\n'
                       'Commit ID: $commitId\n'
-                      'Document IDs: $mutatedIds'),
+                      'Document IDs: $mutatedIdsDisplay'),
                   duration: const Duration(seconds: 5),
                   behavior: SnackBarBehavior.floating,
                 ),
@@ -402,7 +410,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 ].map((stop) => stop.clamp(0.0, 1.0)).toList(),
                 colors: [
                   Colors.transparent,
-                  Colors.white.withOpacity(0.4),
+                  Colors.white.withValues(alpha: 0.4),
                   Colors.transparent,
                 ],
               ),
@@ -425,7 +433,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       documentId: widget.movieId,
       loading: _buildLoadingScreen(),
       builder: (context, movie) {
-
         if (!_isEditMode) {
           _initializeControllers(movie);
         }
@@ -509,7 +516,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                   color: Theme.of(context)
                                       .colorScheme
                                       .onSurface
-                                      .withOpacity(0.6),
+                                      .withValues(alpha: 0.6),
                                 )),
                         const SizedBox(width: 16),
                         Icon(Icons.star, size: 16, color: Colors.orange),
@@ -521,7 +528,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .onSurface
-                                        .withOpacity(0.6),
+                                        .withValues(alpha: 0.6),
                                   ),
                         ),
                       ],
@@ -533,7 +540,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                             color: Theme.of(context)
                                 .colorScheme
                                 .onSurface
-                                .withOpacity(0.6),
+                                .withValues(alpha: 0.6),
                           ),
                     ),
                   ],

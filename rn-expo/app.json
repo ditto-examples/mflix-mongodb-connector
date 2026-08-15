@@ -35,6 +35,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.mflix.app",
+      "predictiveBackGestureEnabled": false,
       "intentFilters": [
         {
           "action": "VIEW",
@@ -62,6 +63,14 @@
         {
           "bluetoothUsageDescription": "This app uses Bluetooth to connect to a Ditto device.",
           "localNetworkUsageDescription": "This app uses location services to connect to a Ditto device."
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "15.5"
+          }
         }
       ]
     ]

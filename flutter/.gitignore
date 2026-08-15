@@ -43,3 +43,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/build/
+
+# Kotlin 2.x build session directory
+/android/.kotlin/
+
+# Swift Package Manager state that Flutter regenerates on each build
+**/xcshareddata/swiftpm/

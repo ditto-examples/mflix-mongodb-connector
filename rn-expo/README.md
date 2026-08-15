@@ -9,7 +9,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 - IDE of choice (Visual Studio Code, Cursor, etc)
 
 ## Get started
-To get started, you need to update the Ditto Service with your own Ditto App ID, Online Playground Token, Authentication URL, and Websocket URL.  You can find these in the Ditto Portal.  For documentation on how to do this, see the [Ditto Documentation](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
+To get started, update the Ditto service with your Ditto Database ID, Online Playground Token, and URL. You can find these in the Ditto Portal. For documentation, see [Getting SDK Connection Details](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
 
 Once you have this information, you can update the Ditto Service in the `src/services/dittoService.ts` file
 
@@ -18,10 +18,9 @@ Once you have this information, you can update the Ditto Service in the `src/ser
      * UPDATE THESE VALUES WITH YOUR OWN VALUES FROM THE DITTO PORTAL
      * https://docs.ditto.live/cloud/portal/getting-sdk-connection-details
      */
-    private appId = 'insert Ditto Portal App ID here';
+    private databaseId = 'insert Ditto Portal Database ID here';
     private token = 'insert Ditto Portal Online Playground Authentication Token here'; 
-    private authURL = 'insert Ditto Portal Auth URL here';
-    private websocketURL = 'insert Ditto Portal Websocket URL here';
+    private serverURL = 'insert Ditto Portal Server URL here';
 ```
 
 
@@ -51,6 +50,13 @@ Android:
 ```bash
 npx expo run android
 ```
+
+## Android platform notes
+
+Two Android behaviors changed when this example moved to Expo SDK 54 / React Native 0.81. Both are visible in the generated `android/` project, so they are called out here rather than left as prebuild noise:
+
+- **Edge-to-edge is always on.** Expo SDK 54 sets `expo.edgeToEdgeEnabled=true` and Android 16 (`targetSdkVersion 36`) no longer allows opting out. Screens draw behind the status and navigation bars, so any UI outside the navigator has to apply safe area insets itself - see `src/components/DittoErrorBanner.tsx`. The status bar background color and `translucent` props are ignored under edge-to-edge and are no longer set in `app/_layout.tsx`.
+- **Predictive back is off.** `android.predictiveBackGestureEnabled` is set to `false` in `app.json`, which is what writes `android:enableOnBackInvokedCallback="false"` into the manifest. This is Expo's default because React Navigation does not fully support the predictive back gesture yet; the field is set explicitly so the manifest value is a deliberate choice rather than a prebuild artifact.
 
 ## Building Release Versions
 

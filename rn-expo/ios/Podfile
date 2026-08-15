@@ -49,6 +49,21 @@ target 'mflixexpo' do
       :mac_catalyst_enabled => false,
       :ccache_enabled => podfile_properties['apple.ccacheEnabled'] == 'true',
     )
+    # Build workaround, not a Ditto requirement: the `fmt` pod that React Native
+    # pulls in fails to compile under Xcode 26.x, where the newer C++ standard
+    # evaluates its `consteval` format-string checks and rejects them. Pinning
+    # just the `fmt` target to C++17 restores the previous behavior; every other
+    # pod keeps the standard React Native picks.
+    #
+    # Remove this block once React Native ships an `fmt` version that builds
+    # cleanly on Xcode 26 - verify by deleting it and running `npx expo run:ios`.
+    installer.pods_project.targets.each do |target|
+      if target.name == 'fmt'
+        target.build_configurations.each do |cfg|
+          cfg.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
+        end
+      end
+    end
 
     # This is necessary for Xcode 14, because it signs resource bundles by default
     # when building for devices.

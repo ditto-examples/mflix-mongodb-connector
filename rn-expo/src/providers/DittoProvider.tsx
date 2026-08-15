@@ -38,14 +38,21 @@ const DittoProvider: React.FC<DittoProviderProps> = ({children}) => {
     const [dittoService] = useState(() => DittoService.getInstance());
     const [isInitialized, setIsInitialized] = useState(false);
     const [error, setError] = useState<Error | null>(null);
+    const [authError, setAuthError] = useState<Error | null>(null);
 
     useEffect(() => {
         let isMounted = true;
 
+        // Authentication happens in the background, so failures arrive through
+        // this callback rather than from initDitto().
+        dittoService.onAuthError = (e) => {
+            if (isMounted) setAuthError(e);
+        };
+
         const initializeDitto = async () => {
             try {
                 if (!isMounted) return;
-                
+
                 await dittoService.initDitto();
                 if (isMounted) {
                     setIsInitialized(true);
@@ -64,14 +71,16 @@ const DittoProvider: React.FC<DittoProviderProps> = ({children}) => {
 
         return () => {
             isMounted = false;
+            dittoService.onAuthError = undefined;
         };
     }, [dittoService]);
 
     const dittoServiceValue = useMemo(() => ({
         dittoService,
         isInitialized,
-        error
-    }), [dittoService, isInitialized, error]);
+        error,
+        authError
+    }), [dittoService, isInitialized, error, authError]);
 
     return (
         <DittoContext.Provider value={dittoServiceValue}>

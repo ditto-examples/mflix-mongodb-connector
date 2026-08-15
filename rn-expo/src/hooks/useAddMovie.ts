@@ -57,7 +57,9 @@ export const useAddMovie = () => {
                 { newMovie }
             );
 
-            if (result.mutatedDocumentIDs().length === 0) {
+            // mutatedDocumentIDsV2 is the current accessor in the JS SDK; the
+            // results are not cached, so call it once and keep the value.
+            if (result.mutatedDocumentIDsV2().length === 0) {
                 throw new Error('Failed to add movie');
             }
 
@@ -69,4 +71,4 @@ export const useAddMovie = () => {
     };
 
     return { addMovie };
-}; 
+};

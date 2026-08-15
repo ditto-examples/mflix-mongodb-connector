@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D2858202E46878400BF0330 /* DittoObjC in Frameworks */ = {isa = PBXBuildFile; productRef = 0D28581F2E46878400BF0330 /* DittoObjC */; };
 		0D2858222E46878400BF0330 /* DittoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858212E46878400BF0330 /* DittoSwift */; };
 		0D2858252E4687A700BF0330 /* DittoAllToolsMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858242E4687A700BF0330 /* DittoAllToolsMenu */; };
 		0D2858272E4687A700BF0330 /* DittoDataBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858262E4687A700BF0330 /* DittoDataBrowser */; };
@@ -20,7 +19,6 @@
 		0D2858352E4687A700BF0330 /* DittoPermissionsHealth in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858342E4687A700BF0330 /* DittoPermissionsHealth */; };
 		0D2858372E4687A700BF0330 /* DittoPresenceDegradation in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858362E4687A700BF0330 /* DittoPresenceDegradation */; };
 		0D2858392E4687A700BF0330 /* DittoPresenceViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858382E4687A700BF0330 /* DittoPresenceViewer */; };
-		0D28583B2E4687A700BF0330 /* DittoTvOSTextFieldComponent in Frameworks */ = {isa = PBXBuildFile; productRef = 0D28583A2E4687A700BF0330 /* DittoTvOSTextFieldComponent */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,7 +81,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D2858392E4687A700BF0330 /* DittoPresenceViewer in Frameworks */,
-				0D2858202E46878400BF0330 /* DittoObjC in Frameworks */,
 				0D28582D2E4687A700BF0330 /* DittoExportLogs in Frameworks */,
 				0D2858312E4687A700BF0330 /* DittoHeartbeat in Frameworks */,
 				0D28582B2E4687A700BF0330 /* DittoExportData in Frameworks */,
@@ -95,7 +92,6 @@
 				0D2858292E4687A700BF0330 /* DittoDiskUsage in Frameworks */,
 				0D2858332E4687A700BF0330 /* DittoPeersList in Frameworks */,
 				0D2858352E4687A700BF0330 /* DittoPermissionsHealth in Frameworks */,
-				0D28583B2E4687A700BF0330 /* DittoTvOSTextFieldComponent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,7 +152,6 @@
 			);
 			name = "mflix-movies";
 			packageProductDependencies = (
-				0D28581F2E46878400BF0330 /* DittoObjC */,
 				0D2858212E46878400BF0330 /* DittoSwift */,
 				0D2858242E4687A700BF0330 /* DittoAllToolsMenu */,
 				0D2858262E4687A700BF0330 /* DittoDataBrowser */,
@@ -169,7 +164,6 @@
 				0D2858342E4687A700BF0330 /* DittoPermissionsHealth */,
 				0D2858362E4687A700BF0330 /* DittoPresenceDegradation */,
 				0D2858382E4687A700BF0330 /* DittoPresenceViewer */,
-				0D28583A2E4687A700BF0330 /* DittoTvOSTextFieldComponent */,
 			);
 			productName = "mflix-movies";
 			productReference = 0D2857F32E4686F900BF0330 /* mflix-movies.app */;
@@ -483,11 +477,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 2.5;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -527,11 +520,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 2.5;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -549,12 +541,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ditto.learning.mflix-moviesTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mflix-movies.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/mflix-movies";
-				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Debug;
 		};
@@ -572,12 +563,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ditto.learning.mflix-moviesTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mflix-movies.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/mflix-movies";
-				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Release;
 		};
@@ -594,12 +584,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ditto.learning.mflix-moviesUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "mflix-movies";
-				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Debug;
 		};
@@ -616,12 +605,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ditto.learning.mflix-moviesUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "mflix-movies";
-				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Release;
 		};
@@ -672,7 +660,7 @@
 			repositoryURL = "https://github.com/getditto/DittoSwiftPackage";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.12.0;
+				minimumVersion = 5.0.3;
 			};
 		};
 		0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */ = {
@@ -680,17 +668,12 @@
 			repositoryURL = "https://github.com/getditto/DittoSwiftTools";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 8.1.1;
+				minimumVersion = 10.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0D28581F2E46878400BF0330 /* DittoObjC */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0D28581E2E46878400BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftPackage" */;
-			productName = DittoObjC;
-		};
 		0D2858212E46878400BF0330 /* DittoSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0D28581E2E46878400BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftPackage" */;
@@ -750,11 +733,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
 			productName = DittoPresenceViewer;
-		};
-		0D28583A2E4687A700BF0330 /* DittoTvOSTextFieldComponent */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0D2858232E4687A700BF0330 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
-			productName = DittoTvOSTextFieldComponent;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

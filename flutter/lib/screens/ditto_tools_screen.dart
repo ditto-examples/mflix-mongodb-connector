@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mflix_app/providers/ditto_provider.dart';
 import 'package:mflix_app/screens/tools/peers_list_screen.dart';
-import 'package:mflix_app/screens/tools/sync_status_screen.dart';
 import 'package:mflix_app/screens/tools/query_editor_screen.dart';
 import 'package:mflix_app/screens/tools/permissions_health_screen.dart';
 import 'package:mflix_app/screens/tools/disk_usage_screen.dart';
@@ -35,15 +34,6 @@ class _DittoToolsScreenState extends State<DittoToolsScreen>
           onTap: () => _navigateToScreen(
             context,
             PeersListScreen(dittoProvider: widget.dittoProvider),
-          ),
-        ),
-        _buildMenuItem(
-          icon: Icons.sync,
-          iconColor: Colors.green,
-          title: 'Sync Status',
-          onTap: () => _navigateToScreen(
-            context,
-            SyncStatusScreen(dittoProvider: widget.dittoProvider),
           ),
         ),
         _buildMenuItem(

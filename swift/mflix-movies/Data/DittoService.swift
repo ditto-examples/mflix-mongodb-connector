@@ -108,15 +108,6 @@ import Foundation
                     }
                 }
 
-                //Disable sync with v3 peers, required for DQL
-                try ditto.disableSyncWithV3()
-
-                // Disable DQL strict mode so that collection definitions are not required in DQL queries
-                // https://docs.ditto.live/dql/strict-mode#introduction
-                try await ditto.store.execute(
-                    query: "ALTER SYSTEM SET DQL_STRICT_MODE = false"
-                )
-
                 // https://docs.ditto.live/sdk/latest/sync/syncing-data#start-sync
                 try ditto.sync.start()
 
@@ -139,6 +130,7 @@ import Foundation
                 ) {
                     [weak self] result in
                     let newMovies = result.items.compactMap { item in
+                        defer { item.dematerialize() }
                         return MovieListing(item.jsonData())
                     }
                     Task { @MainActor in
@@ -160,6 +152,7 @@ import Foundation
                     deliverOn: backgroundQueue
                 ) { [weak self] result in
                     let syncStatusInfos = result.items.compactMap { item in
+                        defer { item.dematerialize() }
                         return SyncStatusInfo(item.jsonData())
                     }
                     Task { @MainActor in
@@ -173,6 +166,7 @@ import Foundation
                     deliverOn: backgroundQueue
                 ) { [weak self] result in
                     let indexInfos = result.items.compactMap { item in
+                        defer { item.dematerialize() }
                         return IndexInfo(item.jsonData())
                     }
                     Task { @MainActor in
@@ -271,6 +265,10 @@ import Foundation
             arguments: ["movieId": movieId]
         )
 
+        // Release every item's materialized value once this call returns, not
+        // just the one we read from.
+        defer { results.items.forEach { $0.dematerialize() } }
+
         guard let firstItem = results.items.first,
             let commentsCountValue = firstItem.value["commentsCount"]
         else {
@@ -303,6 +301,7 @@ import Foundation
             arguments: ["movieId": movieId]
         )
         return results.items.compactMap { item in
+            defer { item.dematerialize() }
             return Comment(item.jsonData())
         }
     }
@@ -316,6 +315,10 @@ import Foundation
             query: "SELECT * FROM movies WHERE _id = :_id",
             arguments: ["_id": id]
         )
+        // Release every item's materialized value once this call returns, not
+        // just the one we read from.
+        defer { results.items.forEach { $0.dematerialize() } }
+
         return results.items.first.flatMap { Movie($0.jsonData()) }
     }
 
@@ -325,20 +328,17 @@ import Foundation
         guard let ditto = ditto else {
             return (false, "Ditto not initialized")
         }
+        let editableFields = [
+            "countries", "fullplot", "plot", "poster", "title", "year",
+        ]
         var updateStatements: [String] = []
+        var arguments: [String: Any?] = ["_id": movie.id]
         for (key, value) in updates {
+            guard editableFields.contains(key) else { continue }
             switch value {
-            case let stringValue as String:
-                updateStatements.append(
-                    "\(key) = '\(stringValue.replacingOccurrences(of: "'", with: "''"))'"
-                )
-            case let intValue as Int:
-                updateStatements.append("\(key) = \(intValue)")
-            case let arrayValue as [String]:
-                let formattedArray = arrayValue.map {
-                    "'\($0.replacingOccurrences(of: "'", with: "''"))'"
-                }.joined(separator: ", ")
-                updateStatements.append("\(key) = [\(formattedArray)]")
+            case is String, is Int, is [String]:
+                updateStatements.append("\(key) = :\(key)")
+                arguments[key] = value
             default:
                 continue
             }
@@ -350,9 +350,12 @@ import Foundation
 
         //https://docs.ditto.live/sdk/latest/crud/update
         let updateQuery =
-            "UPDATE movies SET \(updateStatements.joined(separator: ", ")) WHERE _id = '\(movie.id)'"
+            "UPDATE movies SET \(updateStatements.joined(separator: ", ")) WHERE _id = :_id"
         do {
-            let results = try await ditto.store.execute(query: updateQuery)
+            let results = try await ditto.store.execute(
+                query: updateQuery,
+                arguments: arguments
+            )
             if let mutatedDocumentId =
                 (results.mutatedDocumentIDs().first.flatMap { $0.stringValue })
             {
@@ -393,6 +396,7 @@ import Foundation
                 deliverOn: backgroundQueue
             ) { result in
                 let comments = result.items.compactMap { item in
+                    defer { item.dematerialize() }
                     return Comment(item.jsonData())
                 }
                 onCommentsUpdate(comments)
@@ -421,6 +425,7 @@ import Foundation
         )
 
         return results.items.compactMap { item in
+            defer { item.dematerialize() }
             return MovieListing(item.jsonData())
         }
     }

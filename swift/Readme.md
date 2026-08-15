@@ -8,7 +8,7 @@ This is an [SwiftUI](https://developer.apple.com/documentation/swiftui) project 
 - Xcode 16.4 or higher with Command Line Tools installed
 
 ## Get started
-To get started, you need to update the dittoConfig.plist file with your own Ditto Database ID (called the App ID in the portal), Token (called Online Playground Token in the Portal), and Authentication URL.  You can find these in the Ditto Portal.  For documentation on how to do this, see the [Ditto Documentation](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
+To get started, update `dittoConfig.plist` with your Ditto Database ID, Online Playground Token, and URL. You can find these in the Ditto Portal. For documentation, see [Getting SDK Connection Details](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
 
 Once you have this information, you can update the dittoConfig.plist file main mflix-movies folder.  Once you have updated the plist file you can start the app running it in Xcode. 
 

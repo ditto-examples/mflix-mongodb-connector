@@ -69,14 +69,19 @@ The app uses a **centralized observer pattern** with app-lifecycle managed strea
 - **lib/models/comment.dart**: Comment data model with MongoDB ObjectId parsing
 - **lib/models/index.dart**: Index data model for database index information
 - **lib/models/sync_status.dart**: Sync status model for peer connection information
-- **lib/screens/**: UI screens with state preservation (MoviesScreen, SettingsScreen, IndexesScreen, SyncStatusView, MovieDetailScreen)
+- **lib/screens/**: UI screens with state preservation (MoviesScreen, SettingsScreen, IndexesScreen, PeerSyncStatusView, MovieDetailScreen)
 - **lib/widgets/**: Reusable reactive components for Ditto integration and comments display
 
 ### System Features
-The app includes a System tab with two main views accessed via segmented buttons:
+The app includes a Ditto Tools tab backed by `ditto_flutter_tools`:
 
-1. **Sync Status View** - Displays real-time peer connection information
-2. **Indexes View** - Shows local database indexes using `SELECT * FROM system:indexes`
+1. **Peers List** - Connected peers and their transports
+2. **Peer Sync Status** - Real-time sync state per peer, from `system:data_sync_info`
+3. **Query Editor**, **Permissions Health**, **Disk Usage**, and **System Settings**
+
+Note: `ditto_flutter_tools` 3.0.0 replaced the subscription-oriented
+`SyncStatusView` with `PeerSyncStatusView`, so the old "Sync Status" screen was
+removed. Peer Sync Status reads the same `system:data_sync_info` collection.
 
 ### Movie Detail Features
 Movie detail screens include segmented controls with two main views:
@@ -97,17 +102,17 @@ Uses a **centralized stream-based architecture** with state preservation:
 
 Before running, update these constants in `lib/main.dart` with values from Ditto Portal:
 ```dart
-const _appId = 'insert Ditto Portal App ID here';
+const _databaseId = 'insert Ditto Portal Database ID here';
 const _token = 'insert Ditto Portal Online Playground Authentication Token here';
-const _authUrl = 'insert Ditto Portal Auth URL here';
-const _websocketUrl = 'insert Ditto Portal Websocket URL here';
+const _serverUrl = 'insert Ditto Portal Server URL here';
 ```
 
 ## Key Dependencies
-- **ditto_live**: ^4.12.0-preview.3 - Core real-time sync SDK
+- **ditto_live**: ^5.0.3 - Core real-time sync SDK
+- **ditto_flutter_tools**: ^3.0.0 - Diagnostic and debugging tools
 - **provider**: ^6.1.5 - Dependency injection
 - **cached_network_image**: ^3.3.0 - Image caching
-- **permission_handler**: ^12.0.0+1 - Runtime permissions for P2P
+- **permission_handler**: ^11.3.1 - Runtime permissions for P2P
 
 ## Ditto-Specific Patterns
 

@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import type { DQLQueryArguments } from '@dittolive/ditto';
 import DittoContext from '../providers/DittoContext';
 import { Movie } from '../models/movie';
 
@@ -34,37 +35,48 @@ export const useUpdateMovie = () => {
             throw new Error('Ditto service not initialized');
         }
 
-        const updateFields = [];
+        const updateFields: string[] = [];
+        const queryArguments: DQLQueryArguments = { movieId: movie.id };
         
         if (updates.title !== undefined && updates.title !== movie.title) {
-            updateFields.push(`title = '${updates.title}'`);
+            updateFields.push('title = :title');
+            queryArguments.title = updates.title;
         }
         if (updates.year !== undefined && updates.year !== movie.year) {
-            updateFields.push(`year = '${updates.year}'`);
+            updateFields.push('year = :year');
+            queryArguments.year = updates.year;
         }
         if (updates.plot !== undefined && updates.plot !== movie.plot) {
-            updateFields.push(`plot = '${updates.plot}'`);
+            updateFields.push('plot = :plot');
+            queryArguments.plot = updates.plot;
         }
         if (updates.poster !== undefined && updates.poster !== movie.poster) {
-            updateFields.push(`poster = '${updates.poster}'`);
+            updateFields.push('poster = :poster');
+            queryArguments.poster = updates.poster;
         }
         if (updates.fullplot !== undefined && updates.fullplot !== movie.fullplot) {
-            updateFields.push(`fullplot = '${updates.fullplot}'`);
+            updateFields.push('fullplot = :fullplot');
+            queryArguments.fullplot = updates.fullplot;
         }
         if (updates.countries !== undefined && JSON.stringify(updates.countries) !== JSON.stringify(movie.countries)) {
-            const countriesString = updates.countries.map(c => `'${c}'`).join(',');
-            updateFields.push(`countries = [${countriesString}]`);
+            updateFields.push('countries = :countries');
+            queryArguments.countries = updates.countries;
         }
 
         if (updateFields.length === 0) {
             return;
         }
 
-        const updateQuery = `UPDATE movies SET ${updateFields.join(', ')} WHERE _id = '${movie.id}'`;
+        const updateQuery = `UPDATE movies SET ${updateFields.join(', ')} WHERE _id = :movieId`;
         
         try {
-            const result = await dittoService.ditto.store.execute(updateQuery);
-            if (result.mutatedDocumentIDs().length === 0) {
+            const result = await dittoService.ditto.store.execute(
+                updateQuery,
+                queryArguments,
+            );
+            // mutatedDocumentIDsV2 is the current accessor in the JS SDK; the
+            // results are not cached, so call it once and keep the value.
+            if (result.mutatedDocumentIDsV2().length === 0) {
                 throw new Error('No documents were updated');
             }
             return result;
@@ -75,4 +87,4 @@ export const useUpdateMovie = () => {
     };
 
     return { updateMovie };
-}; 
+};

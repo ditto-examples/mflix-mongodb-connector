@@ -55,6 +55,15 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="tools"
+        options={{
+          title: "Tools",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="build-outline" size={size} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

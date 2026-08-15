@@ -10,11 +10,10 @@ import 'providers/ditto_provider.dart';
 //https://docs.ditto.live/cloud/portal/getting-sdk-connection-details
 //https://docs.ditto.live/sdk/latest/install-guides/flutter
 //
-const _appId = 'insert Ditto Portal App ID here';
+const _databaseId = 'insert Ditto Portal Database ID here';
 const _token =
     'insert Ditto Portal Online Playground Authentication Token here';
-const _authUrl = 'insert Ditto Portal Auth URL here';
-const _websocketUrl = 'insert Ditto Portal Websocket URL here';
+const _serverUrl = 'insert Ditto Portal Server URL here';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -82,6 +81,8 @@ class MoviesExample extends StatefulWidget {
 
 class _MoviesExampleState extends State<MoviesExample> {
   DittoProvider? _dittoProvider;
+  String? _initError;
+  String? _pendingErrorMessage;
   int _selectedIndex = 0;
   late PageController _pageController;
 
@@ -94,14 +95,60 @@ class _MoviesExampleState extends State<MoviesExample> {
 
   @override
   void dispose() {
+    _dittoProvider?.dispose();
     _pageController.dispose();
     super.dispose();
   }
 
   Future<void> _initDitto() async {
     final dittoProvider = DittoProvider();
-    await dittoProvider.initialize(_appId, _token, _authUrl, _websocketUrl);
-    setState(() => _dittoProvider = dittoProvider);
+    // Report failures that happen after startup, such as a token that can no
+    // longer be refreshed, instead of leaving the app silently out of sync.
+    dittoProvider.onError = _handleDittoError;
+    try {
+      await dittoProvider.initialize(_databaseId, _token, _serverUrl);
+      if (!mounted) return;
+      setState(() => _dittoProvider = dittoProvider);
+      _flushPendingError();
+    } catch (e) {
+      // Ditto could not be opened at all, so there is nothing to show but the
+      // reason why.
+      if (!mounted) return;
+      setState(() => _initError = e.toString());
+    }
+  }
+
+  /// Handles failures reported after `initialize` returned. Ditto still works
+  /// offline in that case, so the app stays usable and the error is shown as a
+  /// snack bar rather than replacing the UI.
+  void _handleDittoError(Object error) {
+    if (!mounted) return;
+    if (_dittoProvider == null) {
+      // Startup is still in flight - hold the message until there is a
+      // Scaffold to show it in.
+      _pendingErrorMessage = error.toString();
+      return;
+    }
+    _showError(error.toString());
+  }
+
+  void _flushPendingError() {
+    final message = _pendingErrorMessage;
+    if (message == null) return;
+    _pendingErrorMessage = null;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _showError(message);
+    });
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Theme.of(context).colorScheme.error,
+        duration: const Duration(seconds: 8),
+      ),
+    );
   }
 
   void _onItemTapped(int index) {
@@ -117,6 +164,10 @@ class _MoviesExampleState extends State<MoviesExample> {
 
   @override
   Widget build(BuildContext context) {
+    if (_initError != null) {
+      return MoviesErrorView(message: _initError!);
+    }
+
     if (_dittoProvider == null) {
       return const MoviesLoadingView();
     }
@@ -175,6 +226,51 @@ class MoviesLoadingView extends StatelessWidget {
                 padding: EdgeInsets.all(16.0),
                 child: Text(
                   "Trying to retrieve data - if this is first data sync this can take a while",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+}
+
+/// Shown when Ditto cannot be started, most commonly because the constants at
+/// the top of this file still hold the Ditto Portal placeholder values.
+class MoviesErrorView extends StatelessWidget {
+  const MoviesErrorView({super.key, required this.message});
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(title: const Text("Kid Movies")),
+        body: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error_outline,
+                size: 48,
+                color: Theme.of(context).colorScheme.error,
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.0),
+                child: Text(
+                  "Could not start Ditto",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Text(message, textAlign: TextAlign.center),
+              const Padding(
+                padding: EdgeInsets.only(top: 16.0),
+                child: Text(
+                  "Check the Database ID, Online Playground Token, and Server "
+                  "URL at the top of lib/main.dart against your Ditto Portal "
+                  "connection details, then restart the app.",
                   textAlign: TextAlign.center,
                 ),
               ),
