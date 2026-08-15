@@ -265,12 +265,15 @@ import Foundation
             arguments: ["movieId": movieId]
         )
 
-        guard let firstItem = results.items.first else {
+        // Release every item's materialized value once this call returns, not
+        // just the one we read from.
+        defer { results.items.forEach { $0.dematerialize() } }
+
+        guard let firstItem = results.items.first,
+            let commentsCountValue = firstItem.value["commentsCount"]
+        else {
             return 0
         }
-        let commentsCountValue = firstItem.value["commentsCount"]
-        firstItem.dematerialize()
-        guard let commentsCountValue else { return 0 }
 
         // Handle different possible types for the count
         switch commentsCountValue {
@@ -312,10 +315,11 @@ import Foundation
             query: "SELECT * FROM movies WHERE _id = :_id",
             arguments: ["_id": id]
         )
-        guard let item = results.items.first else { return nil }
-        let movie = Movie(item.jsonData())
-        item.dematerialize()
-        return movie
+        // Release every item's materialized value once this call returns, not
+        // just the one we read from.
+        defer { results.items.forEach { $0.dematerialize() } }
+
+        return results.items.first.flatMap { Movie($0.jsonData()) }
     }
 
     func updateMovie(_ movie: Movie, updates: [String: Any]) async -> (

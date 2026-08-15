@@ -51,6 +51,13 @@ Android:
 npx expo run android
 ```
 
+## Android platform notes
+
+Two Android behaviors changed when this example moved to Expo SDK 54 / React Native 0.81. Both are visible in the generated `android/` project, so they are called out here rather than left as prebuild noise:
+
+- **Edge-to-edge is always on.** Expo SDK 54 sets `expo.edgeToEdgeEnabled=true` and Android 16 (`targetSdkVersion 36`) no longer allows opting out. Screens draw behind the status and navigation bars, so any UI outside the navigator has to apply safe area insets itself - see `src/components/DittoErrorBanner.tsx`. The status bar background color and `translucent` props are ignored under edge-to-edge and are no longer set in `app/_layout.tsx`.
+- **Predictive back is off.** `android.predictiveBackGestureEnabled` is set to `false` in `app.json`, which is what writes `android:enableOnBackInvokedCallback="false"` into the manifest. This is Expo's default because React Navigation does not fully support the predictive back gesture yet; the field is set explicitly so the manifest value is a deliberate choice rather than a prebuild artifact.
+
 ## Building Release Versions
 
 ### Build Commands

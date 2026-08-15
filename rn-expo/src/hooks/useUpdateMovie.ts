@@ -74,6 +74,8 @@ export const useUpdateMovie = () => {
                 updateQuery,
                 queryArguments,
             );
+            // mutatedDocumentIDsV2 is the current accessor in the JS SDK; the
+            // results are not cached, so call it once and keep the value.
             if (result.mutatedDocumentIDsV2().length === 0) {
                 throw new Error('No documents were updated');
             }

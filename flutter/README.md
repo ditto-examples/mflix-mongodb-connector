@@ -4,9 +4,10 @@ This is an [Flutter](https://flutter.dev/) project created with [Android Studio]
 
 ## Prerequisites
 - Basic understanding of Dart and Flutter
-- Tested with Flutter 3.27.4 and Dart 3.6.2
+- **Flutter 3.38.0 or newer** - `ios/Runner` uses the UIScene lifecycle that Flutter introduced in 3.38.0, so older versions fail to compile `AppDelegate.swift`. Tested with Flutter 3.47.0 and Dart 3.11.0
 - Xcode 16 or higher with Command Line Tools installed (if you are using MacOS or iOS builds)
 - Android SDK installed (v34 or higher)
+- JDK 17 or newer for Android builds - the Android project uses Gradle 9.3.1 with AGP 8.13.0 and Kotlin 2.2.20, which runs on the JDK bundled with current Android Studio releases
 - IDE of choice (Visual Studio Code, Android Studio "Koala" 2024.1.1 or higher, Cursor, etc)
 
 ## Get started

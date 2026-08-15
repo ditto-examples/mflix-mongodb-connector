@@ -18,4 +18,22 @@ void main() {
       findsOneWidget,
     );
   });
+
+  testWidgets('shows the failure reason when Ditto cannot start',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: MoviesErrorView(message: 'invalid database id'),
+      ),
+    );
+
+    expect(find.text('Could not start Ditto'), findsOneWidget);
+    expect(find.text('invalid database id'), findsOneWidget);
+    expect(find.byType(CircularProgressIndicator), findsNothing);
+    expect(
+      find.textContaining('lib/main.dart'),
+      findsOneWidget,
+      reason: 'the error should point at the configuration to fix',
+    );
+  });
 }

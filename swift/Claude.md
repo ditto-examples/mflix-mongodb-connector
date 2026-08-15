@@ -287,7 +287,7 @@ swift/mflix-movies/
 - **Configuration Validation:**
   - Placeholder text detection
   - Token validation
-  - WebSocket URL verification
+  - Server URL verification
   - Development mode detection
 
 #### UI Components Library
@@ -384,7 +384,7 @@ swift/mflix-movies/
 - **dittoConfig.plist**: Central configuration file
 - **Authentication**: Token-based with expiration handling
 - **Transport**: Server connection derived from the Portal URL
-- **Sync Settings**: Ditto SDK v5 defaults with DQL strict mode off
+- **Sync Settings**: Ditto SDK v5 defaults - DQL strict mode and v3 sync compatibility no longer exist, so neither is configured
 - **Security**: App sandboxing enabled
 
 ### Database Operations
@@ -621,7 +621,7 @@ struct DetailView: View {
 
 ### Sync Status Not Updating
 - **Problem**: Peer connections not showing
-- **Solution**: Check WebSocket configuration and network permissions
+- **Solution**: Check the server URL configuration and network permissions
 
 ### Type Conversion Errors
 - **Problem**: Crashes when parsing MongoDB data
@@ -774,7 +774,7 @@ struct DetailView: View {
 
 ### Sync Issues
 - Verify internet connectivity
-- Check WebSocket URL validity
+- Check server URL validity
 - Ensure proper authentication
 - Review firewall settings
 

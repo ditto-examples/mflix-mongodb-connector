@@ -66,6 +66,11 @@ class DittoProvider with ChangeNotifier {
     });
   }
 
+  /// Called when Ditto reports a failure that happens outside of a method call,
+  /// such as a failed token refresh. Set this before calling [initialize] so
+  /// that background authentication failures can be surfaced to the user.
+  void Function(Object error)? onError;
+
   /// Initializes the Ditto instance with necessary permissions and configuration.
   /// https://docs.ditto.live/sdk/latest/install-guides/flutter#step-3-import-and-initialize-the-ditto-sdk
   ///
@@ -75,6 +80,9 @@ class DittoProvider with ChangeNotifier {
   /// 3. Configures the database and server connection
   /// 4. Authenticates with the online playground token
   /// 5. Starts sync and updates the app state with the configured Ditto instance
+  ///
+  /// Throws if Ditto cannot be opened or sync cannot be started. Callers are
+  /// expected to catch and show the failure - see `_initDitto` in main.dart.
   Future<void> initialize(
       String databaseId, String token, String serverUrl) async {
     //request permissions - required if you aren't in web to use P2P
@@ -98,13 +106,28 @@ class DittoProvider with ChangeNotifier {
     final ditto = await Ditto.open(config);
     _ditto = ditto;
 
+    // The expiration handler is how a server connection authenticates: it runs
+    // once at startup and again whenever the token is close to expiring.
+    // https://docs.ditto.live/sdk/latest/auth-and-authorization/cloud-authentication
+    //
+    // Note the handler signature is `void Function(...)`, so anything thrown
+    // here becomes an unhandled async error that no caller can catch. Login
+    // failures are reported through [onError] instead of being rethrown.
     await ditto.auth.setExpirationHandler((ditto, timeUntilExpiration) async {
-      final response = await ditto.auth.login(
-        token: token,
-        provider: Authenticator.developmentProvider,
-      );
-      if (response.exception != null) {
-        throw response.exception!;
+      try {
+        final response = await ditto.auth.login(
+          token: token,
+          provider: Authenticator.developmentProvider,
+        );
+        if (response.exception != null) {
+          _reportError(
+            'Ditto authentication failed with '
+            '${timeUntilExpiration.inSeconds}s until expiration: '
+            '${response.exception}',
+          );
+        }
+      } catch (e) {
+        _reportError('Ditto authentication failed: $e');
       }
     });
 
@@ -168,10 +191,17 @@ class DittoProvider with ChangeNotifier {
         });
       });
     } catch (e) {
-      if (kDebugMode) {
-        print('Error setting up observers: $e');
-      }
+      _reportError('Error setting up observers: $e');
     }
+  }
+
+  /// Logs an error and forwards it to [onError] so the UI can react to
+  /// failures that happen after `initialize` has returned.
+  void _reportError(Object error) {
+    if (kDebugMode) {
+      print(error);
+    }
+    onError?.call(error);
   }
 
   @override

@@ -32,6 +32,16 @@ import {
 
     public syncStatusObserver: StoreObserver | undefined;
 
+    /**
+     * The most recent authentication failure, if any. Authentication runs in the
+     * background whenever the token needs refreshing, so failures cannot be
+     * thrown back to `initDitto`'s caller - they land here instead.
+     */
+    public authError: Error | null = null;
+
+    /** Called whenever {@link authError} changes. */
+    public onAuthError: ((error: Error) => void) | undefined;
+
     private isInitializing = false;
 
     private constructor() {}
@@ -122,15 +132,29 @@ import {
             });
             this.ditto = await Ditto.open(config);
 
+            // The expiration handler is how a server connection authenticates: it
+            // runs once at startup and again whenever the token nears expiration.
+            // https://docs.ditto.live/sdk/latest/auth-and-authorization/cloud-authentication
+            //
+            // It runs in the background, so a failure here cannot be thrown back to
+            // the caller of initDitto - it is reported through onAuthError so the UI
+            // can tell the user why sync is not working.
             await this.ditto.auth.setExpirationHandler(async (ditto, timeUntilExpiration) => {
-                const result = await ditto.auth.login(
-                    this.token,
-                    Authenticator.DEVELOPMENT_PROVIDER,
-                );
-                if (result.error) {
-                    console.error(
-                        `Ditto authentication failed with ${timeUntilExpiration} seconds remaining:`,
-                        result.error,
+                try {
+                    const result = await ditto.auth.login(
+                        this.token,
+                        Authenticator.DEVELOPMENT_PROVIDER,
+                    );
+                    if (result.error) {
+                        this.reportAuthError(
+                            new Error(
+                                `Ditto authentication failed with ${timeUntilExpiration} seconds remaining: ${result.error}`,
+                            ),
+                        );
+                    }
+                } catch (e) {
+                    this.reportAuthError(
+                        e instanceof Error ? e : new Error(`Ditto authentication failed: ${e}`),
                     );
                 }
             });
@@ -159,6 +183,12 @@ import {
         } finally {
             this.isInitializing = false;
         }
+    }
+
+    private reportAuthError(error: Error): void {
+        this.authError = error;
+        console.error(error.message);
+        this.onAuthError?.(error);
     }
 
     public static getInstance(): DittoService {
