@@ -29,6 +29,17 @@ Then start the app:
 flutter run --dart-define-from-file=../.env
 ```
 
+Pass the same flag to release builds, otherwise the app starts with no
+configuration and shows the "Could not start Ditto" screen:
+
+```bash
+flutter build apk --dart-define-from-file=../.env
+flutter build ios --dart-define-from-file=../.env
+```
+
+If you launch from an IDE, add the flag to your run configuration
+(`"args": ["--dart-define-from-file=../.env"]` in VS Code's `launch.json`).
+
 ## Learn more
 To learn more about developing your project with Flutter, look at the following resources:
 

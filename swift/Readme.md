@@ -12,7 +12,9 @@ Create and fill in the root `.env` file as described in the
 [repository setup](../README.md#ditto-development-credentials). You can find
 these values in the [Ditto Portal](https://docs.ditto.live/cloud/portal/getting-sdk-connection-details).
 
-The Xcode project generates `Env.swift` from the root file before compiling.
+The Xcode project generates `Generated/Env.swift` from the root file before
+compiling, so the credentials never enter version control. Only the three
+`DITTO_*` keys are read; anything else in the `.env` stays out of the app.
 Once the root file is configured, open the project and run the app in Xcode.
 
 ## Learn more

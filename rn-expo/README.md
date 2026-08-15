@@ -7,6 +7,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 - Xcode 15 or higher with Commnad Line Tools installed (Tested with XCode 16)
 - Android SDK installed (v34 or higher) - (Tested with Android Studio Meerkat)
 - IDE of choice (Visual Studio Code, Cursor, etc)
+- Node 20.12 or newer - `app.config.js` reads the root `.env` with `process.loadEnvFile`, which older versions of Node do not provide
 
 ## Get started
 Create and fill in the root `.env` file as described in the

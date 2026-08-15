@@ -5,7 +5,7 @@
 .env
 .env.*
 !.env.template
-swift/mflix-movies/Env.swift
+swift/Generated/
 *.class
 *.lock
 *.log

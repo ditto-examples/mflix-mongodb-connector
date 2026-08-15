@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D17A00202E95000100A1B2C3 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A00212E95000100A1B2C3 /* Env.swift */; };
 		0D2858222E46878400BF0330 /* DittoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858212E46878400BF0330 /* DittoSwift */; };
 		0D2858252E4687A700BF0330 /* DittoAllToolsMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858242E4687A700BF0330 /* DittoAllToolsMenu */; };
 		0D2858272E4687A700BF0330 /* DittoDataBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = 0D2858262E4687A700BF0330 /* DittoDataBrowser */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D17A00212E95000100A1B2C3 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
 		0D2857F32E4686F900BF0330 /* mflix-movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mflix-movies.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D2858012E4686FA00BF0330 /* mflix-moviesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mflix-moviesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D28580B2E4686FA00BF0330 /* mflix-moviesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mflix-moviesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +51,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+				Env.swift,
 			);
 			target = 0D2857F22E4686F900BF0330 /* mflix-movies */;
 		};
@@ -112,9 +115,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D17A00222E95000100A1B2C3 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				D17A00212E95000100A1B2C3 /* Env.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		0D2857EA2E4686F900BF0330 = {
 			isa = PBXGroup;
 			children = (
+				D17A00222E95000100A1B2C3 /* Generated */,
 				0D2857F52E4686F900BF0330 /* mflix-movies */,
 				0D2858042E4686FA00BF0330 /* mflix-moviesTests */,
 				0D28580E2E4686FA00BF0330 /* mflix-moviesUITests */,
@@ -300,11 +312,11 @@
 			);
 			name = "Generate Env.swift";
 			outputPaths = (
-				"$(SRCROOT)/mflix-movies/Env.swift",
+				"$(SRCROOT)/Generated/Env.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/buildEnv.sh\" \"${SRCROOT}/../.env\" \"${SRCROOT}/mflix-movies\"\n";
+			shellScript = "\"${SRCROOT}/buildEnv.sh\" \"${SRCROOT}/../.env\" \"${SRCROOT}/Generated\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -313,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D17A00202E95000100A1B2C3 /* Env.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

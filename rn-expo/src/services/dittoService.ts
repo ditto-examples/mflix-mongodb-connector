@@ -23,27 +23,29 @@ const dittoEnvironment = Constants.expoConfig?.extra?.ditto as
   | DittoEnvironment
   | undefined;
 
-function requiredDittoValue(
-  key: keyof DittoEnvironment,
-  environmentName: string
-): string {
-  const value = dittoEnvironment?.[key];
-  if (!value) {
-    throw new Error(
-      `Missing ${environmentName}. Copy .env.template to .env at the repository root and set the Ditto development credentials.`
-    );
-  }
-  return value;
+const DITTO_ENVIRONMENT_NAMES: Record<keyof DittoEnvironment, string> = {
+  databaseID: 'DITTO_DATABASE_ID',
+  developmentToken: 'DITTO_DEVELOPMENT_TOKEN',
+  serverURL: 'DITTO_SERVER_URL',
+};
+
+/**
+ * Names of the Ditto values that app.config.js did not find in the root .env.
+ * Returned rather than thrown: these fields are read while the service is
+ * constructed, which happens during a React render, so throwing here would take
+ * down the tree before any error UI could show it.
+ */
+function missingDittoValues(): string[] {
+  return (Object.keys(DITTO_ENVIRONMENT_NAMES) as (keyof DittoEnvironment)[])
+    .filter((key) => !dittoEnvironment?.[key])
+    .map((key) => DITTO_ENVIRONMENT_NAMES[key]);
 }
 
   export class DittoService {
 
-    private databaseId = requiredDittoValue('databaseID', 'DITTO_DATABASE_ID');
-    private token = requiredDittoValue(
-      'developmentToken',
-      'DITTO_DEVELOPMENT_TOKEN'
-    );
-    private serverURL = requiredDittoValue('serverURL', 'DITTO_SERVER_URL');
+    private databaseId = dittoEnvironment?.databaseID ?? '';
+    private token = dittoEnvironment?.developmentToken ?? '';
+    private serverURL = dittoEnvironment?.serverURL ?? '';
 
     private static instance: DittoService;
     public ditto: Ditto | null = null;
@@ -143,6 +145,14 @@ function requiredDittoValue(
         }
 
         this.isInitializing = true;
+
+        const missing = missingDittoValues();
+        if (missing.length > 0) {
+            this.isInitializing = false;
+            throw new Error(
+                `Missing ${missing.join(', ')}. Copy .env.template to .env at the repository root and set the Ditto development credentials.`
+            );
+        }
 
         let isPermissionsGranted = await this.requestPermissions();
         if (!isPermissionsGranted) {

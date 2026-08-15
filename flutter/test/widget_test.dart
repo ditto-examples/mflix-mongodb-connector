@@ -31,7 +31,7 @@ void main() {
     expect(find.text('invalid database id'), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsNothing);
     expect(
-      find.textContaining('lib/main.dart'),
+      find.textContaining('.env'),
       findsOneWidget,
       reason: 'the error should point at the configuration to fix',
     );

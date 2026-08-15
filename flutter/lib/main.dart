@@ -5,19 +5,20 @@ import 'package:mflix_app/screens/ditto_tools_screen.dart';
 
 import 'providers/ditto_provider.dart';
 
+// Supplied by the root .env file, which Flutter reads via
+// `--dart-define-from-file=../.env`. Missing values are reported in the UI by
+// [MoviesErrorView] rather than thrown, so the app can explain what to fix.
 const _databaseId = String.fromEnvironment('DITTO_DATABASE_ID');
 const _token = String.fromEnvironment('DITTO_DEVELOPMENT_TOKEN');
 const _serverUrl = String.fromEnvironment('DITTO_SERVER_URL');
 
+const _missingConfigMessage =
+    'Missing Ditto configuration. Copy .env.template to .env at the '
+    'repository root, fill in the Ditto Portal values, and run Flutter with '
+    '--dart-define-from-file=../.env';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  if (_databaseId.isEmpty || _token.isEmpty || _serverUrl.isEmpty) {
-    throw StateError(
-      'Missing Ditto configuration. Run Flutter with '
-      '--dart-define-from-file=../.env.',
-    );
-  }
 
   // Set preferred orientations
   SystemChrome.setPreferredOrientations([
@@ -102,6 +103,11 @@ class _MoviesExampleState extends State<MoviesExample> {
   }
 
   Future<void> _initDitto() async {
+    if (_databaseId.isEmpty || _token.isEmpty || _serverUrl.isEmpty) {
+      setState(() => _initError = _missingConfigMessage);
+      return;
+    }
+
     final dittoProvider = DittoProvider();
     // Report failures that happen after startup, such as a token that can no
     // longer be refreshed, instead of leaving the app silently out of sync.
@@ -236,8 +242,8 @@ class MoviesLoadingView extends StatelessWidget {
       );
 }
 
-/// Shown when Ditto cannot be started, most commonly because the constants at
-/// the top of this file still hold the Ditto Portal placeholder values.
+/// Shown when Ditto cannot be started, most commonly because the root .env
+/// file is missing values or was not passed to Flutter.
 class MoviesErrorView extends StatelessWidget {
   const MoviesErrorView({super.key, required this.message});
 
@@ -269,9 +275,10 @@ class MoviesErrorView extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(top: 16.0),
                 child: Text(
-                  "Check the Database ID, Online Playground Token, and Server "
-                  "URL at the top of lib/main.dart against your Ditto Portal "
-                  "connection details, then restart the app.",
+                  "Check DITTO_DATABASE_ID, DITTO_DEVELOPMENT_TOKEN, and "
+                  "DITTO_SERVER_URL in the .env file at the repository root "
+                  "against your Ditto Portal connection details, then restart "
+                  "the app.",
                   textAlign: TextAlign.center,
                 ),
               ),
