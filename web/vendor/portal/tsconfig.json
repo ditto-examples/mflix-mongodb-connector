@@ -1,0 +1,3 @@
+{
+  "_comment": "Stub. The vendored anvil/tsconfig.json does `extends: '../portal/tsconfig.json'` — in the cloud-services repo that's the portal app's config, which we did not vendor. Anvil's own tsconfig overrides everything the build needs; this empty base just satisfies the extends chain. Do not add options here."
+}

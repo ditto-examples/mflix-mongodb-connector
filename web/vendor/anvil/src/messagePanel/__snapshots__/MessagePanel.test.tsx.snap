@@ -1,0 +1,289 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MessagePanel > should render a message panel correctly for each supported variant > Danger variant 1`] = `
+<div>
+  <div
+    class="grid-cols-min-fr text-foreground-normal grid w-full grid-flow-col items-start gap-x-3 rounded-lg border p-3 text-base border-border-critical bg-fill-critical-secondary external-classname"
+  >
+    <svg
+      class="shrink-0 size-5"
+      fill="currentColor"
+      height="1em"
+      viewBox="0 0 256 256"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"
+      />
+    </svg>
+    <div>
+      The message
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MessagePanel > should render a message panel correctly for each supported variant > Default variant 1`] = `
+<div>
+  <div
+    class="grid-cols-min-fr text-foreground-normal grid w-full grid-flow-col items-start gap-x-3 rounded-lg border p-3 text-base border-border-info bg-fill-info-secondary external-classname"
+  >
+    <svg
+      class="shrink-0 size-5"
+      fill="currentColor"
+      height="1em"
+      viewBox="0 0 256 256"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"
+      />
+    </svg>
+    <div>
+      The message
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MessagePanel > should render a message panel correctly for each supported variant > Info variant 1`] = `
+<div>
+  <div
+    class="grid-cols-min-fr text-foreground-normal grid w-full grid-flow-col items-start gap-x-3 rounded-lg border p-3 text-base border-border-info bg-fill-info-secondary external-classname"
+  >
+    <svg
+      class="shrink-0 size-5"
+      fill="currentColor"
+      height="1em"
+      viewBox="0 0 256 256"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"
+      />
+    </svg>
+    <div>
+      The message
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MessagePanel > should render a message panel correctly for each supported variant > Promo variant 1`] = `
+<div>
+  <div
+    class="grid-cols-min-fr text-foreground-normal grid w-full grid-flow-col items-start gap-x-3 rounded-lg border p-3 text-base border-border-promo bg-fill-promo-secondary external-classname"
+  >
+    <svg
+      class="shrink-0 size-5"
+      fill="currentColor"
+      height="1em"
+      viewBox="0 0 256 256"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M248,80a28,28,0,1,0-51.12,15.77l-26.79,33L146,73.4a28,28,0,1,0-36.06,0L85.91,128.74l-26.79-33a28,28,0,1,0-26.6,12L47,194.63A16,16,0,0,0,62.78,208H193.22A16,16,0,0,0,209,194.63l14.47-86.85A28,28,0,0,0,248,80ZM128,40a12,12,0,1,1-12,12A12,12,0,0,1,128,40ZM24,80A12,12,0,1,1,36,92,12,12,0,0,1,24,80ZM193.22,192H62.78L48.86,108.52,81.79,149A8,8,0,0,0,88,152a7.83,7.83,0,0,0,1.08-.07,8,8,0,0,0,6.26-4.74l29.3-67.4a27,27,0,0,0,6.72,0l29.3,67.4a8,8,0,0,0,6.26,4.74A7.83,7.83,0,0,0,168,152a8,8,0,0,0,6.21-3l32.93-40.52ZM220,92a12,12,0,1,1,12-12A12,12,0,0,1,220,92Z"
+      />
+    </svg>
+    <div>
+      The message
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MessagePanel > should render a message panel correctly for each supported variant > Success variant 1`] = `
+<div>
+  <div
+    class="grid-cols-min-fr text-foreground-normal grid w-full grid-flow-col items-start gap-x-3 rounded-lg border p-3 text-base border-border-success bg-fill-success-secondary external-classname"
+  >
+    <svg
+      class="shrink-0 size-5"
+      fill="currentColor"
+      height="1em"
+      viewBox="0 0 256 256"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"
+      />
+    </svg>
+    <div>
+      The message
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MessagePanel > should render a message panel correctly for each supported variant > Warning variant 1`] = `
+<div>
+  <div
+    class="grid-cols-min-fr text-foreground-normal grid w-full grid-flow-col items-start gap-x-3 rounded-lg border p-3 text-base border-border-warning bg-fill-warning-secondary external-classname"
+  >
+    <svg
+      class="shrink-0 size-5"
+      fill="currentColor"
+      height="1em"
+      viewBox="0 0 256 256"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z"
+      />
+    </svg>
+    <div>
+      The message
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MessagePanel should render a message panel correctly for each supported variant: Danger variant 1`] = `
+<div>
+  <div
+    class="grid-cols-min-fr text-foreground-normal grid w-full grid-flow-col items-start gap-x-3 rounded-lg border p-3 text-base border-border-critical bg-fill-critical-secondary external-classname"
+  >
+    <svg
+      class="shrink-0 size-5"
+      fill="currentColor"
+      height="1em"
+      viewBox="0 0 256 256"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"
+      />
+    </svg>
+    <div>
+      The message
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MessagePanel should render a message panel correctly for each supported variant: Default variant 1`] = `
+<div>
+  <div
+    class="grid-cols-min-fr text-foreground-normal grid w-full grid-flow-col items-start gap-x-3 rounded-lg border p-3 text-base border-border-info bg-fill-info-secondary external-classname"
+  >
+    <svg
+      class="shrink-0 size-5"
+      fill="currentColor"
+      height="1em"
+      viewBox="0 0 256 256"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"
+      />
+    </svg>
+    <div>
+      The message
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MessagePanel should render a message panel correctly for each supported variant: Info variant 1`] = `
+<div>
+  <div
+    class="grid-cols-min-fr text-foreground-normal grid w-full grid-flow-col items-start gap-x-3 rounded-lg border p-3 text-base border-border-info bg-fill-info-secondary external-classname"
+  >
+    <svg
+      class="shrink-0 size-5"
+      fill="currentColor"
+      height="1em"
+      viewBox="0 0 256 256"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"
+      />
+    </svg>
+    <div>
+      The message
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MessagePanel should render a message panel correctly for each supported variant: Promo variant 1`] = `
+<div>
+  <div
+    class="grid-cols-min-fr text-foreground-normal grid w-full grid-flow-col items-start gap-x-3 rounded-lg border p-3 text-base border-border-promo bg-fill-promo-secondary external-classname"
+  >
+    <svg
+      class="shrink-0 size-5"
+      fill="currentColor"
+      height="1em"
+      viewBox="0 0 256 256"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M248,80a28,28,0,1,0-51.12,15.77l-26.79,33L146,73.4a28,28,0,1,0-36.06,0L85.91,128.74l-26.79-33a28,28,0,1,0-26.6,12L47,194.63A16,16,0,0,0,62.78,208H193.22A16,16,0,0,0,209,194.63l14.47-86.85A28,28,0,0,0,248,80ZM128,40a12,12,0,1,1-12,12A12,12,0,0,1,128,40ZM24,80A12,12,0,1,1,36,92,12,12,0,0,1,24,80ZM193.22,192H62.78L48.86,108.52,81.79,149A8,8,0,0,0,88,152a7.83,7.83,0,0,0,1.08-.07,8,8,0,0,0,6.26-4.74l29.3-67.4a27,27,0,0,0,6.72,0l29.3,67.4a8,8,0,0,0,6.26,4.74A7.83,7.83,0,0,0,168,152a8,8,0,0,0,6.21-3l32.93-40.52ZM220,92a12,12,0,1,1,12-12A12,12,0,0,1,220,92Z"
+      />
+    </svg>
+    <div>
+      The message
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MessagePanel should render a message panel correctly for each supported variant: Success variant 1`] = `
+<div>
+  <div
+    class="grid-cols-min-fr text-foreground-normal grid w-full grid-flow-col items-start gap-x-3 rounded-lg border p-3 text-base border-border-success bg-fill-success-secondary external-classname"
+  >
+    <svg
+      class="shrink-0 size-5"
+      fill="currentColor"
+      height="1em"
+      viewBox="0 0 256 256"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"
+      />
+    </svg>
+    <div>
+      The message
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MessagePanel should render a message panel correctly for each supported variant: Warning variant 1`] = `
+<div>
+  <div
+    class="grid-cols-min-fr text-foreground-normal grid w-full grid-flow-col items-start gap-x-3 rounded-lg border p-3 text-base border-border-warning bg-fill-warning-secondary external-classname"
+  >
+    <svg
+      class="shrink-0 size-5"
+      fill="currentColor"
+      height="1em"
+      viewBox="0 0 256 256"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z"
+      />
+    </svg>
+    <div>
+      The message
+    </div>
+  </div>
+</div>
+`;

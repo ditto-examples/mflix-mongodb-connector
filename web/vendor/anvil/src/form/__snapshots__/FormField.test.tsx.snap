@@ -1,0 +1,103 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`FormField > should render a form input for a required field 1`] = `
+<div>
+  <div>
+    <label
+      class="uppercase font-aeonik text-sm text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 tracking-wider font-medium"
+      for="name"
+    >
+      Name
+      <span
+        class="text-fill-critical"
+      >
+         *
+      </span>
+    </label>
+    <input
+      type="text"
+      value="value"
+    />
+    <p
+      class="text-foreground-subtle mt-1.5 text-sm"
+    >
+      Something about this field
+    </p>
+  </div>
+</div>
+`;
+
+exports[`FormField > should render a form input with a label and a description around the child input component 1`] = `
+<div>
+  <div
+    class="external-class"
+  >
+    <label
+      class="uppercase font-aeonik text-sm text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 tracking-wider font-medium"
+      for="name"
+    >
+      Name
+    </label>
+    <input
+      type="text"
+      value="value"
+    />
+    <p
+      class="text-foreground-subtle mt-1.5 text-sm"
+    >
+      Something about this field
+    </p>
+  </div>
+</div>
+`;
+
+exports[`FormField should render a form input for a required field 1`] = `
+<div>
+  <div>
+    <label
+      class="uppercase font-aeonik text-sm text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 tracking-wider font-medium"
+      for="name"
+    >
+      Name
+      <span
+        class="text-fill-critical"
+      >
+         *
+      </span>
+    </label>
+    <input
+      type="text"
+      value="value"
+    />
+    <p
+      class="text-foreground-subtle mt-1.5 text-sm"
+    >
+      Something about this field
+    </p>
+  </div>
+</div>
+`;
+
+exports[`FormField should render a form input with a label and a description around the child input component 1`] = `
+<div>
+  <div
+    class="external-class"
+  >
+    <label
+      class="uppercase font-aeonik text-sm text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 tracking-wider font-medium"
+      for="name"
+    >
+      Name
+    </label>
+    <input
+      type="text"
+      value="value"
+    />
+    <p
+      class="text-foreground-subtle mt-1.5 text-sm"
+    >
+      Something about this field
+    </p>
+  </div>
+</div>
+`;

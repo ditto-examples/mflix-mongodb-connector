@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TablePageSizeSelector should match the snapshot 1`] = `
+<div>
+  <div
+    class="flex shrink-0 items-center pr-4 text-base"
+  >
+    <div
+      class="grid items-center gap-2 m-0"
+    >
+      <button
+        aria-autocomplete="none"
+        aria-controls="radix-:r0:"
+        aria-expanded="false"
+        class="border-border-normal text-foreground-normal placeholder:text-foreground-subtle h-8 w-full items-center justify-between rounded-md border py-2 pl-3 pr-2 text-left ring-0 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 flex gap-1 outline-none border-none bg-transparent"
+        data-state="closed"
+        data-testid="tablePageSizeSelector"
+        dir="ltr"
+        role="combobox"
+        type="button"
+        value="10"
+      >
+        <span
+          style="pointer-events: none;"
+        >
+          Show 10
+        </span>
+        <svg
+          aria-hidden="true"
+          class="shrink-0 text-foreground-subtle size-4"
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48,48A8,8,0,0,0,85.66,85.66Z"
+          />
+        </svg>
+      </button>
+    </div>
+    <span
+      class="hidden md:inline-block"
+    >
+      per page
+    </span>
+  </div>
+</div>
+`;

@@ -1,0 +1,417 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TablePaginationControls should render the center content properly when provided 1`] = `
+<div>
+  <div
+    class="divide-border-normal border-border-normal flex h-full w-full items-center divide-x border-t"
+  >
+    <div
+      class="hidden flex-1 shrink-0 items-center px-4 text-base sm:px-6 md:flex"
+    >
+      I'm the center of attention!
+    </div>
+    <form
+      class="flex h-full shrink-0 items-center gap-2 px-4 text-base"
+      data-testid="tablePageSelectorForm"
+    >
+      <span>
+        Page
+      </span>
+      <input
+        class="bg-background-surface-secondary focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-8 rounded-md border border-transparent p-0 text-center text-sm outline-none [appearance:textfield] disabled:cursor-not-allowed [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-8"
+        data-testid="tablePageSelectorInput"
+        max="10"
+        min="1"
+        type="number"
+        value="1"
+      />
+      <span>
+        of 
+        10
+      </span>
+    </form>
+    <div
+      class="flex flex-1 md:hidden"
+    />
+    <button
+      class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none text-foreground-subtle/50 cursor-not-allowed"
+      data-testid="paginateBack"
+      disabled=""
+      type="button"
+    >
+      <svg
+        class="shrink-0 size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"
+        />
+      </svg>
+    </button>
+    <button
+      class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent text-foreground-normal enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none"
+      data-testid="paginateForward"
+      type="button"
+    >
+      <svg
+        class="shrink-0 size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TablePaginationControls should render the controls in an empty state properly 1`] = `
+<div>
+  <div
+    class="divide-border-normal border-border-normal flex h-full w-full items-center divide-x border-t"
+  >
+    <div
+      class="hidden flex-1 shrink-0 items-center px-4 text-base sm:px-6 md:flex"
+    />
+    <div
+      class="flex flex-1 md:hidden"
+    />
+    <button
+      class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none text-foreground-subtle/50 cursor-not-allowed"
+      data-testid="paginateBack"
+      disabled=""
+      type="button"
+    >
+      <svg
+        class="shrink-0 size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"
+        />
+      </svg>
+    </button>
+    <button
+      class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none text-foreground-subtle/50 cursor-not-allowed"
+      data-testid="paginateForward"
+      disabled=""
+      type="button"
+    >
+      <svg
+        class="shrink-0 size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TablePaginationControls should render the controls properly on a middle page of a multi-page dataset 1`] = `
+<div>
+  <div
+    class="divide-border-normal border-border-normal flex h-full w-full items-center divide-x border-t"
+  >
+    <div
+      class="hidden flex-1 shrink-0 items-center px-4 text-base sm:px-6 md:flex"
+    />
+    <form
+      class="flex h-full shrink-0 items-center gap-2 px-4 text-base"
+      data-testid="tablePageSelectorForm"
+    >
+      <span>
+        Page
+      </span>
+      <input
+        class="bg-background-surface-secondary focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-8 rounded-md border border-transparent p-0 text-center text-sm outline-none [appearance:textfield] disabled:cursor-not-allowed [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-8"
+        data-testid="tablePageSelectorInput"
+        max="10"
+        min="1"
+        type="number"
+        value="5"
+      />
+      <span>
+        of 
+        10
+      </span>
+    </form>
+    <div
+      class="flex flex-1 md:hidden"
+    />
+    <button
+      class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent text-foreground-normal enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none"
+      data-testid="paginateBack"
+      type="button"
+    >
+      <svg
+        class="shrink-0 size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"
+        />
+      </svg>
+    </button>
+    <button
+      class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent text-foreground-normal enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none"
+      data-testid="paginateForward"
+      type="button"
+    >
+      <svg
+        class="shrink-0 size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TablePaginationControls should render the controls properly on the first page of a multi-page dataset 1`] = `
+<div>
+  <div
+    class="divide-border-normal border-border-normal flex h-full w-full items-center divide-x border-t"
+  >
+    <div
+      class="hidden flex-1 shrink-0 items-center px-4 text-base sm:px-6 md:flex"
+    />
+    <form
+      class="flex h-full shrink-0 items-center gap-2 px-4 text-base"
+      data-testid="tablePageSelectorForm"
+    >
+      <span>
+        Page
+      </span>
+      <input
+        class="bg-background-surface-secondary focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-8 rounded-md border border-transparent p-0 text-center text-sm outline-none [appearance:textfield] disabled:cursor-not-allowed [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-8"
+        data-testid="tablePageSelectorInput"
+        max="10"
+        min="1"
+        type="number"
+        value="1"
+      />
+      <span>
+        of 
+        10
+      </span>
+    </form>
+    <div
+      class="flex flex-1 md:hidden"
+    />
+    <button
+      class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none text-foreground-subtle/50 cursor-not-allowed"
+      data-testid="paginateBack"
+      disabled=""
+      type="button"
+    >
+      <svg
+        class="shrink-0 size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"
+        />
+      </svg>
+    </button>
+    <button
+      class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent text-foreground-normal enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none"
+      data-testid="paginateForward"
+      type="button"
+    >
+      <svg
+        class="shrink-0 size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TablePaginationControls should render the controls properly on the first page on an only 1-page dataset 1`] = `
+<div>
+  <div
+    class="divide-border-normal border-border-normal flex h-full w-full items-center divide-x border-t"
+  >
+    <div
+      class="hidden flex-1 shrink-0 items-center px-4 text-base sm:px-6 md:flex"
+    />
+    <form
+      class="flex h-full shrink-0 items-center gap-2 px-4 text-base"
+      data-testid="tablePageSelectorForm"
+    >
+      <span>
+        Page
+      </span>
+      <input
+        class="bg-background-surface-secondary focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-8 rounded-md border border-transparent p-0 text-center text-sm outline-none [appearance:textfield] disabled:cursor-not-allowed [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-8"
+        data-testid="tablePageSelectorInput"
+        disabled=""
+        max="1"
+        min="1"
+        type="number"
+        value="1"
+      />
+      <span>
+        of 
+        1
+      </span>
+    </form>
+    <div
+      class="flex flex-1 md:hidden"
+    />
+    <button
+      class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none text-foreground-subtle/50 cursor-not-allowed"
+      data-testid="paginateBack"
+      disabled=""
+      type="button"
+    >
+      <svg
+        class="shrink-0 size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"
+        />
+      </svg>
+    </button>
+    <button
+      class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none text-foreground-subtle/50 cursor-not-allowed"
+      data-testid="paginateForward"
+      disabled=""
+      type="button"
+    >
+      <svg
+        class="shrink-0 size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TablePaginationControls should render the controls properly on the last page of a multi-page dataset 1`] = `
+<div>
+  <div
+    class="divide-border-normal border-border-normal flex h-full w-full items-center divide-x border-t"
+  >
+    <div
+      class="hidden flex-1 shrink-0 items-center px-4 text-base sm:px-6 md:flex"
+    />
+    <form
+      class="flex h-full shrink-0 items-center gap-2 px-4 text-base"
+      data-testid="tablePageSelectorForm"
+    >
+      <span>
+        Page
+      </span>
+      <input
+        class="bg-background-surface-secondary focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-8 rounded-md border border-transparent p-0 text-center text-sm outline-none [appearance:textfield] disabled:cursor-not-allowed [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-8"
+        data-testid="tablePageSelectorInput"
+        max="10"
+        min="1"
+        type="number"
+        value="10"
+      />
+      <span>
+        of 
+        10
+      </span>
+    </form>
+    <div
+      class="flex flex-1 md:hidden"
+    />
+    <button
+      class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent text-foreground-normal enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none"
+      data-testid="paginateBack"
+      type="button"
+    >
+      <svg
+        class="shrink-0 size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"
+        />
+      </svg>
+    </button>
+    <button
+      class="whitespace-nowrap rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-aeonik uppercase tracking-wider text-sm font-medium gap-1 shrink-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none bg-transparent enabled:hover:bg-background-surface/70 data-[state=open]:bg-background-surface/80 hover:bg-background-surface/70 active:bg-background-surface/80 flex h-8 w-8 items-center justify-center border-none text-foreground-subtle/50 cursor-not-allowed"
+      data-testid="paginateForward"
+      disabled=""
+      type="button"
+    >
+      <svg
+        class="shrink-0 size-4"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+`;

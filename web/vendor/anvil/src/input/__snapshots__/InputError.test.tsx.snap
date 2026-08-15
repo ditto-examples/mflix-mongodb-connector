@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InputError > should correctly render an input error 1`] = `
+<div>
+  <div
+    class="text-fill-critical mt-1.5 text-xs"
+    style="margin-bottom: 5px;"
+  >
+    This is the error
+  </div>
+</div>
+`;
+
+exports[`InputError should correctly render an input error 1`] = `
+<div>
+  <div
+    class="text-fill-critical mt-1.5 text-xs"
+    style="margin-bottom: 5px;"
+  >
+    This is the error
+  </div>
+</div>
+`;

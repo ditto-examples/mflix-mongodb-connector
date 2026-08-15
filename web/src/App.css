@@ -1,0 +1,4 @@
+/* App-specific styles.
+   Nearly empty on purpose: layout and components are styled with anvil +
+   Tailwind utilities. (The Vite-template demo CSS and the pre-anvil interim
+   card-grid styles that used to live here are gone.) */

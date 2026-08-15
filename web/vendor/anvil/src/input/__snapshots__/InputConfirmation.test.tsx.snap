@@ -1,0 +1,49 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InputConfirmation should render a text box confirmation 1`] = `
+<div>
+  <div>
+    <p
+      class="text-foreground-subtle"
+    >
+      To confirm, type "
+      <span
+        class="text-foreground-normal font-medium"
+      >
+        Test value
+      </span>
+      " into the box below
+    </p>
+    <div
+      class="grid w-full items-center gap-2"
+    >
+      <input
+        class="flex w-full rounded-md border border-border-normal text-foreground-normal px-3 py-1 placeholder:text-foreground-subtle disabled:cursor-not-allowed disabled:opacity-50 bg-background-surface text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-8 mt-1.5"
+        data-testid="confirmationInput"
+        id="confirmationInput"
+        placeholder="Test value"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`InputConfirmation should render a text box confirmation with a custom prompt 1`] = `
+<div>
+  <div>
+    <p>
+      Custom!
+    </p>
+    <div
+      class="grid w-full items-center gap-2"
+    >
+      <input
+        class="flex w-full rounded-md border border-border-normal text-foreground-normal px-3 py-1 placeholder:text-foreground-subtle disabled:cursor-not-allowed disabled:opacity-50 bg-background-surface text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-8 mt-1.5"
+        data-testid="confirmationInput"
+        id="confirmationInput"
+        placeholder="Test value"
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,39 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Anvil/Introduction" />
+
+# Anvil
+
+Anvil is Ditto's React design system. It contains the shared components,
+themes, tokens, and fonts used across Ditto web applications.
+
+## Use the package
+
+Install Anvil with React, React DOM, and Tailwind CSS:
+
+```sh
+yarn add @dittolive/anvil react react-dom tailwindcss
+```
+
+Import Tailwind and Anvil's theme from your application stylesheet:
+
+```css
+@import 'tailwindcss';
+@import '@dittolive/anvil/theme.css';
+
+@source './src';
+```
+
+Then import components from the package:
+
+```tsx
+import { Button } from '@dittolive/anvil'
+
+export const SaveButton = () => <Button>Save</Button>
+```
+
+## Browse components
+
+Use the navigation to see each component's API, states, and interactive
+examples. The theme control in the toolbar previews system, light, dark, and
+high-contrast themes.
