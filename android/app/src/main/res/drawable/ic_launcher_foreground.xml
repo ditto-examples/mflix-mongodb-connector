@@ -1,0 +1,13 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Movie clapper/play glyph in Ditto's black-on-citrus style -->
+    <path
+        android:fillColor="#0A0A0A"
+        android:pathData="M38,34h32c3.3,0 6,2.7 6,6v28c0,3.3 -2.7,6 -6,6H38c-3.3,0 -6,-2.7 -6,-6V40c0,-3.3 2.7,-6 6,-6z" />
+    <path
+        android:fillColor="#D0D600"
+        android:pathData="M49,47.5v13c0,1.1 1.2,1.8 2.2,1.2l10,-6.5c0.9,-0.6 0.9,-1.9 0,-2.4l-10,-6.5c-1,-0.6 -2.2,0.1 -2.2,1.2z" />
+</vector>

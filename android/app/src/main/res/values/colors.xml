@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ditto brand "citrus" (from Anvil design tokens) -->
+    <color name="ic_launcher_background">#D0D600</color>
+    <color name="ditto_citrus">#D0D600</color>
+</resources>
