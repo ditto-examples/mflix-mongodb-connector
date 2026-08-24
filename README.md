@@ -35,6 +35,7 @@ Each app picks the file up differently:
 
 | App | How it reads the root `.env` |
 | --- | --- |
+| Android | `android/app/build.gradle.kts` reads it at build time into `BuildConfig` |
 | Flutter | `flutter run --dart-define-from-file=../.env` (pass the same flag to `flutter build`) |
 | React Native | `rn-expo/app.config.js` loads it into `expo.extra.ditto` (requires Node 20.12 or newer) |
 | Swift | A "Generate Env.swift" build phase runs `swift/buildEnv.sh` before compiling |
@@ -149,6 +150,9 @@ The Step-By-Step Guide can be found [here](https://docs.ditto.live/cloud/mongodb
 - Click on the `Collections` tab
   - You should see the movies collection with the count of documents that were synced from MongoDb Atlas.  The count should be 21,349 documents.  
   - Click the `View` link for the planets collection to see the documents in the DQL Editor.
+
+# Setup the Android App
+See the provided [README.md](android/README.md) file for the Android (Jetpack Compose) app for instructions on how to setup and run the app.
 
 # Setup the Flutter App 
 See the provided [README.md](flutter/README.md) file for the Flutter app for instructions on how to setup and run the app.
