@@ -14,7 +14,7 @@
   "dependencies": {
     "@codemirror/lang-sql": "^6.10.0",
     "@dittolive/anvil": "file:vendor/anvil",
-    "@dittolive/ditto": "5.1.0-preview.11",
+    "@dittolive/ditto": "^5.1.0",
     "classnames": "^2.5.1",
     "lodash": "^4.18.1",
     "react": "^19.2.8",
