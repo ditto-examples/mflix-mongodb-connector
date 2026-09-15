@@ -27,7 +27,7 @@
     "node": ">=20.12"
   },
   "dependencies": {
-    "@dittolive/ditto": "^5.0.3",
+    "@dittolive/ditto": "^5.1.0",
     "@dittolive/ditto-react-native-tools": "^2.0.0",
     "@dr.pogodin/react-native-fs": "^2.39.2",
     "@expo/config-plugins": "~10.1.1",
